@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorChuNhatTrongSuot">#ae232429</color>
     <color name="colortoolbarchitiet">#f2f2f2</color>
+    <color name="tranparentWhite">#CCFFFFFF</color>
+    <color name="colorAccent2">#CCC</color>
 </resources>

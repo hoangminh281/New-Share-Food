@@ -81,7 +81,7 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
                     bitmapList.add(bitmap);
                     if(bitmapList.size()==binhLuanModel.getListImageComment().size())
                     {
-                        AdpaterRecycleViewImageComment adapter=new AdpaterRecycleViewImageComment(context,R.layout.custom_layout_image_comment,bitmapList,binhLuanModel,false);
+                        AdpaterRecycleViewImageComment adapter=new AdpaterRecycleViewImageComment(context,R.layout.custom_layout_image_comment,bitmapList,binhLuanModel,false                            );
                         RecyclerView.LayoutManager layoutManager=new GridLayoutManager(context,2);
                         holder.recyclerView.setLayoutManager(layoutManager);
                         holder.recyclerView.setAdapter(adapter);

@@ -10,28 +10,49 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.ptit.tranhoangminh.newsharefood.R;
 import com.ptit.tranhoangminh.newsharefood.adapters.AdapterComment;
 import com.ptit.tranhoangminh.newsharefood.models.StoreModel;
+import com.ptit.tranhoangminh.newsharefood.models.UtilitiesModel;
+import com.ptit.tranhoangminh.newsharefood.views.DirectionMap.DirectionMapStoreActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ChiTietQuanAnActivity extends AppCompatActivity {
+public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
     TextView txtTenQuan, txtDiaChi, txtHinh, txtCheckin, txtThoiGianHD, txtTongBL, txtTongLuu, txtTrangThaiHD;
     ImageView imgHinhQuanAn;
     StoreModel storeModel;
     RecyclerView recyclerView;
     AdapterComment adapterComment;
     NestedScrollView nestedScrollViewCT;
+    GoogleMap googleMap;
+    MapFragment mapFragment;
+    LinearLayout linearLayoutTienIch;
+    View view;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +61,8 @@ public class ChiTietQuanAnActivity extends AppCompatActivity {
         AddControl();
         storeModel = getIntent().getParcelableExtra("store");
 
+        mapFragment.getMapAsync(this);
+        view.setOnClickListener(this);
     }
 
     private void AddControl() {
@@ -53,8 +76,10 @@ public class ChiTietQuanAnActivity extends AppCompatActivity {
         txtTrangThaiHD = findViewById(R.id.txtTrangThaiHoatDong);
         txtTenQuan = findViewById(R.id.txtTenQuanAnCT);
         recyclerView = findViewById(R.id.recyclerBinhLuanChiTietQuanAn);
-        nestedScrollViewCT=findViewById(R.id.netScrollViewCT);
-
+        nestedScrollViewCT = findViewById(R.id.netScrollViewCT);
+        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        linearLayoutTienIch = findViewById(R.id.linerTienIch);
+        view = findViewById(R.id.khungchuyenhuongMap);
     }
 
     @Override
@@ -85,6 +110,8 @@ public class ChiTietQuanAnActivity extends AppCompatActivity {
         txtHinh.setText(storeModel.getHinhanh().size() + "");
         txtTongBL.setText(storeModel.getCommentModelList().size() + "");
 
+        //doload hình tiện ích
+        DowloadImage();
         //set image
         StorageReference storageReferenceImage = FirebaseStorage.getInstance().getReference().child("images").child(storeModel.getHinhanh().get(0));
         final long ONE_MEGABYTE = 1024 * 1024;
@@ -103,6 +130,66 @@ public class ChiTietQuanAnActivity extends AppCompatActivity {
         adapterComment.notifyDataSetChanged();
 
         //scrollview luôn hiển thi trên cùng khi load xong data
-        nestedScrollViewCT.smoothScrollBy(0,0);
+        nestedScrollViewCT.smoothScrollBy(0, 0);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        LatLng latLng = new LatLng(storeModel.getBranchModelList().get(0).getLatitude(), storeModel.getBranchModelList().get(0).getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title(storeModel.getTenquan());
+        googleMap.addMarker(markerOptions);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
+        googleMap.moveCamera(cameraUpdate);
+    }
+
+    //dowload hinh tiện ích của quán ăn rồi hiển thị lên linear layout
+    private void DowloadImage() {
+        for (String matienich : storeModel.getTienich()) {
+            final DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("quanlitienich").child(matienich);
+            mref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    UtilitiesModel utilitiesModel = dataSnapshot.getValue(UtilitiesModel.class);
+                    StorageReference storageReferenceImage = FirebaseStorage.getInstance().getReference().child("utilities").child(utilitiesModel.getHinhtienich());
+                    final long ONE_MEGABYTE = 1024 * 1024;
+                    storageReferenceImage.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            ImageView imageView = new ImageView(ChiTietQuanAnActivity.this);
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(70, 70);
+                            layoutParams.setMargins(10, 10, 10, 10);
+                            imageView.setLayoutParams(layoutParams);
+
+                            imageView.setImageBitmap(bitmap);
+                            linearLayoutTienIch.addView(imageView);
+
+                        }
+                    });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.khungchuyenhuongMap:
+            Intent iDirection=new Intent(ChiTietQuanAnActivity.this,DirectionMapStoreActivity.class);
+            iDirection.putExtra("latitute",storeModel.getBranchModelList().get(0).getLatitude());
+            iDirection.putExtra("longtitute",storeModel.getBranchModelList().get(0).getLongitude());
+            //Log.d("check",storeModel.getBranchModelList().get(0).getLatitude()+"-"+storeModel.getBranchModelList().get(0).getLongitude());
+            startActivity(iDirection);
+            break;
+        }
     }
 }

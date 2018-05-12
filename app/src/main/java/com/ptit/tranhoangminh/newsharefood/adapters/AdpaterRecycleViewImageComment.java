@@ -26,21 +26,22 @@ import java.util.List;
 public class AdpaterRecycleViewImageComment extends RecyclerView.Adapter<AdpaterRecycleViewImageComment.ViewHolder> {
     Context context;
     int layout;
-    List<Bitmap>bitmapList;
+    List<Bitmap> bitmapList;
     CommentModel commentModel;
     boolean isCommentDetail;
-    public AdpaterRecycleViewImageComment(Context context,int layout,List<Bitmap>listImage,CommentModel commentModel,boolean s)
-    {
-        this.context=context;
-        this.layout=layout;
-        this.bitmapList=listImage;
-        this.commentModel=commentModel;
-        this.isCommentDetail=s;
+
+    public AdpaterRecycleViewImageComment(Context context, int layout, List<Bitmap> listImage, CommentModel commentModel, boolean s) {
+        this.context = context;
+        this.layout = layout;
+        this.bitmapList = listImage;
+        this.commentModel = commentModel;
+        this.isCommentDetail = s;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(layout,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         ViewHolder viewHolder = new AdpaterRecycleViewImageComment.ViewHolder(view);
         return viewHolder;
     }
@@ -51,21 +52,18 @@ public class AdpaterRecycleViewImageComment extends RecyclerView.Adapter<Adpater
         //nếu là hình ở vt cuối cùng thì hiển thị text + số hình còn lại trong list
         //kiểm tra: đang ở page Chitiet_binhluan hay page chitiet_quanan
         //truyen commentmodel qua page chitiet_binhhluan
-        if(!isCommentDetail)
-        {
-            if(position==3)
-            {
+        if (!isCommentDetail) {
+            if (position == 3) {
 
-                int count=bitmapList.size()-4;
-                if(count>0)
-                {
+                int count = bitmapList.size() - 4;
+                if (count > 0) {
                     holder.txt.setVisibility(View.VISIBLE);
-                    holder.txt.setText("+"+count);
+                    holder.txt.setText("+" + count);
                     holder.imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent iChitiet=new Intent(context, ChiTietBinhLuanActivity.class);
-                            iChitiet.putExtra("comment_model",commentModel);
+                            Intent iChitiet = new Intent(context, ChiTietBinhLuanActivity.class);
+                            iChitiet.putExtra("comment_model", commentModel);
                             context.startActivity(iChitiet);
                         }
                     });
@@ -80,10 +78,9 @@ public class AdpaterRecycleViewImageComment extends RecyclerView.Adapter<Adpater
     //4 hình --commment
     @Override
     public int getItemCount() {
-        if(!isCommentDetail)
-        {
+        if (!isCommentDetail) {
             return 4;
-        }else{
+        } else {
             return bitmapList.size();
         }
 
@@ -92,6 +89,7 @@ public class AdpaterRecycleViewImageComment extends RecyclerView.Adapter<Adpater
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView txt;
+
         public ViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imgBinhLuan);
