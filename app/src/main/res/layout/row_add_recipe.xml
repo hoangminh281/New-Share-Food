@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingRight="20dp"
+    android:paddingLeft="20dp">
+
+    <TextView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:background="@drawable/circle_background"
+        android:id="@+id/txtNumber"/>
+
+    <EditText
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:hint="Thêm công thức"
+        android:id="@+id/txtName"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+    <Button
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:textColor="#fff"
+        android:background="@mipmap/remove"
+        android:id="@+id/buttonRemoveRow"/>
+</LinearLayout>

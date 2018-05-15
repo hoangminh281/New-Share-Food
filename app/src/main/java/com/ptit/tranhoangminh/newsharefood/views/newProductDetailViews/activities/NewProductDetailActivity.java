@@ -1,9 +1,8 @@
-package com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.activities;
+package com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,8 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -28,10 +25,20 @@ import com.ptit.tranhoangminh.newsharefood.models.MemberModel;
 import com.ptit.tranhoangminh.newsharefood.models.Product;
 import com.ptit.tranhoangminh.newsharefood.models.ProductDetail;
 import com.ptit.tranhoangminh.newsharefood.presenters.productDetailPresenters.ProductDetailPresenter;
-import com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.CommentFragment;
+<<<<<<< HEAD:app/src/main/java/com/ptit/tranhoangminh/newsharefood/views/newProductDetailViews/activities/NewProductDetailActivity.java
+import com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.Comment.Comment_FullCommentFragment;
+import com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.Comment.Comment_MyCommentFragment;
+import com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.Comment.Comment_WriteCommentFragment;
+import com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.commentFragment;
 import com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.MaterialFragment;
 import com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.RecipeFragment;
 import com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.VideoFragment;
+=======
+import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.CommentFragment;
+import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.MaterialFragment;
+import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.RecipeFragment;
+import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.VideoFragment;
+>>>>>>> 334d8663f9733c99bb874f64c28f42e64bfd13d6:app/src/main/java/com/ptit/tranhoangminh/newsharefood/views/NewProductDetailViews/activities/NewProductDetailActivity.java
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,10 +56,9 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
     MaterialFragment materialFragment;
     RecipeFragment recipeFragment;
     VideoFragment videoFragment;
-    CommentFragment commentFragment;
+    com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.commentFragment commentFragment;
     CheckBox cbSave;
     Button btnShare;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +68,7 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
         setControls();
 
         initPresenter();
-        productDetailPresenter.loadProductDetail(productKey.getId(), productKey.getImage(), productKey.getMember_id(), productKey.getImage());
+        productDetailPresenter.loadProductDetail(productKey.getId(), productKey.getImage(), productKey.getMember_id());
 
         setEvents();
 
@@ -87,13 +93,12 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
         materialFragment = new MaterialFragment();
         recipeFragment = new RecipeFragment();
         videoFragment = new VideoFragment();
-        commentFragment = new CommentFragment();
+        commentFragment = new commentFragment(this,productKey);
         cbSave = findViewById(R.id.checkboxSave);
         btnShare = findViewById(R.id.buttonShare);
         tvOwnerName = findViewById(R.id.textviewOwnerName);
         imgOwner = findViewById(R.id.imageViewOwner);
     }
-
     void setEvents() {
         cbSave.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -191,7 +196,7 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
         cbSave.setChecked(b);
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    public class ViewPagerAdapter extends FragmentPagerAdapter {
 
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingRight="20dp"
+    android:paddingLeft="20dp">
+
+    <EditText
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="Khối lượng"
+        android:id="@+id/txtQuantity"/>
+
+    <EditText
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:hint="Tên nguyên liệu"
+        android:id="@+id/txtName"/>
+    <Button
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:textColor="#fff"
+        android:background="@mipmap/remove"
+        android:id="@+id/buttonRemoveRow"/>
+</LinearLayout>

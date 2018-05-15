@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg2"
-    tools:context=".views.categoryViews.activities.CategoryActivity">
+    tools:context=".views.CategoryViews.activities.CategoryActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

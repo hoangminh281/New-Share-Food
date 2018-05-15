@@ -1,4 +1,4 @@
-package com.ptit.tranhoangminh.newsharefood.views.productViews.activities;
+package com.ptit.tranhoangminh.newsharefood.views.ProductViews.activities;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -22,14 +22,14 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.ptit.tranhoangminh.newsharefood.views.AddEditProductViews.activities.NewModifyProductActivity;
 import com.ptit.tranhoangminh.newsharefood.views.SearchViews.SeachViewActivity;
-import com.ptit.tranhoangminh.newsharefood.views.addEditProductViews.activities.AddEditProductActivity;
-import com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.activities.NewProductDetailActivity;
+import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.activities.NewProductDetailActivity;
 import com.ptit.tranhoangminh.newsharefood.R;
 import com.ptit.tranhoangminh.newsharefood.models.Product;
 import com.ptit.tranhoangminh.newsharefood.presenters.productPresenters.ProductPresenter;
 import com.ptit.tranhoangminh.newsharefood.adapters.ProductAdapter;
-import com.ptit.tranhoangminh.newsharefood.views.savedProductViews.activities.SavedProductActivity;
+import com.ptit.tranhoangminh.newsharefood.views.SavedProductViews.activities.SavedProductActivity;
 
 import java.util.ArrayList;
 
@@ -119,10 +119,8 @@ public class ProductActivity extends AppCompatActivity implements ProductView {
                 break;
             case R.id.menuThemmon:
                 if (user!=null) {
-                    Intent intent = new Intent(ProductActivity.this, AddEditProductActivity.class);
+                    Intent intent = new Intent(ProductActivity.this, NewModifyProductActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("cate_id", cate_id);
-                    bundle.putString("cate_name", cate_name);
                     bundle.putInt("mode", ADD_MODE);
                     intent.putExtras(bundle);
                     startActivityForResult(intent, 1111);
@@ -157,12 +155,12 @@ public class ProductActivity extends AppCompatActivity implements ProductView {
         final Product pd = myAdapter.getItem((int) info.id);
         switch (item.getItemId()) {
             case R.id.menuSua:
-                Intent intent = new Intent(ProductActivity.this, AddEditProductActivity.class);
+                Intent intent = new Intent(ProductActivity.this, NewModifyProductActivity.class);
                 Bundle bundle = new Bundle();
+                bundle.putInt("mode", EDIT_MODE);
                 bundle.putString("cate_id", cate_id);
                 bundle.putString("cate_name", cate_name);
                 bundle.putSerializable("product", pd);
-                bundle.putInt("mode", EDIT_MODE);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1111);
                 break;
@@ -191,7 +189,7 @@ public class ProductActivity extends AppCompatActivity implements ProductView {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1111) {
+        if (resultCode == 1111) {
             productPresenter.loadProducts(cate_id);
         }
         super.onActivityResult(requestCode, resultCode, data);

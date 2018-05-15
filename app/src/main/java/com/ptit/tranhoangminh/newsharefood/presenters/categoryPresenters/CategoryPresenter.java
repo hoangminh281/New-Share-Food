@@ -1,7 +1,7 @@
 package com.ptit.tranhoangminh.newsharefood.presenters.categoryPresenters;
 
 import com.ptit.tranhoangminh.newsharefood.models.Category;
-import com.ptit.tranhoangminh.newsharefood.views.categoryViews.activities.CategoryView;
+import com.ptit.tranhoangminh.newsharefood.views.CategoryViews.activities.CategoryView;
 
 import java.util.ArrayList;
 

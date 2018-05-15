@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@null" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageViewAdd"
+                android:layout_width="230dp"
+                android:layout_height="230dp"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:onClick="showpickimage"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/addnewfullbox" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableLeft="@mipmap/information"
+                android:gravity="center"
+                android:text="Lưu ý! Điền đầy đủ thông tin bên dưới"
+                android:textColor="@color/themeApp"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressbarModifyProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#afafaf" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center"
+                    android:text="Tên món ăn"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/editTextName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="15dp"
+                    android:background="@null"
+                    android:gravity="end|center_vertical"
+                    android:hint="Nhập tên"
+                    android:textAlignment="viewEnd"
+                    android:textStyle="italic"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#afafaf" />
+
+            <TextView
+                android:id="@+id/txtCategory"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:clickable="true"
+                android:drawableRight="@mipmap/down_arrow"
+                android:gravity="center_vertical"
+                android:onClick="toggle_categories"
+                android:text="Loại món ăn"
+                android:textSize="18sp" />
+
+            <FrameLayout
+                android:id="@+id/frameCategories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TableLayout
+                        android:id="@+id/tablelayoutCategories"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stretchColumns="0" /> <!--Very very important-->
+                </LinearLayout>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#afafaf" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtMaterial"
+                    android:layout_width="290dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:clickable="true"
+                    android:drawableLeft="@mipmap/ingredient"
+                    android:drawablePadding="20dp"
+                    android:gravity="center_vertical"
+                    android:onClick="toggle_materials"
+                    android:text="Nguyên liệu"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@mipmap/add"
+                    android:onClick="add_new_row_material" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/frameMaterials"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TableLayout
+                        android:id="@+id/tablelayoutMaterial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stretchColumns="0" /> <!--Very very important-->
+                </LinearLayout>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#afafaf" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtRecipe"
+                    android:layout_width="290dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:clickable="true"
+                    android:drawableLeft="@mipmap/recipe"
+                    android:drawablePadding="20dp"
+                    android:gravity="center_vertical"
+                    android:onClick="toggle_recipe"
+                    android:text="Công thức"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@mipmap/add"
+                    android:onClick="add_new_row_recipe" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/frameRecipe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TableLayout
+                        android:id="@+id/tablelayoutRecipe"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stretchColumns="0" /> <!--Very very important-->
+                </LinearLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center"
+                    android:text="Video"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/editTextVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="15dp"
+                    android:background="@null"
+                    android:gravity="end|center_vertical"
+                    android:hint="Nhập đường dẫn"
+                    android:textAlignment="viewEnd"
+                    android:textStyle="italic"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

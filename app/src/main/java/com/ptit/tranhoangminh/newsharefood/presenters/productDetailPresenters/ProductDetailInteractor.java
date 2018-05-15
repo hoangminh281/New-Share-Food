@@ -91,6 +91,8 @@ public class ProductDetailInteractor {
                     if (item.getKey().equals(owner_id)) {
                         final MemberModel member = item.getValue(MemberModel.class);
                         listener.onLoadOwnerDetailSuccess(member);
+                        loadImageOwner(member.getHinhanh());
+                        return;
                     }
                 }
                 listener.onLoadUnProgressFailure("Failed to find owner.");

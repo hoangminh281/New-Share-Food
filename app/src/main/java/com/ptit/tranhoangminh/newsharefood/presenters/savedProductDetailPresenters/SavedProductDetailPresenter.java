@@ -3,7 +3,7 @@ package com.ptit.tranhoangminh.newsharefood.presenters.savedProductDetailPresent
 import android.content.Context;
 
 import com.ptit.tranhoangminh.newsharefood.models.ProductDetail;
-import com.ptit.tranhoangminh.newsharefood.views.savedProductDetailViews.activities.SavedProductDetailView;
+import com.ptit.tranhoangminh.newsharefood.views.SavedProductDetailViews.activities.SavedProductDetailView;
 
 public class SavedProductDetailPresenter implements LoadSavedProductDetailListener {
     private SavedProductDetailView savedProductDetailView;

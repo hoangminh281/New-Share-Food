@@ -3,9 +3,7 @@ package com.ptit.tranhoangminh.newsharefood.presenters.searchProductPresenters;
 import android.content.Context;
 
 import com.ptit.tranhoangminh.newsharefood.models.Product;
-import com.ptit.tranhoangminh.newsharefood.presenters.savedProductPresenters.SavedProductInteractor;
 import com.ptit.tranhoangminh.newsharefood.views.SearchViews.SearchViewImp;
-import com.ptit.tranhoangminh.newsharefood.views.savedProductViews.activities.SavedProductView;
 
 import java.util.List;
 

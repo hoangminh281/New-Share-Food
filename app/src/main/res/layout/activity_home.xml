@@ -7,21 +7,35 @@
     android:layout_height="match_parent"
     android:background="#ece6e6"
     tools:context=".HomeActivity">
-    
-    <EditText
-        android:id="@+id/edtfind"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:background="@drawable/khung_dangnhap"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:hint="Find"
-        android:drawableRight="@drawable/ic_search_black_24dp"
-        android:drawablePadding="10dp"
-        android:paddingRight="10dp"
-        android:paddingLeft="20dp"
-        android:inputType="text"
-        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/edtfind"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:background="@drawable/khung_dangnhap"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:hint="Tìm kiếm món ăn"
+            android:drawableRight="@drawable/ic_search_black_24dp"
+            android:drawablePadding="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="20dp"
+            android:inputType="text"
+            android:layout_marginLeft="20dp"
+            />
+
+        <ImageButton
+            android:id="@+id/btnvoice"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/voice"
+            />
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/frameContent"
@@ -31,21 +45,20 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="99dp"
         >
-
     </FrameLayout>
 
     <Button
-        android:onClick="AddFragment"
         android:id="@+id/btnhome1"
         android:layout_width="67dp"
         android:layout_height="51dp"
-        android:layout_alignLeft="@+id/edtfind"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/edtfind"
+        android:layout_alignStart="@+id/frameContent"
         android:layout_marginBottom="52dp"
         android:background="@drawable/bgbutton"
         android:drawableLeft="@drawable/home30"
-        android:paddingLeft="18dp" />
+        android:onClick="AddFragment"
+        android:paddingLeft="18dp"
+        android:layout_alignLeft="@+id/frameContent" />
 
     <Button
         android:onClick="AddFragment"
@@ -91,6 +104,13 @@
         android:drawableLeft="@drawable/user30"
         android:paddingLeft="18dp"
         />
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/vp"
+        >
+    </android.support.v4.view.ViewPager>
 
 
 </RelativeLayout>

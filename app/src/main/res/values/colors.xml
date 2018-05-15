@@ -2,9 +2,10 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#e8c1ce</color>
     <color name="colorChuNhatTrongSuot">#ae232429</color>
     <color name="colortoolbarchitiet">#f2f2f2</color>
     <color name="tranparentWhite">#CCFFFFFF</color>
     <color name="colorAccent2">#CCC</color>
+    <color name="themeApp">#7fba55</color>
 </resources>

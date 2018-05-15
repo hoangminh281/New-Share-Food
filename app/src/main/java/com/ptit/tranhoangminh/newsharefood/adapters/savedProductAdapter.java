@@ -21,13 +21,13 @@ import java.util.List;
  * Created by Dell on 3/12/2018.
  */
 
-public class savedProductAdapter extends ArrayAdapter<ProductSQLite> {
+public class SavedProductAdapter extends ArrayAdapter<ProductSQLite> {
     Context context;
     int resource;
     List<ProductSQLite> objects;
     StorageReference mStorageRef;
 
-    public savedProductAdapter(@NonNull Context context, int resource, @NonNull List<ProductSQLite> objects) {
+    public SavedProductAdapter(@NonNull Context context, int resource, @NonNull List<ProductSQLite> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;

@@ -12,12 +12,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCPMjB01i28rWRigg3l_a_pHLs27WnKGz4"/>
-        <activity android:name=".views.categoryViews.activities.CategoryActivity" />
-        <activity android:name=".views.productViews.activities.ProductActivity" />
+            android:value="AIzaSyCPMjB01i28rWRigg3l_a_pHLs27WnKGz4" />
+
+        <activity android:name=".views.CategoryViews.activities.CategoryActivity" />
+        <activity android:name=".views.ProductViews.activities.ProductActivity" />
         <activity android:name=".Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,18 +30,20 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".views.Register.RegisterActivity" />
-        <activity android:name=".views.addEditProductViews.activities.AddEditProductActivity" />
-        <activity android:name=".views.savedProductViews.activities.SavedProductActivity" />
-        <activity android:name=".views.savedProductDetailViews.activities.SavedProductDetailActivity" />
+        <activity android:name=".views.SavedProductViews.activities.SavedProductActivity" />
+        <activity android:name=".views.SavedProductDetailViews.activities.SavedProductDetailActivity" />
         <activity android:name=".views.StoreDetail.ChiTietQuanAnActivity" />
         <activity android:name=".views.HomePageRes.HomePageResActivity" />
-        <activity android:name=".views.newProductDetailViews.activities.NewProductDetailActivity" />
+        <activity android:name=".views.NewProductDetailViews.activities.NewProductDetailActivity" />
         <activity android:name=".views.SearchViews.SeachViewActivity" />
         <activity android:name=".UserActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".ContactActivity"></activity>
-        <activity android:name=".views.CommentDetail.ChiTietBinhLuanActivity"></activity>
-        <activity android:name=".views.DirectionMap.DirectionMapStoreActivity"></activity>
+        <activity android:name=".ContactActivity" />
+        <activity android:name=".views.CommentDetail.ChiTietBinhLuanActivity" />
+        <activity android:name=".views.DirectionMap.DirectionMapStoreActivity" />
+        <activity android:name=".views.AddEditProductViews.activities.NewModifyProductActivity">
+
+        </activity>
     </application>
 
 </manifest>

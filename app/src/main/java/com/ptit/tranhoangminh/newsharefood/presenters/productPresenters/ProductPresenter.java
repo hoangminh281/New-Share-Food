@@ -1,7 +1,7 @@
 package com.ptit.tranhoangminh.newsharefood.presenters.productPresenters;
 
 import com.ptit.tranhoangminh.newsharefood.models.Product;
-import com.ptit.tranhoangminh.newsharefood.views.productViews.activities.ProductView;
+import com.ptit.tranhoangminh.newsharefood.views.ProductViews.activities.ProductView;
 
 import java.util.ArrayList;
 

@@ -3,9 +3,12 @@ package com.ptit.tranhoangminh.newsharefood.presenters.addEditProductPresenters;
 
 import android.graphics.Bitmap;
 
+import com.ptit.tranhoangminh.newsharefood.models.Category;
 import com.ptit.tranhoangminh.newsharefood.models.Product;
 import com.ptit.tranhoangminh.newsharefood.models.ProductDetail;
-import com.ptit.tranhoangminh.newsharefood.views.addEditProductViews.activities.AddEditProductView;
+import com.ptit.tranhoangminh.newsharefood.views.AddEditProductViews.activities.AddEditProductView;
+
+import java.util.List;
 
 public class AddEditProductPresenter implements LoadAddEditProductListener {
     private AddEditProductView addEditProductView;
@@ -14,6 +17,22 @@ public class AddEditProductPresenter implements LoadAddEditProductListener {
     public AddEditProductPresenter(AddEditProductView addEditProductView) {
         this.addEditProductView = addEditProductView;
         this.addEditProductInteractor = new AddEditProductInteractor(this);
+    }
+
+    public void loadCategory(){
+        addEditProductView.hideProgress();
+        this.addEditProductInteractor.createCategoryList();
+    }
+
+    @Override
+    public void onLoadCategorySuccess(List<Category> categories) {
+        addEditProductView.displayCategoryList(categories);
+    }
+
+    @Override
+    public void onLoadCategoryFailure(String message) {
+        addEditProductView.displayMessage(message);
+        addEditProductView.hideProgress();
     }
 
     public void loadEditProduct(String id, String image_id) {
@@ -50,6 +69,11 @@ public class AddEditProductPresenter implements LoadAddEditProductListener {
     public void onPushNewProductFailure(String message) {
         addEditProductView.displayMessage(message);
         addEditProductView.hideProgress();
+    }
+
+    public void saveOldProduct(Product product, ProductDetail productDetail) {
+        addEditProductView.showProgress();
+        addEditProductInteractor.setOldProduct(product,productDetail);
     }
 
     public void saveOldProduct(Product product, ProductDetail productDetail, Bitmap bitmap) {

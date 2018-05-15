@@ -1,4 +1,4 @@
-package com.ptit.tranhoangminh.newsharefood.views.categoryViews.activities;
+package com.ptit.tranhoangminh.newsharefood.views.CategoryViews.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -23,7 +23,7 @@ import com.ptit.tranhoangminh.newsharefood.UserActivity;
 import com.ptit.tranhoangminh.newsharefood.models.Category;
 import com.ptit.tranhoangminh.newsharefood.presenters.categoryPresenters.CategoryPresenter;
 import com.ptit.tranhoangminh.newsharefood.adapters.CategoryAdapter;
-import com.ptit.tranhoangminh.newsharefood.views.productViews.activities.ProductActivity;
+import com.ptit.tranhoangminh.newsharefood.views.ProductViews.activities.ProductActivity;
 
 import java.util.ArrayList;
 import java.util.List;

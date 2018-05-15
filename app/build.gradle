@@ -42,6 +42,7 @@ dependencies {
     implementation 'com.android.support:design:27.1.0'
     implementation 'com.google.android.gms:play-services-maps:11.8.0'
     implementation 'com.google.maps.android:android-maps-utils:0.5+'
+    implementation 'com.firebaseui:firebase-ui-database:3.2.2'
 }
 
 apply plugin: 'com.google.gms.google-services'
