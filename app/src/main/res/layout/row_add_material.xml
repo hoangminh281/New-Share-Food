@@ -9,7 +9,7 @@
     <EditText
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="left"
         android:hint="Khối lượng"
         android:id="@+id/txtQuantity"/>
 

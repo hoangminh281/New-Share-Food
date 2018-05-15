@@ -165,6 +165,7 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
         tvView.setText(productDetail.getLike() + "");
         materialFragment.setMaterials(productDetail.getMaterials());
         recipeFragment.setRecipe(productDetail.getRecipe());
+        videoFragment.setVideoId(productDetail.getVideo());
     }
 
     public void displayImageProductDetail(Bitmap bitmap) {

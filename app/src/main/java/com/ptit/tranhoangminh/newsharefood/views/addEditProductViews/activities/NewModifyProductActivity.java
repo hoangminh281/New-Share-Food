@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +40,7 @@ import com.ptit.tranhoangminh.newsharefood.models.ProductDetail;
 import com.ptit.tranhoangminh.newsharefood.presenters.addEditProductPresenters.AddEditProductPresenter;
 import com.ptit.tranhoangminh.newsharefood.views.ProductViews.activities.ProductActivity;
 
+import java.security.acl.Group;
 import java.util.Calendar;
 import java.util.List;
 
@@ -59,6 +62,9 @@ public class NewModifyProductActivity extends AppCompatActivity implements AddEd
     private int mode;
     private Product pd;
     private ProductDetail pdetail;
+
+    private static String begin_pattern = "v=";
+    private static String end_pattern = "&";
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -130,9 +136,24 @@ public class NewModifyProductActivity extends AppCompatActivity implements AddEd
                     if (video.equals("")) edtVideo.setError("Empty video");
                     String material = materialAdapter.getMaterials();
                     String recipe = recipeAdapter.getRecipe();
-                    if (material != "" && recipe != "" && cate_id != "") {
+                    int begin = video.indexOf(begin_pattern);
+                    boolean b;
+                    if (begin == -1) {
+                        edtVideo.setError("Wrong format video");
+                        return true;
+                    }
+                    int end = video.indexOf(end_pattern);
+                    String id_video;
+                    if (end == -1) {
+                        id_video = video.substring(begin + begin_pattern.length());
+                    }
+                    else {
+                        id_video = video.substring(begin + begin_pattern.length(), end);
+                    }
+
+                    if (name != "" && material != "" && recipe != "" && cate_id != "") {
                         if (mode == ProductActivity.ADD_MODE) {
-                            ProductDetail newProductDetail = new ProductDetail(0, 0, material, recipe, video, "");
+                            ProductDetail newProductDetail = new ProductDetail(0, 0, material, recipe, id_video, "");
                             Product newProduct;
                             if (!changedPic) {
                                 newProduct = new Product("", cate_id, name, "default_image.png");
@@ -150,8 +171,7 @@ public class NewModifyProductActivity extends AppCompatActivity implements AddEd
                             pdetail.setRecipe(recipe);
                             if (!changedPic) {
                                 addEditProductPresenter.saveOldProduct(pd, pdetail);
-                            }
-                            else {
+                            } else {
                                 addEditProductPresenter.saveOldProduct(pd, pdetail, ((BitmapDrawable) img.getDrawable()).getBitmap());
                             }
                         }
@@ -214,6 +234,7 @@ public class NewModifyProductActivity extends AppCompatActivity implements AddEd
                     changedPic = true;
                     Uri selectedImage = data.getData();
                     img.setImageURI(selectedImage);
+                    Log.d("picture box", selectedImage.getPath());
                 }
                 break;
         }

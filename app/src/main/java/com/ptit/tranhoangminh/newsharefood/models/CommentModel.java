@@ -1,8 +1,20 @@
 package com.ptit.tranhoangminh.newsharefood.models;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.ptit.tranhoangminh.newsharefood.presenters.saveCommentForStorePresenters.GetNotificationInterface;
+
+import java.io.File;
 import java.util.List;
 
 /**
@@ -123,5 +135,25 @@ public class CommentModel implements Parcelable {
         parcel.writeString(mauser);
         parcel.writeStringList(listImageComment);
         parcel.writeParcelable(memberModel,i);
+    }
+
+    public void AddComment(final GetNotificationInterface getNotificationInterface, String key_store, CommentModel commentModel, final String link_image) {
+        Log.d("hinh",link_image);
+        DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("binhluans");
+        String key= mref.child(key_store).push().getKey();
+        mref.child(key_store).child(key).setValue(commentModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Uri uri = Uri.fromFile(new File(link_image));
+                    StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("images/"+ uri.getLastPathSegment());
+                    storageReference.putFile(uri);
+                    String notification="Thêm bình luận thành công";
+                    getNotificationInterface.getNotification(notification);
+
+                }
+            }
+        });
+        //FirebaseDatabase.getInstance().getReference().child("hinhanhbinhluans").child(key).push().setValue(link_image);
     }
 }

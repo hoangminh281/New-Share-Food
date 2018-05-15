@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MemberModel implements Parcelable {
     String hoten, hinhanh;
     String mauser;
+
     //not default
     private DatabaseReference databaseReference;
 
@@ -22,6 +23,8 @@ public class MemberModel implements Parcelable {
         this.hoten = hoten;
         this.hinhanh = hinhanh;
     }
+
+
 
     public MemberModel() {
         databaseReference = FirebaseDatabase.getInstance().getReference().child("members");

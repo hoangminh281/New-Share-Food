@@ -43,22 +43,22 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
       //  FacebookSdk.sdkInitialize(getApplicationContext());
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login);
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseAuth.signOut();
         SetControl();
         btnGoogle.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
-        btnDK.setOnClickListener(this);
+//        btnDK.setOnClickListener(this);
         CreateClientLoginGG();
     }
 
     private void SetControl() {
-        btnGoogle=findViewById(R.id.btnGoogle);
-        edtEmail=findViewById(R.id.edtEmail);
-        edtPass=findViewById(R.id.edtPass);
-        btnLogin=findViewById(R.id.btnClick);
-        btnDK=findViewById(R.id.btnDangKi);
+        btnGoogle=findViewById(R.id.btnGoogleLogin);
+        edtEmail=findViewById(R.id.edtEmailLogin);
+        edtPass=findViewById(R.id.edtPassLogin);
+        btnLogin=findViewById(R.id.btnLogin);
+//        btnDK=findViewById(R.id.btnDangKi);
     }
 
     public void CreateClientLoginGG()
@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             case R.id.btnGoogle:
                 LoginGG(apiClient);
                 break;
-            case R.id.btnClick:
+            case R.id.btnLogin:
                 Login();
                 break;
             case R.id.btnDangKi:
@@ -160,5 +160,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         }
 
+    }
+
+    public void setOnclickRegisterListener(View view){
+        Intent register=new Intent(this, RegisterActivity.class);
+        startActivity(register);
     }
 }

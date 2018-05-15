@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Register"
+        android:text="Login"
         android:textColor="#000"
         android:textSize="27sp"
         android:textStyle="bold"
@@ -28,13 +28,14 @@
         android:id="@+id/txtTieuDeLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đăng Nhập"
+        android:text="Register"
         android:layout_gravity="right"
         android:textColor="#7fba55"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginRight="20sp"
-        android:onClick="setOnclickLoginListener"
+
+        android:onClick="setOnclickRegisterListener"
 
         />
 </android.support.v7.widget.Toolbar>

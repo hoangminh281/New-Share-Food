@@ -31,13 +31,14 @@
                 android:src="@mipmap/addnewfullbox" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:drawableLeft="@mipmap/information"
-                android:gravity="center"
+                android:layout_gravity="center"
                 android:text="Lưu ý! Điền đầy đủ thông tin bên dưới"
                 android:textColor="@color/themeApp"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:drawablePadding="10dp"/>
         </LinearLayout>
 
         <ProgressBar
@@ -235,7 +236,9 @@
                     android:layout_marginRight="15dp"
                     android:gravity="center"
                     android:text="Video"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:drawableLeft="@mipmap/video"
+                    android:drawablePadding="20dp"/>
 
                 <EditText
                     android:id="@+id/editTextVideo"

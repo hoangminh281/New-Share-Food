@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        app:titleTextColor="@color/colorAccent"
+        app:title="Comment"
+        android:id="@+id/toolbar_comment"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/txtPost_comment"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Post"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:padding="5dp"
+        android:orientation="vertical"
+        android:background="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtTenQuan_comment"
+            android:textSize="20sp"
+            android:text="Trà sữa Tokyo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtDiachi_comment"
+            android:text="42 Man Thiện, quận 9 , Hồ Chí Minh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <EditText
+        android:id="@+id/edtTitle_comment"
+        android:textSize="12sp"
+        android:hint="Input title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/edtContent_comment"
+       android:gravity="center"
+        android:layout_weight="1"
+        android:textSize="12sp"
+        android:hint="Write content at here"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <ImageView
+        android:id="@+id/imgHinhABC"
+        android:src="@drawable/bg2"
+        android:scaleType="centerCrop"
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <ImageButton
+            android:id="@+id/image_comment"
+            android:layout_weight="1"
+           android:background="@color/colorPrimary"
+            android:src="@mipmap/camera"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageButton
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:src="@mipmap/camera"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageButton
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:src="@mipmap/camera"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</LinearLayout>
