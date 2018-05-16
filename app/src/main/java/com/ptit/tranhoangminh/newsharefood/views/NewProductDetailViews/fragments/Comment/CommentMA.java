@@ -1,4 +1,4 @@
-package com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.Comment;
+package com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment;
 
 /**
  * Created by TramLuc on 5/14/2018.

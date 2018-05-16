@@ -1,16 +1,17 @@
-package com.ptit.tranhoangminh.newsharefood.views.SavedProductViews.activities;
+package com.ptit.tranhoangminh.newsharefood.views.SavedProductViews.fragments;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ProgressBar;
@@ -21,77 +22,65 @@ import com.ptit.tranhoangminh.newsharefood.adapters.SavedProductAdapter;
 import com.ptit.tranhoangminh.newsharefood.models.ProductSQLite;
 import com.ptit.tranhoangminh.newsharefood.presenters.savedProductPresenters.SavedProductPresenter;
 import com.ptit.tranhoangminh.newsharefood.views.SavedProductDetailViews.activities.SavedProductDetailActivity;
+import com.ptit.tranhoangminh.newsharefood.views.SavedProductViews.activities.SavedProductActivity;
+import com.ptit.tranhoangminh.newsharefood.views.SavedProductViews.activities.SavedProductView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SavedProductActivity extends AppCompatActivity implements SavedProductView {
+public class SavedProductFragment extends Fragment implements SavedProductView {
     private List<ProductSQLite> productArrayList;
     private SavedProductAdapter myAdapter;
     private GridView gridView;
     private ProgressBar pgbSavedProduct;
     private SavedProductPresenter savedProductPresenter;
 
-    @SuppressLint("RestrictedApi")
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.products_layout);
-        setControls();
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.products_layout, null);
+        setControls(view);
 
         initPresenter();
         savedProductPresenter.loadAllSavedProducts();
 
         registerForContextMenu(gridView);
         setEvents();
+        return view;
+    }
+
+
+    private void setControls(View view) {
+        gridView = view.findViewById(R.id.gridview);
+        pgbSavedProduct = view.findViewById(R.id.progressBarProduct);
+    }
+
+    private void initPresenter() {
+        savedProductPresenter = new SavedProductPresenter(this, getActivity());
     }
 
     void setEvents() {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent detailProductIntent = new Intent(SavedProductActivity.this, SavedProductDetailActivity.class);
+                Intent detailProductIntent = new Intent(getActivity(), SavedProductDetailActivity.class);
                 detailProductIntent.putExtra("objectKey", productArrayList.get(position));
                 startActivity(detailProductIntent);
             }
         });
     }
 
-    private void setControls() {
-        gridView = findViewById(R.id.gridview);
-        pgbSavedProduct = findViewById(R.id.progressBarProduct);
-        productArrayList = new ArrayList<>();
-    }
-
-    private void initPresenter() {
-        savedProductPresenter = new SavedProductPresenter(this, this);
-    }
-
     @Override
-    public void showProgress() {
-        pgbSavedProduct.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        pgbSavedProduct.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void displayMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void displaySavedProducts(List<ProductSQLite> savedProductList) {
-        this.productArrayList = savedProductList;
-        this.myAdapter = new SavedProductAdapter(this, R.layout.dong_products, productArrayList);
-        gridView.setAdapter(myAdapter);
+    public void setMenuVisibility(boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
+        if (menuVisible) {
+            savedProductPresenter.loadAllSavedProducts();
+        }
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        getMenuInflater().inflate(R.menu.menu_context, menu);
+        getActivity().getMenuInflater().inflate(R.menu.menu_context, menu);
         menu.setHeaderTitle("Chọn chức năng");
         super.onCreateContextMenu(menu, v, menuInfo);
     }
@@ -102,7 +91,7 @@ public class SavedProductActivity extends AppCompatActivity implements SavedProd
         final ProductSQLite pd = myAdapter.getItem((int) info.id);
         switch (item.getItemId()) {
             case R.id.menuXoa:
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(SavedProductActivity.this);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                 alertDialog.setTitle("Xác nhận xóa");
                 alertDialog.setMessage("Bạn thật sự muốn xóa sản phẩm này?");
 
@@ -121,5 +110,27 @@ public class SavedProductActivity extends AppCompatActivity implements SavedProd
                 break;
         }
         return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void showProgress() {
+        pgbSavedProduct.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        pgbSavedProduct.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void displayMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void displaySavedProducts(List<ProductSQLite> savedProductList) {
+        this.productArrayList = savedProductList;
+        this.myAdapter = new SavedProductAdapter(getActivity(), R.layout.dong_products, productArrayList);
+        gridView.setAdapter(myAdapter);
     }
 }

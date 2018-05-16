@@ -14,11 +14,6 @@ import com.ptit.tranhoangminh.newsharefood.R;
 public class MaterialFragment extends Fragment {
     TextView tvMaterials;
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -32,6 +27,6 @@ public class MaterialFragment extends Fragment {
     }
 
     public void setMaterials(String materials) {
-        tvMaterials.setText(materials);
+        if (tvMaterials != null) tvMaterials.setText(materials);
     }
 }

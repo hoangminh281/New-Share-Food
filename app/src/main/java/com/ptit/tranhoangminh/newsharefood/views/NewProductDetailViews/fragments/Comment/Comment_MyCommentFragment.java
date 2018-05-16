@@ -1,6 +1,4 @@
-package com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.Comment;
-
-
+package com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -35,7 +33,7 @@ public class Comment_MyCommentFragment extends Fragment {
     Product productkey;
     String idUser;
     Activity context;
-    ArrayList<CommentMA> listCMT = new ArrayList<CommentMA>();
+    ArrayList<CommentMA> listCMT = new ArrayList<>();
     AdapterCommentMonAnCuaUser adapter;
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();;
 
