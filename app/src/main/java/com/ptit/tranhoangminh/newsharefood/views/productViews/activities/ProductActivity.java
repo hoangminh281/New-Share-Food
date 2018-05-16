@@ -39,6 +39,7 @@ import java.util.ArrayList;
 
 public class ProductActivity extends AppCompatActivity implements ProductView {
     GridView gridView;
+    Toolbar toolbar;
     String cate_id;
     String cate_name;
     Button btnBepchien;
@@ -64,12 +65,19 @@ public class ProductActivity extends AppCompatActivity implements ProductView {
 
         productPresenter.loadProducts(cate_id);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("MÓN ĂN BA MIỀN");
+        toolbar.setTitleTextColor(Color.BLACK);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         registerForContextMenu(gridView);
         SuKien();
     }
 
     private void setControl() {
         gridView = findViewById(R.id.gridview);
+        toolbar = findViewById(R.id.toolbarLoaiMonAn);
         btnBepchien = findViewById(R.id.buttonBepchien);
         pgbProduct = findViewById(R.id.progressBarProduct);
         user = FirebaseAuth.getInstance().getCurrentUser();

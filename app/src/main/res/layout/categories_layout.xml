@@ -11,14 +11,14 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!--<android.support.v7.widget.Toolbar
+        <android.support.v7.widget.Toolbar
             app:titleTextColor="#fff"
             android:id="@+id/toolbar"
             android:background="@color/colorChuNhatTrongSuot"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
 
-        </android.support.v7.widget.Toolbar>-->
+        </android.support.v7.widget.Toolbar>
 
         <ProgressBar
             style="?android:attr/progressBarStyle"

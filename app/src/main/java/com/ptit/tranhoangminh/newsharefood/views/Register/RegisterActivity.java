@@ -104,8 +104,4 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Intent login = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(login);
     }
-    public void setOnclickBackListener(View view){
-        Intent login = new Intent(RegisterActivity.this, LoginActivity.class);
-        startActivity(login);
-    }
 }
