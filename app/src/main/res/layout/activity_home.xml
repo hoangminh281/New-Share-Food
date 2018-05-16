@@ -10,50 +10,51 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true">
+
         <EditText
             android:id="@+id/edtfind"
-            android:layout_width="300dp"
+            android:layout_width="289dp"
             android:layout_height="40dp"
-            android:background="@drawable/khung_dangnhap"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:hint="Tìm kiếm món ăn"
-            android:drawableRight="@drawable/ic_search_black_24dp"
-            android:drawablePadding="10dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="20dp"
-            android:inputType="text"
             android:layout_marginLeft="20dp"
-            />
+            android:layout_marginTop="18dp"
+            android:background="@drawable/khung_dangnhap"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/ic_search_black_24dp"
+            android:hint="Tìm kiếm món ăn"
+            android:inputType="text"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp" />
 
         <ImageButton
             android:id="@+id/btnvoice"
-            android:layout_width="40dp"
+            android:layout_width="43dp"
             android:layout_height="40dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/voice"
-            />
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="18dp"
+            android:src="@drawable/voice" />
+
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/frameContent"
-        android:layout_width="296dp"
-        android:layout_height="345dp"
+        android:layout_width="326dp"
+        android:layout_height="441dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="99dp"
-        >
-    </FrameLayout>
+        android:layout_marginTop="69dp"></FrameLayout>
 
     <Button
         android:id="@+id/btnhome1"
         android:layout_width="67dp"
-        android:layout_height="51dp"
+        android:layout_height="33dp"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/frameContent"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="13dp"
         android:background="@drawable/bgbutton"
         android:drawableLeft="@drawable/home30"
         android:onClick="AddFragment"
@@ -61,56 +62,48 @@
         android:layout_alignLeft="@+id/frameContent" />
 
     <Button
-        android:onClick="AddFragment"
         android:id="@+id/btnhome2"
         android:layout_width="67dp"
-        android:layout_height="51dp"
+        android:layout_height="33dp"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/btnhome1"
-        android:layout_marginStart="120dp"
+        android:layout_marginStart="111dp"
         android:background="@drawable/bgbutton"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="120dp"
         android:drawableLeft="@drawable/restaurant30"
+        android:onClick="AddFragment"
         android:paddingLeft="18dp"
-        />
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="111dp" />
 
     <Button
-        android:onClick="AddFragment"
         android:id="@+id/btnhome3"
         android:layout_width="67dp"
-        android:layout_height="51dp"
+        android:layout_height="33dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/btnhome1"
-        android:layout_marginEnd="122dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="122dp"
+        android:layout_alignTop="@+id/btnhome1"
+        android:layout_marginEnd="116dp"
+        android:layout_marginRight="116dp"
         android:background="@drawable/bgbutton"
         android:drawableLeft="@drawable/chef30"
-        android:paddingLeft="18dp"
-        />
+        android:onClick="AddFragment"
+        android:paddingLeft="18dp" />
 
     <Button
-        android:onClick="AddFragment"
         android:id="@+id/btnhome4"
         android:layout_width="67dp"
-        android:layout_height="51dp"
+        android:layout_height="33dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/btnhome1"
-        android:layout_marginEnd="45dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="45dp"
+        android:layout_alignTop="@+id/btnhome1"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:background="@drawable/bgbutton"
         android:drawableLeft="@drawable/user30"
-        android:paddingLeft="18dp"
-        />
+        android:onClick="AddFragment"
+        android:paddingLeft="18dp" />
 
-    <android.support.v4.view.ViewPager
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/vp"
-        >
-    </android.support.v4.view.ViewPager>
+
 
 
 </RelativeLayout>
