@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
@@ -39,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     public static int CHECK_AUTHENTICATION=0;
     FirebaseAuth firebaseAuth;
     EditText edtEmail,edtPass;
+    TextView tvReset;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         SetControl();
         btnGoogle.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+        tvReset.setOnClickListener(this);
+
 //        btnDK.setOnClickListener(this);
         CreateClientLoginGG();
     }
@@ -58,6 +63,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         edtEmail=findViewById(R.id.edtEmailLogin);
         edtPass=findViewById(R.id.edtPassLogin);
         btnLogin=findViewById(R.id.btnLogin);
+        tvReset = findViewById(R.id.idResetPassword);
 //        btnDK=findViewById(R.id.btnDangKi);
     }
 
@@ -114,6 +120,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 GoogleSignInAccount signInAccount=googleSignInResult.getSignInAccount();
                 String tokenID=signInAccount.getIdToken();
                 FirebaseLoginAuthentication(tokenID);
+//            Intent in=new Intent(LoginActivity.this, HomePageResActivity.class);
+//            startActivity(in);
             }
         }
     }
@@ -128,7 +136,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         int id=view.getId();
         switch (id)
         {
-            case R.id.btnGoogle:
+            case R.id.btnGoogleLogin:
                 LoginGG(apiClient);
                 break;
             case R.id.btnLogin:
@@ -137,6 +145,21 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             case R.id.btnDangKi:
                 Intent iDK=new Intent(this, RegisterActivity.class);
                 startActivity(iDK);
+                break;
+            case R.id.idResetPassword:
+                String mail=edtEmail.getText().toString();
+                FirebaseAuth.getInstance().sendPasswordResetEmail(mail)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(LoginActivity.this,"Email sent",Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(LoginActivity.this,"Email empty or not exists",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
                 break;
 
         }
@@ -164,6 +187,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     public void setOnclickRegisterListener(View view){
         Intent register=new Intent(this, RegisterActivity.class);
+        startActivity(register);
+    }
+
+    public void setOnclickHomeListener(View view) {
+        Intent register=new Intent(this, Splashscreen.class);
         startActivity(register);
     }
 }
