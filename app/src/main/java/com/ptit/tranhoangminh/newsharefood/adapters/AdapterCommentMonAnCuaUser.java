@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ptit.tranhoangminh.newsharefood.R;
-import com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.Comment.CommentMA;
+import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.CommentMA;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ public class AdapterCommentMonAnCuaUser extends BaseAdapter {
     ArrayList<CommentMA> cmtArr;
     String username;
 
-    public AdapterCommentMonAnCuaUser(Activity context,int layout, ArrayList<CommentMA> cmtArr,String username){
+    public AdapterCommentMonAnCuaUser(Activity context, int layout, ArrayList<CommentMA> cmtArr, String username){
         this.context = context;
         Layout =layout;
         this.cmtArr = cmtArr;

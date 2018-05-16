@@ -1,5 +1,4 @@
-package com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.Comment;
-
+package com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment;
 
 
 import android.annotation.SuppressLint;
@@ -21,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.ptit.tranhoangminh.newsharefood.R;
 import com.ptit.tranhoangminh.newsharefood.adapters.AdapterCommentMonAn;
 import com.ptit.tranhoangminh.newsharefood.models.Product;
+import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.CommentMA;
 
 import java.util.ArrayList;
 
@@ -28,13 +28,14 @@ import java.util.ArrayList;
  * Created by TramLuc on 5/13/2018.
  */
 
-public class Comment_FullCommentFragment  extends Fragment {
+public class Comment_FullCommentFragment extends Fragment {
     ListView listView;
     Product productkey;
     AdapterCommentMonAn adapter;
     ArrayList<CommentMA> listCMT = new ArrayList<CommentMA>();
     Activity context;
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+
     public Comment_FullCommentFragment() {
     }
 
@@ -43,6 +44,7 @@ public class Comment_FullCommentFragment  extends Fragment {
         this.context = context;
         this.productkey = productkey;
     }
+
     //@Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -52,18 +54,19 @@ public class Comment_FullCommentFragment  extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cmt_fragment_fullcomments, null);
         listView = view.findViewById(R.id.listViewCmt);
-        adapter = new AdapterCommentMonAn(context,R.layout.fullcomment_ma_layout,listCMT);
+        adapter = new AdapterCommentMonAn(context, R.layout.fullcomment_ma_layout, listCMT);
         getCommentProduct();
         listView.setAdapter(adapter);
         return view;
     }
-    public void getCommentProduct(){
+
+    public void getCommentProduct() {
         mData.child("Binhluanmonans").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<CommentMA> arr = new ArrayList<CommentMA>();
-                for (DataSnapshot item: dataSnapshot.getChildren()) {
-                    if(item.child("productId").getValue().equals(productkey.getId())){
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    if (item.child("productId").getValue().equals(productkey.getId())) {
                         arr.add(item.getValue(CommentMA.class));
                     }
                 }
@@ -77,7 +80,8 @@ public class Comment_FullCommentFragment  extends Fragment {
             }
         });
     }
-    public void setListCMT(ArrayList<CommentMA> arr){
+
+    public void setListCMT(ArrayList<CommentMA> arr) {
         this.listCMT = arr;
     }
 }

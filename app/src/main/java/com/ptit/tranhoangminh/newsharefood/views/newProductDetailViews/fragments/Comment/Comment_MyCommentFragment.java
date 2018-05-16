@@ -1,6 +1,4 @@
-package com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.Comment;
-
-
+package com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -23,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.ptit.tranhoangminh.newsharefood.R;
 import com.ptit.tranhoangminh.newsharefood.adapters.AdapterCommentMonAnCuaUser;
 import com.ptit.tranhoangminh.newsharefood.models.Product;
+import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.CommentMA;
 
 import java.util.ArrayList;
 
@@ -37,10 +36,11 @@ public class Comment_MyCommentFragment extends Fragment {
     Activity context;
     ArrayList<CommentMA> listCMT = new ArrayList<CommentMA>();
     AdapterCommentMonAnCuaUser adapter;
-    DatabaseReference mData = FirebaseDatabase.getInstance().getReference();;
+    DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+    ;
 
     @SuppressLint("ValidFragment")
-    public Comment_MyCommentFragment(Activity context,Product productkey, String idUser) {
+    public Comment_MyCommentFragment(Activity context, Product productkey, String idUser) {
         this.context = context;
         this.productkey = productkey;
         this.idUser = idUser;
@@ -59,30 +59,33 @@ public class Comment_MyCommentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cmt_fragment_mycomments, null);
         listView = view.findViewById(R.id.listViewMyCmt);
-        adapter = new AdapterCommentMonAnCuaUser(context,R.layout.mycomment_ma_layout,listCMT,idUser);
+        adapter = new AdapterCommentMonAnCuaUser(context, R.layout.mycomment_ma_layout, listCMT, idUser);
         listView.setAdapter(adapter);
         return view;
     }
-    public void getCommentUserProduct(){
+
+    public void getCommentUserProduct() {
         mData.child("Binhluanmonans").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<CommentMA> arr = new ArrayList<CommentMA>();
-                for (DataSnapshot item: dataSnapshot.getChildren()) {
-                    if(item.child("productId").getValue().equals(productkey.getId()) && item.child("memberId").equals(idUser)){
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    if (item.child("productId").getValue().equals(productkey.getId()) && item.child("memberId").equals(idUser)) {
                         arr.add(item.getValue(CommentMA.class));
                     }
                 }
                 setListCMT(arr);
                 adapter.notifyDataSetChanged();
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
     }
-    public void setListCMT(ArrayList<CommentMA> arr){
+
+    public void setListCMT(ArrayList<CommentMA> arr) {
         this.listCMT = arr;
     }
 
