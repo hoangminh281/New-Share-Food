@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/item340_03" />
+            android:src="@drawable/bg_01" />
 
         <ProgressBar
             android:id="@+id/progressBarNewProductDetail"
@@ -146,16 +146,15 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tablayoutPDetail"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             app:tabBackground="@drawable/ic_tablayout"
             app:tabGravity="fill"
             app:tabIndicatorHeight="0dp"
-            app:tabMode="scrollable"
+            app:tabMode="fixed"
             app:tabSelectedTextColor="#202020"
             app:tabTextAppearance="@style/MineCustomTabText"
-            app:tabTextColor="#ffffff"
-            android:layout_gravity="center_horizontal" />
+            app:tabTextColor="#ffffff" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpagerPDetail"

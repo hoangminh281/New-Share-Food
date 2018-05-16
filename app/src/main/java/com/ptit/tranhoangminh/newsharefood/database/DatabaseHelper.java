@@ -49,18 +49,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.i(TAG, "DatabaseHelper.onCreate...");
 
         String script = "CREATE TABLE " + TABLE_PRODUCTS + "(" +
-                KEY_ID + " VARCHAR PRIMARY KEY  NOT NULL ," +
-                KEY_PID + " VARCHAR NOT NULL ," +
-                KEY_NAME + " VARCHAR NOT NULL ," +
-                KEY_IMAGE + " BLOG NOT NULL )";
+                        KEY_ID + " VARCHAR PRIMARY KEY  NOT NULL ," +
+                        KEY_PID + " VARCHAR NOT NULL ," +
+                        KEY_NAME + " VARCHAR NOT NULL ," +
+                        KEY_IMAGE + " BLOG NOT NULL )";
 
         //chay lenh tao bang
         sqLiteDatabase.execSQL(script);
 
         script = "CREATE TABLE " + TABLE_PRODUCTDETAIL + "(" +
-                KEYPD_ID + " VARCHAR PRIMARY KEY  NOT NULL ," +
-                KEYPD_MATERIALS + " VARCHAR NOT NULL ," +
-                KEYPD_RECIPE + " VARCHAR NOT NULL )";
+                        KEYPD_ID + " VARCHAR PRIMARY KEY  NOT NULL ," +
+                        KEYPD_MATERIALS + " VARCHAR NOT NULL ," +
+                        KEYPD_RECIPE + " VARCHAR NOT NULL )";
 
         //chay lenh tao bang
         sqLiteDatabase.execSQL(script);
@@ -90,13 +90,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
     }
-
     public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
         return outputStream.toByteArray();
     }
-
     public void addProduct(Product product, Bitmap bitmap) throws SQLiteException {
         Log.i(TAG, "DatabaseHelper.addProduct... " + product.getName());
 
@@ -144,7 +142,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_PRODUCTS, new String[]{KEY_ID, KEY_PID, KEY_NAME, KEY_IMAGE}, KEY_ID + "=?",
                 new String[]{id}, null, null, null, null);
         ProductSQLite product = null;
-        if (cursor.getCount() != 0 && cursor.moveToFirst()) {
+        if (cursor.getCount() != 0) {
+            cursor.moveToFirst();
             product = new ProductSQLite();
             product.setId(cursor.getString(0));
             product.setParent_id(cursor.getString(1));
@@ -165,7 +164,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_PRODUCTDETAIL, new String[]{KEYPD_ID, KEYPD_MATERIALS, KEYPD_RECIPE}, KEYPD_ID + "=?",
                 new String[]{id}, null, null, null, null);
         ProductDetail pDetail = null;
-        if (cursor.getCount() != 0 && cursor.moveToFirst()) {
+        if (cursor.getCount() != 0) {
+            cursor.moveToFirst();
             pDetail = new ProductDetail();
             pDetail.setId(cursor.getString(0));
             pDetail.setMaterials(cursor.getString(1));
@@ -210,7 +210,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         List<Product> productList = new ArrayList<>();
         //Select all query
-        String query = "SELECT * FROM " + TABLE_PRODUCTS + " WHERE name LIKE '%" + name + "%'";
+        String query = "SELECT * FROM " + TABLE_PRODUCTS +" WHERE name LIKE '%"+name+"%'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);

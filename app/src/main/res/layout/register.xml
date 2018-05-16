@@ -25,11 +25,10 @@
                 android:id="@+id/edtUsername"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="15sp"
+                android:padding="10sp"
                 android:background="@drawable/borderradius"
                 android:drawableRight="@mipmap/sd_03"
                 android:hint="UserName"
-                android:layout_marginBottom="10sp"
             />
         </LinearLayout>
 
@@ -42,12 +41,10 @@
                 android:id="@+id/edtPasswordLogin"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="15sp"
+                android:padding="10sp"
                 android:background="@drawable/borderradius"
                 android:drawableRight="@mipmap/foodapp_07"
                 android:hint="Password"
-                android:layout_marginBottom="10sp"
-                android:password="true"
                 />
         </LinearLayout>
         <LinearLayout
@@ -59,12 +56,10 @@
                 android:id="@+id/edtPasswordConfirm"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="15sp"
+                android:padding="10sp"
                 android:background="@drawable/borderradius"
                 android:drawableRight="@mipmap/foodapp_07"
                 android:hint="Password confirm"
-                android:layout_marginBottom="10sp"
-                android:password="true"
                 />
         </LinearLayout>
 
@@ -117,11 +112,10 @@
                 android:id="@+id/edtEmailRegister"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="15sp"
+                android:padding="10sp"
                 android:background="@drawable/borderradius"
                 android:drawableRight="@mipmap/foodapp_18"
                 android:hint="Email"
-                android:layout_marginBottom="10sp"
                 />
         </LinearLayout>
 

@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ptit.tranhoangminh.newsharefood.R;
-import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.CommentMA;
+import com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.Comment.CommentMA;
 
 import java.util.ArrayList;
 
