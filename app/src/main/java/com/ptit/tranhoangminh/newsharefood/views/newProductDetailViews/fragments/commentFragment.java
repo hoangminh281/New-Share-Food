@@ -1,4 +1,4 @@
-﻿package com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments;
+package com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments;
 
 
 import android.annotation.SuppressLint;
@@ -33,16 +33,14 @@ public class CommentFragment extends Fragment {
     ViewPager viewPager;
     Activity context;
     Product Productkey;
-
     @SuppressLint("ValidFragment")
-    public CommentFragment(Activity context, Product productkey) {
+    public CommentFragment(Activity context, Product productkey){
         this.context = context;
         this.Productkey = productkey;
         Comment_FullCommentFragment fullCommentFragment = new Comment_FullCommentFragment();
         Comment_MyCommentFragment myCommentFragment = new Comment_MyCommentFragment();
         Comment_WriteCommentFragment writeCommentFragment = new Comment_WriteCommentFragment();
     }
-
     public CommentFragment() {
     }
 
@@ -60,13 +58,18 @@ public class CommentFragment extends Fragment {
 
     @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_comment, null);
+        View view = inflater.inflate(R.layout.fragment_comment,null);
+//
+//        System.out.println(view.toString());
         cmt = view.findViewById(R.id.tabs);
         viewPager = view.findViewById(R.id.viewPagerCmt);
-
+//
         setupViewPager(viewPager);
+//        System.out.println("555555555555");
         cmt.setupWithViewPager(viewPager);
+//        System.out.println("66666666666");
         setupTabIcons();
+//        System.out.println("7777777777777");
         return view;
 
     }
@@ -74,19 +77,19 @@ public class CommentFragment extends Fragment {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter1 adapter = new ViewPagerAdapter1(getChildFragmentManager());
         Comment_FullCommentFragment fullcmt = new Comment_FullCommentFragment();
-        fullcmt.setContent(context, Productkey);
-        adapter.addFragment(fullcmt, "tieude");
-        try {
-            if (firebaseAuth.getCurrentUser() != null) {
-                Comment_MyCommentFragment mycmt = new Comment_MyCommentFragment();
-                mycmt.setContent(context, Productkey, Productkey.getId());
-                adapter.addFragment(mycmt, "MyComment");
+        fullcmt.setContent(context,Productkey);
+        adapter.addFragment(fullcmt,"tieude");
+        try{
+            if(firebaseAuth.getCurrentUser() != null){
+                Comment_MyCommentFragment mycmt= new Comment_MyCommentFragment();
+                mycmt.setContent(context,Productkey, Productkey.getId());
+                adapter.addFragment(mycmt,"MyComment");
                 Comment_WriteCommentFragment writecmt = new Comment_WriteCommentFragment();
-                writecmt.setContent(context, Productkey);
-                adapter.addFragment(writecmt, "WriteComment");
+                writecmt.setContent(context,Productkey);
+                adapter.addFragment(writecmt,"WriteComment");
             }
-        } catch (Exception e) {
         }
+        catch (Exception e){}
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
     }
@@ -98,12 +101,9 @@ public class CommentFragment extends Fragment {
                 cmt.getTabAt(1).setText("Bình luận của bạn");
                 cmt.getTabAt(2).setText("Viết bình luận");
             }
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
     }
-
-    public void onPointerCaptureChanged(boolean hasCapture) {
-    }
+    public void onPointerCaptureChanged(boolean hasCapture) {    }
 
 
     class ViewPagerAdapter1 extends FragmentPagerAdapter {

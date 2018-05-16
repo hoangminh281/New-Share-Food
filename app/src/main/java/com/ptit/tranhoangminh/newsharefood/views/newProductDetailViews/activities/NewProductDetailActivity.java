@@ -63,9 +63,6 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
         setEvents();
 
         setSupportActionBar(toolbar);
-        setupViewPager(viewPager);
-        tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
     }
 
     private void initPresenter() {
@@ -151,6 +148,10 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
     @Override
     public void displayProductDetail(ProductDetail productDetail) {
         pDetail = productDetail;
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
+        
         tvName.setText(productKey.getName());
         tvView.setText(productDetail.getLike() + "");
         materialFragment.setMaterials(productDetail.getMaterials());
