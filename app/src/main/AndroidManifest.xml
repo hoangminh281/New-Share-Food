@@ -8,13 +8,13 @@
 
     <application
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCPMjB01i28rWRigg3l_a_pHLs27WnKGz4" />
@@ -41,12 +41,11 @@
         <activity android:name=".ContactActivity" />
         <activity android:name=".views.CommentDetail.ChiTietBinhLuanActivity" />
         <activity android:name=".views.DirectionMap.DirectionMapStoreActivity" />
-        <activity android:name=".views.AddEditProductViews.activities.NewModifyProductActivity" />
-        <activity android:name=".views.AddComment.AddCommentActivity" />
-        <activity android:name=".views.Orderfood.MyCartActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".views.AddEditProductViews.activities.NewModifyProductActivity">
 
         </activity>
+        <activity android:name=".views.AddComment.AddCommentActivity"></activity>
+        <activity android:name=".views.Orderfood.MyCartActivity"></activity>
     </application>
 
 </manifest>
