@@ -20,6 +20,7 @@ import android.widget.Button;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.ptit.tranhoangminh.newsharefood.presenters.Mail.SendMail;
 
 /**
  * Created by Dell on 3/12/2018.
@@ -39,6 +40,10 @@ public class Splashscreen extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splashscreen_layout);
         AnhXa();
+
+        // test send mail
+        sendEmail();
+
         //tạo 1 api yeu cau truy cap location service
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -143,5 +148,13 @@ public class Splashscreen extends AppCompatActivity implements GoogleApiClient.C
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab2 = (FloatingActionButton) findViewById(R.id.fab2);
         fab3 = (FloatingActionButton) findViewById(R.id.fab3);
+    }
+
+    private void sendEmail() {
+        //Creating SendMail object
+        SendMail sm = new SendMail(this, "abc@gmail.com", "test mail", "hello");
+
+        //Executing sendmail to send email
+        sm.execute();
     }
 }
