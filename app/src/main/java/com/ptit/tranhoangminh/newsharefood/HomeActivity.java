@@ -6,7 +6,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,7 +29,6 @@ public class HomeActivity extends AppCompatActivity {
     Button btnhome1, btnhome2, btnhome3, btnhome4;
     ImageButton btnvoice;
     EditText edtSearch;
-    ViewPager viewPager;
 
     String textSearch = "";
     Boolean mIsEmpty = false;
@@ -46,7 +44,6 @@ public class HomeActivity extends AppCompatActivity {
         btnhome3 = (Button) findViewById(R.id.btnhome3);
         btnhome4 = (Button) findViewById(R.id.btnhome4);
         edtSearch = (EditText) findViewById(R.id.edtfind);
-        viewPager = (ViewPager) findViewById(R.id.vp);
         btnvoice = (ImageButton) findViewById(R.id.btnvoice);
 
         btnhome1.performClick();

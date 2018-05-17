@@ -44,6 +44,9 @@ dependencies {
     implementation 'com.google.maps.android:android-maps-utils:0.5+'
     implementation 'com.firebaseui:firebase-ui-database:3.2.2'
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
+    implementation files('libs/activation.jar')
+    implementation files('libs/additionnal.jar')
+    implementation files('libs/mail.jar')
 }
 
 apply plugin: 'com.google.gms.google-services'
