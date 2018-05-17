@@ -51,7 +51,6 @@ public class VideoFragment extends Fragment {
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 if (!b) {
                     youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
-                    youTubePlayer.setFullscreen(true);
                     youTubePlayer.loadVideo(id);
                     youTubePlayer.play();
                 }

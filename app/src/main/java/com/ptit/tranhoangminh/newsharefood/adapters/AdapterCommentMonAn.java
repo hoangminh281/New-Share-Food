@@ -10,9 +10,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseArray;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.ptit.tranhoangminh.newsharefood.R;
+import com.ptit.tranhoangminh.newsharefood.reference.FirebaseReference;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.CommentMA;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.commentListener;
 
@@ -28,6 +37,9 @@ public class AdapterCommentMonAn extends BaseAdapter {
     ArrayList<CommentMA> cmtArr;
     ArrayList<String> listLike;
     commentListener Callback;
+    FirebaseStorage mStoreRef;
+
+    DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     public AdapterCommentMonAn(Activity context,int layout, ArrayList<CommentMA> cmtArr, ArrayList<String> listLike, commentListener callback){
         this.context = context;
@@ -79,50 +91,60 @@ public class AdapterCommentMonAn extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         viewHolder holder;
-        try {
-            if (view == null) {
-                holder = new viewHolder();
+        holder = new viewHolder();
+
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        view = layoutInflater.inflate(Layout, null);
+        holder.txtcomment = view.findViewById(R.id.txtComment);
+        holder.txtusername = view.findViewById(R.id.txtUsername);
+        holder.txtlike = view.findViewById(R.id.txtLike);
+        holder.btnlike = view.findViewById(R.id.btnLike);
+        holder.imgUser = view.findViewById(R.id.imgUser);
+        view.setTag(holder);
+
+        final CommentMA cmt = cmtArr.get(i);
+        final int position = i;
+        holder.txtusername.setText(cmt.getMembername());
+        holder.txtcomment.setText(cmt.getTieude() + cmt.getBinhluan());
+        holder.txtlike.setText(String.valueOf(cmt.getLike()));
+        mData.child("members/" + cmt.getMemberId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String id_image = dataSnapshot.child("hinhanh").getValue(String.class);
+                StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
+
                 LayoutInflater layoutInflater = LayoutInflater.from(context);
-                view = layoutInflater.inflate(Layout, null);
-                holder.txtcomment = view.findViewById(R.id.txtComment);
-                holder.txtusername = view.findViewById(R.id.txtUsername);
-                holder.txtlike = view.findViewById(R.id.txtLike);
-                holder.btnlike = view.findViewById(R.id.btnLike);
-                holder.imgUser = view.findViewById(R.id.imgUser);
-                view.setTag(holder);
+
+                View view = layoutInflater.inflate(Layout, null);
+                ImageView img = view.findViewById(R.id.imgUser);
+                FirebaseReference.setImageFromFireBase(mStorageRef.child("thanhvien/" + id_image), id_image, ".png", img );
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        if(user != null){
+            if (listLike.contains(user.getUid())) {
+                holder.btnlike.setOnClickListener(new View.OnClickListener() {
+
+                  @Override
+                  public void onClick(View v) {
+                      Callback.unlikeAction(position);
+                  }
+              });
+
             } else {
-                holder = (viewHolder) view.getTag();
-            }
+                holder.btnlike.setOnClickListener(new View.OnClickListener() {
+                      @Override
+                      public void onClick(View v) {
+                          Callback.likeAction(position);
+                      }
+                  });
 
-            final CommentMA cmt = cmtArr.get(i);
-            final int position = i;
-            holder.txtusername.setText(cmt.getMembername());
-            holder.txtcomment.setText(cmt.getTieude() + cmt.getBinhluan());
-            holder.txtlike.setText(String.valueOf(cmt.getLike()));
-            holder.imgUser.setImageBitmap(cmt.getImgUser());
-
-            if(user != null){
-                if (listLike.contains(user.getUid())) {
-                    holder.btnlike.setText("Bỏ Thích");
-                    holder.btnlike.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Callback.unlikeAction(position);
-                        }
-                    });
-                } else {
-                    holder.btnlike.setText("Thích");
-                    holder.btnlike.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Callback.likeAction(position);
-                        }
-                    });
-                }
-            }else{
-                holder.btnlike.setVisibility(View.INVISIBLE);
             }
-        }catch(Exception e){
+        }else{
+            holder.btnlike.setVisibility(View.INVISIBLE);
         }
         return view;
     }

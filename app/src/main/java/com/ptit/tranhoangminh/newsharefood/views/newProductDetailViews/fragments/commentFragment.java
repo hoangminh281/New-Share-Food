@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.ptit.tranhoangminh.newsharefood.R;
@@ -25,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommentFragment extends Fragment {
-    FirebaseAuth firebaseAuth;
     Comment_FullCommentFragment fullCommentFragment;
     Comment_MyCommentFragment myCommentFragment;
     Comment_WriteCommentFragment writeCommentFragment;
@@ -37,9 +37,9 @@ public class CommentFragment extends Fragment {
     public CommentFragment(Activity context, Product productkey){
         this.context = context;
         this.Productkey = productkey;
-        Comment_FullCommentFragment fullCommentFragment = new Comment_FullCommentFragment();
-        Comment_MyCommentFragment myCommentFragment = new Comment_MyCommentFragment();
-        Comment_WriteCommentFragment writeCommentFragment = new Comment_WriteCommentFragment();
+        fullCommentFragment = new Comment_FullCommentFragment();
+        myCommentFragment = new Comment_MyCommentFragment();
+        writeCommentFragment = new Comment_WriteCommentFragment();
     }
     public CommentFragment() {
     }
@@ -59,17 +59,11 @@ public class CommentFragment extends Fragment {
     @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_comment,null);
-//
-//        System.out.println(view.toString());
         cmt = view.findViewById(R.id.tabs);
         viewPager = view.findViewById(R.id.viewPagerCmt);
-//
         setupViewPager(viewPager);
-//        System.out.println("555555555555");
         cmt.setupWithViewPager(viewPager);
-//        System.out.println("66666666666");
         setupTabIcons();
-//        System.out.println("7777777777777");
         return view;
 
     }
@@ -80,7 +74,7 @@ public class CommentFragment extends Fragment {
         fullcmt.setContent(context,Productkey);
         adapter.addFragment(fullcmt,"tieude");
         try{
-            if(firebaseAuth.getCurrentUser() != null){
+            if(FirebaseAuth.getInstance().getCurrentUser() != null){
                 Comment_MyCommentFragment mycmt= new Comment_MyCommentFragment();
                 mycmt.setContent(context,Productkey, Productkey.getId());
                 adapter.addFragment(mycmt,"MyComment");
@@ -89,7 +83,9 @@ public class CommentFragment extends Fragment {
                 adapter.addFragment(writecmt,"WriteComment");
             }
         }
-        catch (Exception e){}
+        catch (Exception e){
+            Toast.makeText(getContext(),e.toString(), Toast.LENGTH_SHORT).show();
+        }
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
     }
@@ -97,7 +93,7 @@ public class CommentFragment extends Fragment {
     private void setupTabIcons() {
         cmt.getTabAt(0).setText("Bình luận");
         try {
-            if (firebaseAuth.getCurrentUser() != null) {
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 cmt.getTabAt(1).setText("Bình luận của bạn");
                 cmt.getTabAt(2).setText("Viết bình luận");
             }

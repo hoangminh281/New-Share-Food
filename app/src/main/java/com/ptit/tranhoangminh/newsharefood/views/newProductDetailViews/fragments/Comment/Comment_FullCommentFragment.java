@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -64,32 +65,33 @@ public class Comment_FullCommentFragment  extends Fragment implements commentLis
         return view;
     }
     public void getCommentProduct(){
-        mData.child("Binhluanmonans").addValueEventListener(new ValueEventListener() {
+        try{
+        mData.child("Binhluanmonans").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<CommentMA> arr = new ArrayList<CommentMA>();
+                ArrayList<CommentMA> arr = new ArrayList<>();
                 ArrayList<String> arrKey = new ArrayList<>();
                 for (DataSnapshot item: dataSnapshot.getChildren()) {
-                    System.out.println(item.getValue());
                     if(item.child("productId").getValue(String.class).equals(productkey.getId())){
                         arr.add(item.getValue(CommentMA.class));
                         Collection<String> key = item.getValue(CommentMA.class).getListLike().values();
-                        listLike = new ArrayList<String>(key);
+                        listLike = new ArrayList<>(key);
                         arrKey.add(item.getKey());
                     }
                 }
                 setListCMTnKey(arr,arrKey);
-                System.out.println(arr);
-                adapter.setListLike(new ArrayList<String>(listLike));
-                adapter.setCmtArr(new ArrayList<CommentMA>(arr));
-                listView.setAdapter(adapter);
+                adapter.setListLike(new ArrayList<>(listLike));
+                adapter.setCmtArr(new ArrayList<>(arr));
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });}
+        catch (Exception e){
+            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
     public void setListCMTnKey(ArrayList<CommentMA> arr, ArrayList<String> arrKey){
         this.listCMT = arr;
@@ -100,16 +102,18 @@ public class Comment_FullCommentFragment  extends Fragment implements commentLis
     public void likeAction(int position) {
 
         listCMT.get(position).setLike(listCMT.get(position).getLike()+1);
-        mData.child("Binhluanmonans/"+listKey.get(position)).push().setValue(listCMT.get(position));
-        mData.child("Binhluanmonans/listLike/").push().setValue(FirebaseAuth.getInstance().getCurrentUser());
+        mData.child("Binhluanmonans/"+listKey.get(position)).setValue(listCMT.get(position));
+        mData.child("Binhluanmonans/" + listKey.get(position) + "/listLike/" + FirebaseAuth.getInstance().getUid()).setValue(FirebaseAuth.getInstance().getUid());
+        adapter.notifyDataSetChanged();
     }
 
 
     @Override
     public void unlikeAction(int position) {
         listCMT.get(position).setLike(listCMT.get(position).getLike()-1);
-        mData.child("Binhluanmonans/"+listKey.get(position)).push().setValue(listCMT.get(position));
-        mData.child("Binhluanmonans/listLike/" + FirebaseAuth.getInstance().getUid()).removeValue();
+        mData.child("Binhluanmonans/"+ listKey.get(position)).setValue(listCMT.get(position));
+        mData.child("Binhluanmonans/" + listKey.get(position) + "/listLike/" + FirebaseAuth.getInstance().getUid()).removeValue();
+        adapter.notifyDataSetChanged();
     }
 
     @Override

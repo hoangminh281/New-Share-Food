@@ -17,7 +17,6 @@ public class CommentMA {
     String memberId;
     String tieude;
     String binhluan;
-    Bitmap imgUser;
     String membername;
     HashMap<String,String> listLike= new HashMap<>();
     int like;
@@ -29,27 +28,20 @@ public class CommentMA {
     public void setListLike(HashMap<String, String> listLike) {
         this.listLike = listLike;
     }
-
+    public CommentMA(){
+    }
     public CommentMA(String id, String uid, String tieude, String binhluan, String username, Bitmap imgUser, int i) {
         //mặc định của firebase dùng để nhận dữ liệu
     }
 
-    public CommentMA(String productId, String memberId, String tieude, String binhluan, String membername, int like, Bitmap imgUser) {
+    public CommentMA(String productId, String memberId, String tieude, String binhluan,
+                     String membername, int like) {
         this.productId = productId;
         this.memberId = memberId;
         this.tieude = tieude;
         this.binhluan = binhluan;
         this.membername = membername;
         this.like = like;
-        this.imgUser=imgUser;
-    }
-
-    public Bitmap getImgUser() {
-        return imgUser;
-    }
-
-    public void setImgUser(Bitmap imgUser) {
-        this.imgUser = imgUser;
     }
 
     public int getLike() {

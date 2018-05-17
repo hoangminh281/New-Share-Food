@@ -28,8 +28,6 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.ptit.tranhoangminh.newsharefood.R;
 import com.ptit.tranhoangminh.newsharefood.adapters.CategoryCollapseAdapter;
 import com.ptit.tranhoangminh.newsharefood.adapters.MaterialAdapter;
@@ -40,7 +38,6 @@ import com.ptit.tranhoangminh.newsharefood.models.ProductDetail;
 import com.ptit.tranhoangminh.newsharefood.presenters.addEditProductPresenters.AddEditProductPresenter;
 import com.ptit.tranhoangminh.newsharefood.views.ProductViews.activities.ProductActivity;
 
-import java.security.acl.Group;
 import java.util.Calendar;
 import java.util.List;
 
