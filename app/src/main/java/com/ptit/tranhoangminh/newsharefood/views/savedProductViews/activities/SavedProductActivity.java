@@ -31,7 +31,6 @@ public class SavedProductActivity extends AppCompatActivity implements SavedProd
     private GridView gridView;
     private ProgressBar pgbSavedProduct;
     private SavedProductPresenter savedProductPresenter;
-    private Toolbar toolbar;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -42,12 +41,6 @@ public class SavedProductActivity extends AppCompatActivity implements SavedProd
 
         initPresenter();
         savedProductPresenter.loadAllSavedProducts();
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("MÓN ĂN ĐÃ LƯU");
-        toolbar.setTitleTextColor(Color.BLACK);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         registerForContextMenu(gridView);
         setEvents();
@@ -68,7 +61,6 @@ public class SavedProductActivity extends AppCompatActivity implements SavedProd
         gridView = findViewById(R.id.gridview);
         pgbSavedProduct = findViewById(R.id.progressBarProduct);
         productArrayList = new ArrayList<>();
-        toolbar = findViewById(R.id.toolbarLoaiMonAn);
     }
 
     private void initPresenter() {

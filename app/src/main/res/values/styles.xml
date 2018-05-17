@@ -11,6 +11,7 @@
     <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">10sp</item>
         <item name="android:fontFamily">@font/font_roboto_bold</item>
+        <item name="android:layout_width">wrap_content</item>
     </style>
 
 </resources>

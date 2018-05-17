@@ -22,7 +22,6 @@ import java.util.List;
  */
 
 public class CategoryAdapter extends BaseAdapter {
-
     private Context context;
     private int layout;
     private List<Category> categoryList;

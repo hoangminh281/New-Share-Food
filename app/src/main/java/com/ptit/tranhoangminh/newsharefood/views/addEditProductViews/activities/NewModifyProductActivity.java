@@ -143,8 +143,7 @@ public class NewModifyProductActivity extends AppCompatActivity implements AddEd
                     String id_video;
                     if (end == -1) {
                         id_video = video.substring(begin + begin_pattern.length());
-                    }
-                    else {
+                    } else {
                         id_video = video.substring(begin + begin_pattern.length(), end);
                     }
 

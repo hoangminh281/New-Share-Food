@@ -1,10 +1,6 @@
 package com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**

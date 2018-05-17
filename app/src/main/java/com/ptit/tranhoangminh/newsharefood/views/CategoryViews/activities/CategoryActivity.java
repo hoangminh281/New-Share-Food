@@ -31,7 +31,6 @@ import java.util.List;
 public class CategoryActivity extends AppCompatActivity implements CategoryView {
 
     ListView lvMonAn;
-    Toolbar toolbar;
     ProgressBar pgbCategory;
     CategoryPresenter categoryPresenter;
     private List<Category> categoryList;
@@ -67,12 +66,6 @@ public class CategoryActivity extends AppCompatActivity implements CategoryView 
         setControl();
         initPresenter();
         categoryPresenter.loadCategories();
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("HÔM NAY ĂN GÌ ?");
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setNavigationIcon(R.mipmap.ic_arrow_back_white_24dp);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         setEvents();
     }
 
@@ -92,7 +85,6 @@ public class CategoryActivity extends AppCompatActivity implements CategoryView 
 
     private void setControl() {
         lvMonAn = (ListView) findViewById(R.id.lvMonAn);
-        toolbar = findViewById(R.id.toolbar);
         pgbCategory = findViewById(R.id.progressBarCategories);
     }
 

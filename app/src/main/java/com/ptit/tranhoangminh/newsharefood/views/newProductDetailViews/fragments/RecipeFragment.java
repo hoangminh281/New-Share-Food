@@ -38,6 +38,6 @@ public class RecipeFragment extends Fragment {
     }
 
     public void setRecipe(String recipe) {
-        tvRecipe.setText(recipe);
+        if (tvRecipe != null) tvRecipe.setText(recipe);
     }
 }

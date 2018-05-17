@@ -25,6 +25,13 @@ import com.ptit.tranhoangminh.newsharefood.models.MemberModel;
 import com.ptit.tranhoangminh.newsharefood.models.Product;
 import com.ptit.tranhoangminh.newsharefood.models.ProductDetail;
 import com.ptit.tranhoangminh.newsharefood.presenters.productDetailPresenters.ProductDetailPresenter;
+import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.Comment_FullCommentFragment;
+import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.Comment_MyCommentFragment;
+import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.Comment_WriteCommentFragment;
+import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.CommentFragment;
+import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.MaterialFragment;
+import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.RecipeFragment;
+import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.VideoFragment;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.CommentFragment;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.MaterialFragment;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.RecipeFragment;
@@ -46,7 +53,7 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
     MaterialFragment materialFragment;
     RecipeFragment recipeFragment;
     VideoFragment videoFragment;
-    CommentFragment commentFragment;
+    com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.commentFragment commentFragment;
     CheckBox cbSave;
     Button btnShare;
     @Override
@@ -118,7 +125,7 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
         adapter.addFragment(materialFragment, "Materials");
         adapter.addFragment(recipeFragment, "Recipe");
         adapter.addFragment(videoFragment, "Video");
-        adapter.addFragment(commentFragment, "Comments");
+        adapter.addFragment(CommentFragment, "Comments");
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(4);
     }
