@@ -3,6 +3,7 @@ package com.ptit.tranhoangminh.newsharefood.models;
 public class UtilitiesModel {
     String hinhtienich;
     String tentienich;
+    String matienich;
 
     public UtilitiesModel(String hinhtienich, String tentienich) {
         this.hinhtienich = hinhtienich;
@@ -10,6 +11,14 @@ public class UtilitiesModel {
     }
 
     public UtilitiesModel() {
+    }
+
+    public String getMatienich() {
+        return matienich;
+    }
+
+    public void setMatienich(String matienich) {
+        this.matienich = matienich;
     }
 
     public String getHinhtienich() {

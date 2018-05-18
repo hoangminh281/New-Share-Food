@@ -12,17 +12,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ptit.tranhoangminh.newsharefood.R;
 import com.ptit.tranhoangminh.newsharefood.models.CommentModel;
+import com.ptit.tranhoangminh.newsharefood.models.StoreModel;
 import com.ptit.tranhoangminh.newsharefood.presenters.saveCommentForStorePresenters.SaveCommentStorePresenterLogic;
 
-public class AddCommentActivity extends AppCompatActivity implements View.OnClickListener,AddCommentImp {
-    TextView txtNameStore, txtAddressStore, txtPost_comment;
+//public class AddCommentActivity extends AppCompatActivity implements View.OnClickListener,AddCommentImp,RatingBar.OnRatingBarChangeListener{
+public class AddCommentActivity extends AppCompatActivity implements View.OnClickListener,RatingBar.OnRatingBarChangeListener,AddCommentImp {
+    ImageButton  txtPost_comment;
     Toolbar toolbar;
-    ImageButton image_Comment;
+    RatingBar ratingBar;
     ImageView imageView;
     String key_store;
     EditText edtTitle,edtContent;
@@ -30,29 +33,25 @@ public class AddCommentActivity extends AppCompatActivity implements View.OnClic
     SaveCommentStorePresenterLogic saveCommentStorePresenterLogic;
     String link_image;
     public static int REQUEST_CODE_SET_COMMENT=998;
+    long chamdiem=0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.comment_store_layout);
         AddControl();
+        AddEvent();
 
         key_store = getIntent().getStringExtra("key_store");
-        String name_store = getIntent().getStringExtra("name_store");
-        String address_store = getIntent().getStringExtra("address_store");
-
         sharedPreferences=getSharedPreferences("userId_login",MODE_PRIVATE);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
-
-        txtNameStore.setText(name_store);
-        txtAddressStore.setText(address_store);
-
-        image_Comment.setOnClickListener(this);
+    private void AddEvent() {
         imageView.setOnClickListener(this);
         txtPost_comment.setOnClickListener(this);
-
+        ratingBar.setOnRatingBarChangeListener(this);
     }
 
     @Override
@@ -61,14 +60,13 @@ public class AddCommentActivity extends AppCompatActivity implements View.OnClic
         return super.onSupportNavigateUp();
     }
     private void AddControl() {
-        txtNameStore = findViewById(R.id.txtTenQuan_comment);
-        txtAddressStore = findViewById(R.id.txtDiachi_comment);
+
         toolbar = findViewById(R.id.toolbar_comment);
-        image_Comment = findViewById(R.id.image_comment);
         imageView = findViewById(R.id.imgHinhABC);
         txtPost_comment = findViewById(R.id.txtPost_comment);
         edtTitle=findViewById(R.id.edtTitle_comment);
         edtContent=findViewById(R.id.edtContent_comment);
+        ratingBar=findViewById(R.id.ratingbar_danhgia);
     }
 
     @Override
@@ -86,15 +84,26 @@ public class AddCommentActivity extends AppCompatActivity implements View.OnClic
                 String useId=sharedPreferences.getString("user_id","");
                 commentModel.setTieude(edtTitle.getText().toString());
                 commentModel.setNoidung(edtContent.getText().toString());
-                commentModel.setChamdiem(0);
-                commentModel.setLuotthich(0);
+                commentModel.setChamdiem(chamdiem);
                 commentModel.setMauser(useId);
-                saveCommentStorePresenterLogic=new SaveCommentStorePresenterLogic(AddCommentActivity.this);
-                saveCommentStorePresenterLogic.saveComment(key_store,commentModel,link_image);
+
+                if(edtTitle.getText().toString()==null||edtTitle.getText().toString().equals(""))
+                {
+                    Toast.makeText(this, "Tiêu đề chưa thêm", Toast.LENGTH_SHORT).show();
+                }else if(edtContent.getText().toString()==null||edtContent.getText().toString().equals("")){
+                    Toast.makeText(this, "Nội dung chưa thêm", Toast.LENGTH_SHORT).show();
+                }
+
+                else if (imageView==null){
+                    Toast.makeText(this, "bạn chưa thêm hình", Toast.LENGTH_SHORT).show();
+                }else{
+                    saveCommentStorePresenterLogic=new SaveCommentStorePresenterLogic(AddCommentActivity.this);
+                    saveCommentStorePresenterLogic.saveComment(key_store,commentModel,imageView);
+                }
+
                 break;
         }
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -103,8 +112,6 @@ public class AddCommentActivity extends AppCompatActivity implements View.OnClic
                 link_image=data.getData().toString();
                 Log.d("dulieu",link_image);
                 imageView.setImageURI(data.getData());
-
-
             }
         }
 
@@ -114,8 +121,56 @@ public class AddCommentActivity extends AppCompatActivity implements View.OnClic
     public void getresult(String s) {
         Toast.makeText(this, "Thêm bình luận thành công..", Toast.LENGTH_SHORT).show();
         Intent intent=new Intent();
-        intent.putExtra("result","Thêm thành công");
+        intent.putExtra("result","Thêm thành công..");
         setResult(REQUEST_CODE_SET_COMMENT,intent);
         finish();
+    }
+
+    @Override
+    public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
+        if(rating==0)
+        {
+            chamdiem=0;
+        }else if(rating==0.5)
+        {
+            chamdiem=1;
+        }else if(rating==1.0)
+        {
+            chamdiem=2;
+        }
+        else if(rating==1.5)
+        {
+            chamdiem=3;
+        }
+        else if(rating==2.0)
+        {
+            chamdiem=4;
+        }
+        else if(rating==2.5)
+        {
+            chamdiem=5;
+        }
+        else if(rating==3.0)
+        {
+            chamdiem=6;
+        }
+        else if(rating==3.5)
+        {
+            chamdiem=7;
+        }
+        else if(rating==4.0)
+        {
+            chamdiem=8;
+        }
+        else if(rating==4.5)
+        {
+            chamdiem=9;
+        }
+        else if(rating==5.0)
+        {
+            chamdiem=10;
+             Toast.makeText(this, ""+chamdiem, Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

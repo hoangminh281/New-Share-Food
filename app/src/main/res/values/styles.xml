@@ -13,5 +13,4 @@
         <item name="android:fontFamily">@font/font_roboto_bold</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
-
 </resources>

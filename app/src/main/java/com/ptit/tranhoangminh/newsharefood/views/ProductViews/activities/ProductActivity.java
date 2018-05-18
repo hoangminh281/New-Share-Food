@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.ptit.tranhoangminh.newsharefood.LoginActivity;
+import com.ptit.tranhoangminh.newsharefood.MainActivity;
 import com.ptit.tranhoangminh.newsharefood.views.AddEditProductViews.activities.NewModifyProductActivity;
 import com.ptit.tranhoangminh.newsharefood.views.SearchViews.SeachViewActivity;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.activities.NewProductDetailActivity;
@@ -48,6 +50,7 @@ public class ProductActivity extends AppCompatActivity implements ProductView {
     public final static int ADD_MODE = 0;
     public final static int EDIT_MODE = 1;
     FirebaseUser user;
+    Toolbar toolbar;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -62,7 +65,9 @@ public class ProductActivity extends AppCompatActivity implements ProductView {
         cate_name = bundle.getString("name");
 
         productPresenter.loadProducts(cate_id);
-
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         registerForContextMenu(gridView);
         SuKien();
     }
@@ -71,6 +76,7 @@ public class ProductActivity extends AppCompatActivity implements ProductView {
         gridView = findViewById(R.id.gridview);
         pgbProduct = findViewById(R.id.progressBarProduct);
         user = FirebaseAuth.getInstance().getCurrentUser();
+        toolbar = findViewById(R.id.toolbar);
     }
 
     private void initPresenter() {
@@ -97,7 +103,13 @@ public class ProductActivity extends AppCompatActivity implements ProductView {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_item, menu);
+        inflater.inflate(R.menu.menu_product, menu);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            menu.findItem(R.id.menuSignIn).setVisible(false);
+        }
+        else {
+            menu.findItem(R.id.menuSignOut).setVisible(false);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -107,27 +119,25 @@ public class ProductActivity extends AppCompatActivity implements ProductView {
             case android.R.id.home:
                 super.onBackPressed();
                 break;
-            case R.id.menuThemmon:
+            case R.id.menuSignIn:
+                Intent intent = new Intent(ProductActivity.this, LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.menuAddProduct:
                 if (user!=null) {
-                    Intent intent = new Intent(ProductActivity.this, NewModifyProductActivity.class);
+                    intent = new Intent(ProductActivity.this, NewModifyProductActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putInt("mode", ADD_MODE);
                     intent.putExtras(bundle);
                     startActivityForResult(intent, 1111);
                 }
                 else {
-                    //show log in activity
+                    intent = new Intent(ProductActivity.this, LoginActivity.class);
+                    startActivity(intent);
                 }
                 break;
-            case R.id.search:
-                Intent intent = new Intent(ProductActivity.this, SeachViewActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("cate_id", cate_id);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            case R.id.menuDaluu:
-                intent = new Intent(ProductActivity.this, SavedProductActivity.class);
-                startActivity(intent);
+            case R.id.menuSignOut:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

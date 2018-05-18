@@ -43,18 +43,7 @@ public class Splashscreen extends AppCompatActivity implements GoogleApiClient.C
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splashscreen_layout);
-        if (getFirstApp()) {
-            Intent intent = new Intent(Splashscreen.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-        else {
-            setFirstApp();
-        }
         AnhXa();
-
-        // test send mail
-        sendEmail();
 
         //tạo 1 api yeu cau truy cap location service
         googleApiClient = new GoogleApiClient.Builder(this)
@@ -71,34 +60,14 @@ public class Splashscreen extends AppCompatActivity implements GoogleApiClient.C
         } else {
             googleApiClient.connect();
         }
-
-        //float action button
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isOpen) {
-                    fab2.hide();
-                    fab3.hide();
-                    fab2.setClickable(false);
-                    fab3.setClickable(false);
-                    isOpen = false;
-                }else {
-                    fab2.show();
-                    fab3.show();
-                    fab2.setClickable(true);
-                    fab3.setClickable(true);
-                    isOpen = true;
-                }
-            }
-        });
-
-        fab2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Splashscreen.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
+        if (getFirstApp()) {
+            Intent intent = new Intent(Splashscreen.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            setFirstApp();
+        }
     }
 
     //kiem tra vs request code tren.neu allow thi connect
@@ -163,19 +132,6 @@ public class Splashscreen extends AppCompatActivity implements GoogleApiClient.C
         btnVaobep = findViewById(R.id.btnVaobep);
         btnDangNhap = findViewById(R.id.btnDangnhap);
         sharedPreferences = getSharedPreferences("toado", MODE_PRIVATE);
-
-        // float action button
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab2 = (FloatingActionButton) findViewById(R.id.fab2);
-        fab3 = (FloatingActionButton) findViewById(R.id.fab3);
-    }
-
-    private void sendEmail() {
-        //Creating SendMail object
-        SendMail sm = new SendMail(this, "abc@gmail.com", "test mail", "hello");
-
-        //Executing sendmail to send email
-        sm.execute();
     }
 
     private void setFirstApp() {

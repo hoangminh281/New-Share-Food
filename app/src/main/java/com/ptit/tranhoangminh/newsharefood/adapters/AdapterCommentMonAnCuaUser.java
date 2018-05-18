@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +23,7 @@ import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.commentListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by TramLuc on 5/14/2018.
@@ -31,16 +33,14 @@ public class AdapterCommentMonAnCuaUser extends BaseAdapter {
     Activity context;
     int Layout;
     ArrayList<CommentMA> cmtArr;
-    ArrayList<String> listLike;
-    String username;
+    String username = "";
     commentListener Callback;
-    DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference mData = FirebaseDatabase.getInstance().getReference("members");
 
-    public AdapterCommentMonAnCuaUser(Activity context,int layout, ArrayList<CommentMA> cmtArr,String username,ArrayList<String> listLike, commentListener callback){
+    public AdapterCommentMonAnCuaUser(Activity context, int layout, ArrayList<CommentMA> cmtArr, commentListener callback) {
         this.context = context;
-        Layout =layout;
+        Layout = layout;
         this.cmtArr = cmtArr;
-        this.username = username;
         this.Callback = callback;
     }
 
@@ -52,16 +52,10 @@ public class AdapterCommentMonAnCuaUser extends BaseAdapter {
         this.cmtArr = cmtArr;
     }
 
-    public ArrayList<String> getListLike() {
-        return listLike;
-    }
 
-    public void setListLike(ArrayList<String> listLike) {
-        this.listLike = listLike;
-    }
     @Override
     public int getCount() {
-        if(cmtArr.isEmpty()){
+        if (cmtArr.isEmpty()) {
             return 0;
         }
         return cmtArr.size();
@@ -77,15 +71,14 @@ public class AdapterCommentMonAnCuaUser extends BaseAdapter {
         return 0;
     }
 
-    class viewHolder{
-        TextView txtusername, txtcomment,txtcountlike;
-        Button btnlike, btndelete;
+    class viewHolder {
+        TextView txtusername, txtcomment, txtcountlike;
+        Button btndelete;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        try {
-            viewHolder holder;
+            final viewHolder holder;
             if (view == null) {
                 holder = new viewHolder();
                 LayoutInflater layoutInflater = LayoutInflater.from(context);
@@ -101,34 +94,30 @@ public class AdapterCommentMonAnCuaUser extends BaseAdapter {
 
             final CommentMA cmt = cmtArr.get(i);
             final int position = i;
-            holder.txtusername.setText(cmt.getMembername());
-            holder.txtcomment.setText(cmt.getTieude() + cmt.getBinhluan());
+            holder.txtusername.setText(username);
+            holder.txtcomment.setText("Tiêu đề: " + cmt.getTieude() + "\n" + cmt.getBinhluan());
             holder.txtcountlike.setText(String.valueOf(cmt.getLike()));
-            mData.child("members/" + cmt.getMemberId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String id_image = dataSnapshot.child("hinhanh").getValue(String.class);
-                    StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
-
-                    LayoutInflater layoutInflater = LayoutInflater.from(context);
-
-                    View view = layoutInflater.inflate(Layout, null);
-                    ImageView img = view.findViewById(R.id.imgUser);
-                    FirebaseReference.setImageFromFireBase(mStorageRef.child("thanhvien/" + id_image), id_image, ".png", img );
-            }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
+         mData.child(cmt.getMemberId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String userName = dataSnapshot.child("hoten").getValue(String.class);
+                    holder.txtusername.setText(userName);
                 }
-            });
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
             holder.btndelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Callback.delete(position);
                 }
             });
-        }catch (Exception e){}
+
         return view;
     }
 }

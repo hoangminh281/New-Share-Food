@@ -3,11 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
-        android:textColor="@color/colorPrimary"
+        android:fontFamily="@font/roboto_bolditalic"
+        android:textStyle="italic"
+        android:text="Hàu sống mù tạt"
         android:id="@+id/txtTenLoaiMon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="15sp"
         />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleMenuDetail"

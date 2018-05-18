@@ -11,5 +11,5 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="MATERIALS"
-        android:textSize="15dp" />
+        android:textSize="17dp" />
 </RelativeLayout>

@@ -18,17 +18,17 @@
 
         >
 
-            <EditText
-                android:id="@+id/edtEmailLogin"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:padding="20sp"
-                android:background="@drawable/borderradius"
-                android:drawableRight="@mipmap/sd_03"
-                android:hint="Email"
-                android:layout_marginBottom="20dp"
+        <EditText
+            android:id="@+id/edtEmailLogin"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/borderradius"
+            android:drawableRight="@mipmap/sd_03"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
 
-                />
+            android:padding="20sp" />
 
             <EditText
                 android:id="@+id/edtPassLogin"

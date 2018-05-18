@@ -21,7 +21,7 @@ public class MenuStorePresenterLogic implements MenuStoreImp {
         MenuInterface menuInterface = new MenuInterface() {
             @Override
             public void getMenuStore(List<CategoryStoreModel> list) {
-                menuImp.getMenu(list);
+               menuImp.getMenu(list);
                 //Log.d("size_menu", list.size() + "");
             }
         };

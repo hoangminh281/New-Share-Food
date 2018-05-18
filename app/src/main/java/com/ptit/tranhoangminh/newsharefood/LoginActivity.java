@@ -1,6 +1,7 @@
 package com.ptit.tranhoangminh.newsharefood;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -47,24 +48,24 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     GoogleApiClient apiClient;
     public static int CODE_GG = 261;
     public static int CHECK_AUTHENTICATION = 0;
-    FirebaseAuth firebaseAuth;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
     EditText edtEmail, edtPass;
     TextView tvReset;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //  FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.login);
-        firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signOut();
         SetControl();
         btnGoogle.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         tvReset.setOnClickListener(this);
 
-//        btnDK.setOnClickListener(this);
+        sharedPreferences = getSharedPreferences("userId_login", MODE_PRIVATE);
         CreateClientLoginGG();
     }
 
@@ -124,19 +125,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 final GoogleSignInAccount signInAccount = googleSignInResult.getSignInAccount();
                 final String tokenID = signInAccount.getIdToken();
                 FirebaseLoginAuthentication(tokenID);
-                mRef.child("members").child(signInAccount.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (!dataSnapshot.exists()) {
-                            mRef.child("members").child(signInAccount.getId()).setValue(new MemberModel(signInAccount.getDisplayName(), "user.png", "", ""));
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Toast.makeText(LoginActivity.this, "Cannot create member", Toast.LENGTH_SHORT).show();
-                    }
-                });
             }
         }
     }
@@ -162,7 +150,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 break;
             case R.id.idResetPassword:
                 String mail = edtEmail.getText().toString();
-                FirebaseAuth.getInstance().sendPasswordResetEmail(mail)
+                firebaseAuth.sendPasswordResetEmail(mail)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
@@ -195,9 +183,26 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     //method: know status of user login or log out
     @Override
-    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+    public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
+        final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if (firebaseUser != null) {
+            //luu user_id
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("user_id", firebaseUser.getUid());
+            editor.commit();
+            mRef.child("members/" + firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (!dataSnapshot.exists()) {
+                        mRef.child("members/" + firebaseUser.getUid()).setValue(new MemberModel(firebaseUser.getDisplayName(), "user.png", firebaseUser.getEmail(), ""));
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(LoginActivity.this, "Cannot create member", Toast.LENGTH_SHORT).show();
+                }
+            });
             Intent in = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(in);
             finish();
@@ -210,6 +215,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     public void setOnclickHomeListener(View view) {
+        Intent register = new Intent(this, MainActivity.class);
+        startActivity(register);
         finish();
     }
 }

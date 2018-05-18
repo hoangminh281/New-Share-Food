@@ -1,7 +1,9 @@
 package com.ptit.tranhoangminh.newsharefood.adapters;
 
 import android.app.Activity;
+import android.media.Image;
 import android.telecom.Call;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,8 @@ import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.commentListener;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.CommentMA;
 
+import java.lang.reflect.Array;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -39,36 +43,28 @@ public class AdapterCommentMonAn extends BaseAdapter {
     ArrayList<CommentMA> cmtArr;
     ArrayList<String> listLike;
     commentListener Callback;
-    FirebaseStorage mStoreRef;
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    public AdapterCommentMonAn(Activity context,int layout, ArrayList<CommentMA> cmtArr, ArrayList<String> listLike, commentListener callback){
-        this.context = context;
-        Layout =layout;
-        this.cmtArr =cmtArr;
-        Callback = callback;
+    StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
 
+    public AdapterCommentMonAn(Activity context, int layout, ArrayList<CommentMA> cmtArr, commentListener callback) {
+        this.context = context;
+        this.Layout = layout;
+        this.cmtArr = cmtArr;
+        this.Callback = callback;
     }
 
     public ArrayList<CommentMA> getCmtArr() {
         return cmtArr;
     }
 
-    public void setCmtArr(ArrayList<CommentMA> cmtArr) {
+    public void setNewData(ArrayList<CommentMA> cmtArr) {
         this.cmtArr = cmtArr;
-    }
-
-    public ArrayList<String> getListLike() {
-        return listLike;
-    }
-
-    public void setListLike(ArrayList<String> listLike) {
-        this.listLike = listLike;
     }
 
     @Override
     public int getCount() {
-        if(cmtArr.isEmpty()){
+        if (cmtArr.isEmpty()) {
             return 0;
         }
         return cmtArr.size();
@@ -84,46 +80,44 @@ public class AdapterCommentMonAn extends BaseAdapter {
         return 0;
     }
 
-    class viewHolder{
+    class viewHolder {
         TextView txtusername, txtcomment, txtlike;
-        Button btnlike ;
+        Button btnlike;
         ImageView imgUser;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        viewHolder holder;
-        holder = new viewHolder();
-
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        view = layoutInflater.inflate(Layout, null);
-        holder.txtcomment = view.findViewById(R.id.txtComment);
-        holder.txtusername = view.findViewById(R.id.txtUsername);
-        holder.txtlike = view.findViewById(R.id.txtLike);
-        holder.btnlike = view.findViewById(R.id.btnLike);
-        holder.imgUser = view.findViewById(R.id.imgUser);
-        view.setTag(holder);
-
+        final viewHolder holder;
         final CommentMA cmt = cmtArr.get(i);
-
         Collection<String> key = cmt.getListLike().values();
         listLike = new ArrayList<>(key);
-        final int position = i;
-        holder.txtusername.setText(cmt.getMembername());
-        holder.txtcomment.setText(cmt.getTieude() +"\n" + cmt.getBinhluan());
+        if (view == null) {
+            LayoutInflater layoutInflater = LayoutInflater.from(context);
+            view = layoutInflater.inflate(Layout, null);
+            holder = new viewHolder();
+            holder.txtcomment = view.findViewById(R.id.txtComment);
+            holder.txtusername = view.findViewById(R.id.txtUsername);
+            holder.txtlike = view.findViewById(R.id.txtLike);
+            holder.btnlike = view.findViewById(R.id.btnLike);
+            holder.imgUser = view.findViewById(R.id.imgUser);
+
+            view.setTag(holder);
+        }
+        else {
+            holder = (viewHolder) view.getTag();
+        }
+        holder.txtcomment.setText(cmt.getTieude() + "\n" + cmt.getBinhluan());
         holder.txtlike.setText(String.valueOf(cmt.getLike()));
         mData.child("members/" + cmt.getMemberId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String id_image = dataSnapshot.child("hinhanh").getValue(String.class);
-                StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
-
-                LayoutInflater layoutInflater = LayoutInflater.from(context);
-
-                View view = layoutInflater.inflate(Layout, null);
-                ImageView img = view.findViewById(R.id.imgUser);
-                FirebaseReference.setImageFromFireBase(mStorageRef.child("thanhvien/" + id_image), id_image, ".png", img );
-
+                if (dataSnapshot.exists()) {
+                    String userName = dataSnapshot.child("hoten").getValue(String.class);
+                    String imgId = dataSnapshot.child("hinhanh").getValue(String.class);
+                    holder.txtusername.setText(userName);
+                    FirebaseReference.setImageFromFireBase(mStorageRef.child("thanhvien/" + imgId), imgId, ".png", holder.imgUser);
+                }
             }
 
             @Override
@@ -131,7 +125,8 @@ public class AdapterCommentMonAn extends BaseAdapter {
 
             }
         });
-        if(user != null){
+        final int position = i;
+        if (user != null) {
             if (listLike.contains(user.getUid())) {
                 holder.btnlike.setText("Bỏ thích");
                 holder.btnlike.setOnClickListener(new View.OnClickListener() {
@@ -140,8 +135,8 @@ public class AdapterCommentMonAn extends BaseAdapter {
                         Callback.unlikeAction(position);
                     }
 
-            });
-            }else{
+                });
+            } else {
                 holder.btnlike.setText("Thích");
                 holder.btnlike.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -150,7 +145,7 @@ public class AdapterCommentMonAn extends BaseAdapter {
                     }
                 });
             }
-        }else{
+        } else {
             holder.btnlike.setVisibility(View.INVISIBLE);
         }
         return view;

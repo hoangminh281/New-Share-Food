@@ -13,7 +13,6 @@ public class CommentMA {
     String memberId;
     String tieude;
     String binhluan;
-    String membername;
     HashMap<String,String> listLike= new HashMap<>();
     int like;
 
@@ -36,7 +35,6 @@ public class CommentMA {
         this.memberId = memberId;
         this.tieude = tieude;
         this.binhluan = binhluan;
-        this.membername = membername;
         this.like = like;
     }
 
@@ -48,13 +46,7 @@ public class CommentMA {
         this.like = like;
     }
 
-    public String getMembername() {
-        return membername;
-    }
 
-    public void setMembername(String membername) {
-        this.membername = membername;
-    }
 
     public String getProductId() {
         return productId;

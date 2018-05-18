@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
 
     <application
         android:allowBackup="true"
@@ -22,20 +24,17 @@
         <activity android:name=".views.CategoryViews.activities.CategoryActivity" />
         <activity android:name=".views.ProductViews.activities.ProductActivity" />
         <activity android:name=".Splashscreen">
-
-        </activity>
-        <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".views.Register.RegisterActivity" />
         <activity android:name=".views.SavedProductViews.activities.SavedProductActivity" />
         <activity android:name=".views.SavedProductDetailViews.activities.SavedProductDetailActivity" />
         <activity android:name=".views.StoreDetail.ChiTietQuanAnActivity" />
-        <activity android:name=".views.HomePageRes.HomePageResActivity" />
         <activity android:name=".views.NewProductDetailViews.activities.NewProductDetailActivity" />
         <activity android:name=".views.SearchViews.SeachViewActivity" />
         <activity android:name=".UserActivity" />
@@ -47,8 +46,10 @@
         <activity android:name=".views.CommentDetail.ChiTietBinhLuanActivity" />
         <activity android:name=".views.DirectionMap.DirectionMapStoreActivity" />
         <activity android:name=".views.AddEditProductViews.activities.NewModifyProductActivity" />
-        <activity android:name=".views.AddComment.AddCommentActivity"></activity>
-        <activity android:name=".views.Orderfood.MyCartActivity"></activity>
+        <activity android:name=".views.AddComment.AddCommentActivity"/>
+        <activity android:name=".views.Orderfood.MyCartActivity"/>
+        <activity android:name=".views.StoreDetail.StoreDetailActivity"/>
+        <activity android:name=".views.AddStore.AddStoreActivity"/>
     </application>
 
 </manifest>

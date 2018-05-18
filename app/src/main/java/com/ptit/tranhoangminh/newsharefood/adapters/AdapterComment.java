@@ -55,18 +55,19 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
     }
 
     @Override
-    public AdapterComment.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(layout,parent,false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final AdapterComment.ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         final CommentModel binhLuanModel = commentModelList.get(position);
         holder.txtTieuDeBinhLuan.setText(binhLuanModel.getTieude());
         holder.txtNoiDungBinhLuan.setText(binhLuanModel.getNoidung());
         holder.txtSoDiem.setText(binhLuanModel.getChamdiem() + "");
+
         setHinhAnhBinhLuan(holder.circleImageView,binhLuanModel.getMemberModel().getHinhanh());
 
         //duyệt mảng string hình comment-- bỏ vào list bitmap--truyền qua adapter recycle view image commment

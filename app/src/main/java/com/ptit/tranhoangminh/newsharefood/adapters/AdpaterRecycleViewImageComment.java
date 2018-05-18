@@ -42,7 +42,7 @@ public class AdpaterRecycleViewImageComment extends RecyclerView.Adapter<Adpater
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
-        ViewHolder viewHolder = new AdpaterRecycleViewImageComment.ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 

@@ -1,6 +1,7 @@
 package com.ptit.tranhoangminh.newsharefood.views.SavedProductDetailViews.activities;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -37,13 +38,19 @@ public class SavedProductDetailActivity extends AppCompatActivity implements Sav
     MaterialFragment materialFragment;
     RecipeFragment recipeFragment;
     RelativeLayout relativeLayout;
+    Toolbar toolbar;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_product_detail_layout);
         productKey = (ProductSQLite) getIntent().getSerializableExtra("objectKey");
         setControl();
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         initPresenter();
         savedProductDetailPresenter.loadSavedProductDetail(productKey.getId());
@@ -59,7 +66,7 @@ public class SavedProductDetailActivity extends AppCompatActivity implements Sav
         imgProductDetail = findViewById(R.id.imageViewProductDetail);
         materialFragment = new MaterialFragment();
         recipeFragment = new RecipeFragment();
-
+        toolbar = findViewById(R.id.toolbar);
     }
 
     private void initPresenter() {
@@ -96,6 +103,10 @@ public class SavedProductDetailActivity extends AppCompatActivity implements Sav
 
     @Override
     public void displayProductDetail(ProductDetail productDetail) {
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
+
         tvName.setText(productKey.getName());
         imgProductDetail.setImageBitmap(productKey.getByteasBitmap());
         Bundle materialBundle = new Bundle();

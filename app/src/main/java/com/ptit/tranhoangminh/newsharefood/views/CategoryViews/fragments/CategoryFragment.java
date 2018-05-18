@@ -26,7 +26,6 @@ import java.util.List;
 
 public class CategoryFragment extends Fragment implements CategoryView {
     ListView lvMonAn;
-    Toolbar toolbar;
     ProgressBar pgbCategory;
     CategoryPresenter categoryPresenter;
     private List<Category> categoriesList;
@@ -46,7 +45,6 @@ public class CategoryFragment extends Fragment implements CategoryView {
 
     private void setControl(View view) {
         lvMonAn = view.findViewById(R.id.lvMonAn);
-        toolbar = view.findViewById(R.id.toolbar);
         pgbCategory = view.findViewById(R.id.progressBarCategories);
     }
 

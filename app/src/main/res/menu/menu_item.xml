@@ -2,36 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/search"
-        android:icon="@drawable/itemblack_05"
-        android:title="Tìm kiếm"
-        app:showAsAction="always"></item>
-
+        android:id="@+id/menuSignIn"
+        android:icon="@drawable/icon_12"
+        android:title="Đăng nhập"
+        app:showAsAction="always" />
     <item
-        android:icon="@mipmap/ic_more_vert_white_36dp"
-        android:title="menu"
-        app:showAsAction="always">
-        <menu>
-            <item
-                android:icon="@drawable/icon_12"
-                android:title="Đăng nhập"></item>
-            <item
-                android:id="@+id/menuThemmon"
-                android:icon="@mipmap/ic_add_black_24dp"
-                android:title="Thêm"></item>
-            <item
-                android:id="@+id/menuDaluu"
-                android:icon="@mipmap/gmail"
-                android:title="Đã lưu"></item>
-            <item
-                android:icon="@mipmap/ic_add_alert_black_24dp"
-                android:title="Thông báo"></item>
-            <item
-                android:icon="@mipmap/ic_mood_black_24dp"
-                android:title="Hướng dẫn"></item>
-            <item
-                android:icon="@mipmap/ic_settings_black_24dp"
-                android:title="Cài đặt"></item>
-        </menu>
-    </item>
+        android:id="@+id/menuSignOut"
+        android:icon="@mipmap/gmail"
+        android:title="Đăng xuất"
+        app:showAsAction="always"/>
 </menu>

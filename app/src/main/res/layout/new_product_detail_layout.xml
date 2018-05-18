@@ -6,6 +6,13 @@
     android:orientation="vertical"
     android:weightSum="10">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/themeApp"
+        app:titleTextColor="#fff"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -94,7 +101,7 @@
 
         <CheckBox
             android:id="@+id/checkboxSave"
-            android:layout_width="50dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="2dp"
@@ -102,8 +109,9 @@
             android:layout_toLeftOf="@+id/buttonShare"
             android:background="@null"
             android:button="@drawable/checkboxsave_custom"
-            android:fontFamily="@font/font_roboto_bold"
             android:text="LƯU"
+            android:textStyle="bold"
+            android:textAllCaps="true"
             android:textAlignment="center"
             android:textColor="#232323"
             android:textSize="12sp" />

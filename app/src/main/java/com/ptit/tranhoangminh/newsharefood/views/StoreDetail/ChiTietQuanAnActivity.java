@@ -54,7 +54,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
     TextView txtTenQuan, txtDiaChi, txtHinh, txtCheckin, txtThoiGianHD, txtTongBL, txtTongLuu, txtTrangThaiHD;
     ImageView imgHinhQuanAn;
     StoreModel storeModel;
-    RecyclerView recyclerView, recyclerViewMenu;
+    RecyclerView recyclerView,recyclerViewMenu;
     AdapterComment adapterComment;
     AdapterRecycleViewMenuStore adapterRecycleViewMenuStore;
     NestedScrollView nestedScrollViewCT;
@@ -62,7 +62,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
     MapFragment mapFragment;
     LinearLayout linearLayoutTienIch;
     View view;
-    Button btnComment, btnAddCart;
+    Button btnComment,btnAddCart;
     MenuStorePresenterLogic menuStorePresenterLogic;
     public static int REQUEST_CODE_COMMENT = 999;
 
@@ -70,40 +70,21 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chitiet_quanan_layout);
+
         AddControl();
         storeModel = getIntent().getParcelableExtra("store");
 
-        DowloadImage();
-        mapFragment.getMapAsync(this);
+        DisplayStoreDetail();
+
+
+
         view.setOnClickListener(this);
         btnComment.setOnClickListener(this);
         btnAddCart.setOnClickListener(this);
+
     }
 
-    private void AddControl() {
-        imgHinhQuanAn = findViewById(R.id.imgHinhChiTiet);
-        txtDiaChi = findViewById(R.id.txtDiaChiCT);
-        txtHinh = findViewById(R.id.txttongSoHinhAnhCT);
-        txtCheckin = findViewById(R.id.txttongSoCheckInCT);
-        txtThoiGianHD = findViewById(R.id.txtThoiGianHoatDong);
-        txtTongBL = findViewById(R.id.txttongSoBinhLuanCT);
-        txtTongLuu = findViewById(R.id.txtTongSoLuuLaiCT);
-        txtTrangThaiHD = findViewById(R.id.txtTrangThaiHoatDong);
-        txtTenQuan = findViewById(R.id.txtTenQuanAnCT);
-        recyclerView = findViewById(R.id.recyclerBinhLuanChiTietQuanAn);
-        nestedScrollViewCT = findViewById(R.id.netScrollViewCT);
-        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-        linearLayoutTienIch = findViewById(R.id.linerTienIch);
-        view = findViewById(R.id.khungchuyenhuongMap);
-        btnComment = findViewById(R.id.btnComment);
-        btnAddCart = findViewById(R.id.btnAddCart);
-        recyclerViewMenu = findViewById(R.id.recycleviewMenu);
-        menuStorePresenterLogic = new MenuStorePresenterLogic(ChiTietQuanAnActivity.this);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
+    private void DisplayStoreDetail() {
         //xu li thoi gian mo/dong cua
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
@@ -123,14 +104,21 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        txtTenQuan.setText(storeModel.getTenquan());
+        //kết thúc xử lí thời gian đóng mở cửa
+
+        //Hiển thị địa chỉ,thời gian HD,số hình ảnh cũng như tổng bình luận
+        //txtTenQuan.setText(storeModel.getTenquan());
         txtDiaChi.setText(storeModel.getBranchModelList().get(0).getDiachi());
         txtThoiGianHD.setText(storeModel.getGiomocua() + " - " + storeModel.getGiodongcua());
         txtHinh.setText(storeModel.getHinhanh().size() + "");
         txtTongBL.setText(storeModel.getCommentModelList().size() + "");
 
-        //doload hình tiện ích
 
+        //dowload hình tiện ích của quán
+        DowloadImage();
+
+        //hiển thị google map
+        mapFragment.getMapAsync(this);
 
         //set image
         StorageReference storageReferenceImage = FirebaseStorage.getInstance().getReference().child("images").child(storeModel.getHinhanh().get(0));
@@ -142,12 +130,38 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
                 imgHinhQuanAn.setImageBitmap(bitmap);
             }
         });
+
+
         //load comment
         setAdapter();
 
-
         //scrollview luôn hiển thi trên cùng khi load xong data
         nestedScrollViewCT.smoothScrollBy(0, 0);
+    }
+
+    private void AddControl() {
+        imgHinhQuanAn = findViewById(R.id.imgHinhChiTiet);
+        txtDiaChi = findViewById(R.id.txtDiaChiCT);
+        txtHinh = findViewById(R.id.txttongSoHinhAnhCT);
+        txtCheckin = findViewById(R.id.txttongSoCheckInCT);
+        txtThoiGianHD = findViewById(R.id.txtThoiGianHoatDong);
+        txtTongBL = findViewById(R.id.txttongSoBinhLuanCT);
+        txtTongLuu = findViewById(R.id.txtTongSoLuuLaiCT);
+        txtTrangThaiHD = findViewById(R.id.txtTrangThaiHoatDong);
+        recyclerView = findViewById(R.id.recyclerBinhLuanChiTietQuanAn);
+        nestedScrollViewCT = findViewById(R.id.netScrollViewCT);
+        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        linearLayoutTienIch = findViewById(R.id.linerTienIch);
+        view = findViewById(R.id.khungchuyenhuongMap);
+        btnComment = findViewById(R.id.btnComment);
+        btnAddCart=findViewById(R.id.btnAddCart);
+        recyclerViewMenu = findViewById(R.id.recycleviewMenu);
+        menuStorePresenterLogic = new MenuStorePresenterLogic(ChiTietQuanAnActivity.this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     private void setAdapter() {
@@ -156,10 +170,8 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
         adapterComment = new AdapterComment(this, R.layout.custom_layout_comment, storeModel.getCommentModelList());
         recyclerView.setAdapter(adapterComment);
         adapterComment.notifyDataSetChanged();
-
-        //scrollview luôn hiển thi trên cùng khi load xong data
-        nestedScrollViewCT.smoothScrollBy(0, 0);
         menuStorePresenterLogic.getMenu(storeModel.getMaquanan());
+
     }
 
     @Override
@@ -168,7 +180,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
         LatLng latLng = new LatLng(storeModel.getBranchModelList().get(0).getLatitude(), storeModel.getBranchModelList().get(0).getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
-        markerOptions.title(storeModel.getTenquan());
+        markerOptions.title(storeModel.getTenquanan());
         googleMap.addMarker(markerOptions);
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
         googleMap.moveCamera(cameraUpdate);
@@ -199,7 +211,6 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
                         }
                     });
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
@@ -213,17 +224,16 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
         int id = view.getId();
         switch (id) {
             case R.id.khungchuyenhuongMap:
-            Intent iDirection = new Intent(ChiTietQuanAnActivity.this, DirectionMapStoreActivity.class);
-            iDirection.putExtra("latitute", storeModel.getBranchModelList().get(0).getLatitude());
-            iDirection.putExtra("longtitute", storeModel.getBranchModelList().get(0).getLongitude());
-            Log.d("check", storeModel.getBranchModelList().get(0).getLatitude() + "-" + storeModel.getBranchModelList().get(0).getLongitude());
-            startActivity(iDirection);
-            break;
+                Intent iDirection = new Intent(ChiTietQuanAnActivity.this, DirectionMapStoreActivity.class);
+                iDirection.putExtra("latitute", storeModel.getBranchModelList().get(0).getLatitude());
+                iDirection.putExtra("longtitute", storeModel.getBranchModelList().get(0).getLongitude());
+                Log.d("check", storeModel.getBranchModelList().get(0).getLatitude() + "-" + storeModel.getBranchModelList().get(0).getLongitude());
+                startActivity(iDirection);
+                break;
             case R.id.btnComment:
+                Toast.makeText(this, storeModel.getMaquanan(), Toast.LENGTH_SHORT).show();
                 Intent iComment = new Intent(ChiTietQuanAnActivity.this, AddCommentActivity.class);
                 iComment.putExtra("key_store", storeModel.getMaquanan());
-                iComment.putExtra("name_store", storeModel.getTenquan());
-                iComment.putExtra("address_store", storeModel.getBranchModelList().get(0).getDiachi());
                 startActivityForResult(iComment, REQUEST_CODE_COMMENT);
                 break;
             case R.id.btnAddCart:
@@ -248,10 +258,13 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
 
     @Override
     public void getMenu(List<CategoryStoreModel> list) {
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this);
         recyclerViewMenu.setLayoutManager(layoutManager);
-        adapterRecycleViewMenuStore = new AdapterRecycleViewMenuStore(this, list);
+        adapterRecycleViewMenuStore = new AdapterRecycleViewMenuStore(this,list);
         recyclerViewMenu.setAdapter(adapterRecycleViewMenuStore);
         adapterRecycleViewMenuStore.notifyDataSetChanged();
     }
 }
+
+
+

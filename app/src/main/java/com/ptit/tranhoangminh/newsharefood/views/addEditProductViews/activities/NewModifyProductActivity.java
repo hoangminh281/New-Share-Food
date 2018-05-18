@@ -62,6 +62,7 @@ public class NewModifyProductActivity extends AppCompatActivity implements AddEd
 
     private static String begin_pattern = "v=";
     private static String end_pattern = "&";
+    private static String url="https://www.youtube.com/watch?v=";
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -326,7 +327,7 @@ public class NewModifyProductActivity extends AppCompatActivity implements AddEd
         img.setImageBitmap(bitmap);
         materialAdapter.setMaterials(productDetail.getMaterials());
         recipeAdapter.setRecipe(productDetail.getRecipe());
-        edtVideo.setText(productDetail.getVideo());
+        edtVideo.setText(url + productDetail.getVideo());
     }
 
     @Override

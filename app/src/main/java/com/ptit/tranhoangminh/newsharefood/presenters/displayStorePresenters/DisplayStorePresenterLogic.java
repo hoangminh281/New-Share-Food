@@ -1,12 +1,9 @@
-package com.ptit.tranhoangminh.newsharefood.presenters.DisplayStore;
+package com.ptit.tranhoangminh.newsharefood.presenters.displayStorePresenters;
 
 import android.location.Location;
-import android.util.Log;
 
 import com.ptit.tranhoangminh.newsharefood.models.StoreModel;
 import com.ptit.tranhoangminh.newsharefood.views.HomePageRes.StoreImp;
-
-import java.util.List;
 
 /**
  * Created by Dell on 5/6/2018.

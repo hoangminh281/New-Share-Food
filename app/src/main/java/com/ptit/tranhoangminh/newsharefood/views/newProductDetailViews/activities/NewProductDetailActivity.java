@@ -1,5 +1,6 @@
 package com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -11,6 +12,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,11 +24,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.ptit.tranhoangminh.newsharefood.LoginActivity;
 import com.ptit.tranhoangminh.newsharefood.R;
 import com.ptit.tranhoangminh.newsharefood.models.MemberModel;
 import com.ptit.tranhoangminh.newsharefood.models.Product;
 import com.ptit.tranhoangminh.newsharefood.models.ProductDetail;
 import com.ptit.tranhoangminh.newsharefood.presenters.productDetailPresenters.ProductDetailPresenter;
+import com.ptit.tranhoangminh.newsharefood.views.AddEditProductViews.activities.NewModifyProductActivity;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.Comment_FullCommentFragment;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.Comment_MyCommentFragment;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.Comment_WriteCommentFragment;
@@ -36,6 +43,7 @@ import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.MaterialFragment;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.RecipeFragment;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.VideoFragment;
+import com.ptit.tranhoangminh.newsharefood.views.ProductViews.activities.ProductActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +63,9 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
     CommentFragment commentFragment;
     CheckBox cbSave;
     Button btnShare;
+    Toolbar toolbar;
+
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +73,9 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
         productKey = (Product) getIntent().getSerializableExtra("objectKey");
 
         setControls();
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
         initPresenter();
         productDetailPresenter.loadProductDetail(productKey.getId(), productKey.getImage(), productKey.getMember_id());
@@ -83,12 +97,43 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
         materialFragment = new MaterialFragment();
         recipeFragment = new RecipeFragment();
         videoFragment = new VideoFragment();
-        commentFragment = new CommentFragment(this,productKey);
+        commentFragment = new CommentFragment(this, productKey);
         cbSave = findViewById(R.id.checkboxSave);
         btnShare = findViewById(R.id.buttonShare);
         tvOwnerName = findViewById(R.id.textviewOwnerName);
         imgOwner = findViewById(R.id.imageViewOwner);
+        toolbar = findViewById(R.id.toolbar);
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.onBackPressed();
+                break;
+            case R.id.menuSignIn:
+                Intent intent = new Intent(NewProductDetailActivity.this, LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.menuAddProduct:
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    intent = new Intent(NewProductDetailActivity.this, NewModifyProductActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("mode", ProductActivity.ADD_MODE);
+                    intent.putExtras(bundle);
+                    startActivityForResult(intent, 1111);
+                } else {
+                    intent = new Intent(NewProductDetailActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.menuSignOut:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     void setEvents() {
         cbSave.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -114,6 +159,18 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
                 startActivity(Intent.createChooser(intent, "Sharing via:"));
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_product, menu);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            menu.findItem(R.id.menuSignIn).setVisible(false);
+        } else {
+            menu.findItem(R.id.menuSignOut).setVisible(false);
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -154,7 +211,7 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
-        
+
         tvName.setText(productKey.getName());
         tvView.setText(productDetail.getLike() + "");
         materialFragment.setMaterials(productDetail.getMaterials());

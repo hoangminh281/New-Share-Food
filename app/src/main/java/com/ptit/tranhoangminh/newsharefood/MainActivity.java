@@ -13,11 +13,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.ptit.tranhoangminh.newsharefood.views.AddEditProductViews.activities.NewModifyProductActivity;
 import com.ptit.tranhoangminh.newsharefood.views.CategoryViews.fragments.CategoryFragment;
+import com.ptit.tranhoangminh.newsharefood.views.HomePageApp.HomePageAppActivity;
+import com.ptit.tranhoangminh.newsharefood.views.HomePageRes.HomePageResActivity;
+import com.ptit.tranhoangminh.newsharefood.views.ProductViews.activities.ProductActivity;
+import com.ptit.tranhoangminh.newsharefood.views.SavedProductViews.activities.SavedProductActivity;
 import com.ptit.tranhoangminh.newsharefood.views.SavedProductViews.fragments.SavedProductFragment;
+import com.ptit.tranhoangminh.newsharefood.views.SearchViews.SeachViewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +58,41 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPagerHome);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_item, menu);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            menu.findItem(R.id.menuSignIn).setVisible(false);
+        }
+        else {
+            menu.findItem(R.id.menuSignOut).setVisible(false);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuSignIn:
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.menuSignOut:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new CategoryFragment(), "Category");
-        adapter.addFragment(new SavedProductFragment(), "SavedProduct");
-        adapter.addFragment(new SavedProductFragment(), "SavedProduct");
-        adapter.addFragment(new SavedProductFragment(), "SavedProduct");
+        adapter.addFragment(new HomePageAppActivity(), "Home");
+        adapter.addFragment(new HomePageResActivity(), "Store");
+        adapter.addFragment(new CategoryFragment(), "SavedProduct");
         adapter.addFragment(new SavedProductFragment(), "SavedProduct");
         adapter.addFragment(new SavedProductFragment(), "SavedProduct");
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(6);
+        viewPager.setOffscreenPageLimit(5);
     }
 
 
@@ -66,10 +100,9 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             tabLayout.getTabAt(0).setIcon(R.mipmap.ic_home).getIcon().setTint(getResources().getColor(R.color.themeApp));
             tabLayout.getTabAt(1).setIcon(R.mipmap.ic_store).getIcon();
-            tabLayout.getTabAt(2).setIcon(R.mipmap.ic_search).getIcon();
-            tabLayout.getTabAt(3).setIcon(R.mipmap.ic_cook).getIcon();
-            tabLayout.getTabAt(4).setIcon(R.mipmap.ic_save).getIcon();
-            tabLayout.getTabAt(5).setIcon(R.mipmap.ic_person).getIcon();
+            tabLayout.getTabAt(2).setIcon(R.mipmap.ic_cook).getIcon();
+            tabLayout.getTabAt(3).setIcon(R.mipmap.ic_save).getIcon();
+            tabLayout.getTabAt(4).setIcon(R.mipmap.ic_person).getIcon();
         }
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

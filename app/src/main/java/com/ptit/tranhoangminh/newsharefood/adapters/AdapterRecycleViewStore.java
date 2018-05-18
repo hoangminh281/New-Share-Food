@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,7 +26,10 @@ import com.ptit.tranhoangminh.newsharefood.R;
 import com.ptit.tranhoangminh.newsharefood.models.BranchModel;
 import com.ptit.tranhoangminh.newsharefood.models.CommentModel;
 import com.ptit.tranhoangminh.newsharefood.models.StoreModel;
+import com.ptit.tranhoangminh.newsharefood.views.AddComment.AddCommentActivity;
+import com.ptit.tranhoangminh.newsharefood.views.Orderfood.MyCartActivity;
 import com.ptit.tranhoangminh.newsharefood.views.StoreDetail.ChiTietQuanAnActivity;
+import com.ptit.tranhoangminh.newsharefood.views.StoreDetail.StoreDetailActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,17 +54,17 @@ public class AdapterRecycleViewStore extends RecyclerView.Adapter<AdapterRecycle
 
     @NonNull
     @Override
-    public AdapterRecycleViewStore.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final AdapterRecycleViewStore.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final StoreModel storeModel = storeModelList.get(position);
 
-        holder.txtTenQuanAn.setText(storeModel.getTenquan());
+        holder.txtTenQuanAn.setText(storeModel.getTenquanan());
 
         //store có giao hàng thì button order display-------------
         if (storeModel.isGiaohang()) {
@@ -95,34 +99,26 @@ public class AdapterRecycleViewStore extends RecyclerView.Adapter<AdapterRecycle
             } catch (IOException e) {
 
             }
-           /* StorageReference storageReferenceImage= FirebaseStorage.getInstance().getReference().child("images") .child(storeModel.getHinhanh().get(0));
 
-            Log.d("kt2",storeModel.getHinhanh().get(0));
-            final long ONE_MEGABYTE = 1024 * 1024;
-            storageReferenceImage.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                @Override
-                public void onSuccess(byte[] bytes) {
-                    Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                    holder.imgHinh.setImageBitmap(bitmap);
-                }
-            });*/
         }
         //kiểm tra store có comment thì hiển thị ra-----------------
 
+
+
         if (storeModel.getCommentModelList().size() > 0) {
-            CommentModel commentModel = storeModel.getCommentModelList().get(0);
+           /* CommentModel commentModel = storeModel.getCommentModelList().get(0);
             holder.txtTieude.setText(commentModel.getTieude());
             holder.txtNoidung.setText(commentModel.getNoidung());
-            holder.txtDiem1.setText(String.valueOf(commentModel.getChamdiem()));
+            holder.txtDiem1.setText(String.valueOf(commentModel.getChamdiem())+" point");
             Log.d("kt2", commentModel.getTieude());
             setImageUserComment(holder.circleImageView1, commentModel.getMemberModel().getHinhanh());
             if (storeModel.getCommentModelList().size() > 2) {
                 CommentModel commentMode2 = storeModel.getCommentModelList().get(1);
                 holder.txtTieude2.setText(commentMode2.getTieude());
                 holder.txtNoidung2.setText(commentMode2.getNoidung());
-                holder.txtDiem2.setText(String.valueOf(commentMode2.getChamdiem()));
+                holder.txtDiem2.setText(String.valueOf(commentMode2.getChamdiem())+" point");
                 setImageUserComment(holder.circleImageView2, commentMode2.getMemberModel().getHinhanh());
-            }
+            }*/
             holder.txtTongBL.setText(storeModel.getCommentModelList().size() + "");
             int toatl_image_comment = 0;
             double total_point_comment = 0;
@@ -142,8 +138,6 @@ public class AdapterRecycleViewStore extends RecyclerView.Adapter<AdapterRecycle
         } else {
             holder.txtTongHinh.setText("0");
             holder.txtTongBL.setText("0");
-            holder.bl1.setVisibility(View.GONE);
-            holder.bl2.setVisibility(View.GONE);
         }
         //get addree and distance----------
         if (storeModel.getBranchModelList().size() > 0) {
@@ -161,15 +155,18 @@ public class AdapterRecycleViewStore extends RecyclerView.Adapter<AdapterRecycle
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(context, storeModel.getTenquanan(), Toast.LENGTH_SHORT).show();
                 Intent iChitiet = new Intent(context, ChiTietQuanAnActivity.class);
                 iChitiet.putExtra("store", storeModel);
                 context.startActivity(iChitiet);
+
+
             }
         });
 
     }
 
-    public void setImageUserComment(final CircleImageView circleImageView, String image_link) {
+  /*  public void setImageUserComment(final CircleImageView circleImageView, String image_link) {
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference().child("thanhvien").child(image_link);
         long ONE_MEGABYTE = 1024 * 1024;
         storageReference1.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -179,7 +176,7 @@ public class AdapterRecycleViewStore extends RecyclerView.Adapter<AdapterRecycle
                 circleImageView.setImageBitmap(bitmap);
             }
         });
-    }
+    }*/
 
     @Override
     public int getItemCount() {
@@ -200,16 +197,16 @@ public class AdapterRecycleViewStore extends RecyclerView.Adapter<AdapterRecycle
             txtTenQuanAn = itemView.findViewById(R.id.txtTenQuanAn);
             btnorder = itemView.findViewById(R.id.btnOrder);
             imgHinh = itemView.findViewById(R.id.imgHinhQuanAn);
-            txtTieude = itemView.findViewById(R.id.txtTieude);
-            txtNoidung = itemView.findViewById(R.id.txtNoidung);
-            txtTieude2 = itemView.findViewById(R.id.txtTieude2);
-            txtNoidung2 = itemView.findViewById(R.id.txtNoidung2);
-            circleImageView1 = itemView.findViewById(R.id.imgUser);
-            circleImageView2 = itemView.findViewById(R.id.imgUser2);
-            bl1 = itemView.findViewById(R.id.linearBL1);
-            bl2 = itemView.findViewById(R.id.linearBL2);
-            txtDiem1 = itemView.findViewById(R.id.txtDiem1);
-            txtDiem2 = itemView.findViewById(R.id.txtDiem2);
+            //txtTieude = itemView.findViewById(R.id.txtTieude);
+            //txtNoidung = itemView.findViewById(R.id.txtNoidung);
+            //txtTieude2 = itemView.findViewById(R.id.txtTieude2);
+           // txtNoidung2 = itemView.findViewById(R.id.txtNoidung2);
+           // circleImageView1 = itemView.findViewById(R.id.imgUser);
+           // circleImageView2 = itemView.findViewById(R.id.imgUser2);
+           // bl1 = itemView.findViewById(R.id.linearBL1);
+          //  bl2 = itemView.findViewById(R.id.linearBL2);
+            //txtDiem1 = itemView.findViewById(R.id.txtDiem1);
+           // txtDiem2 = itemView.findViewById(R.id.txtDiem2);
             txtTongBL = itemView.findViewById(R.id.txtTongBL);
             txtTongHinh = itemView.findViewById(R.id.txtTongHinh);
             txtDTB = itemView.findViewById(R.id.txtDTB);

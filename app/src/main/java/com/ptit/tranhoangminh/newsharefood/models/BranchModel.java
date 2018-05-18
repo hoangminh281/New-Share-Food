@@ -4,8 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class BranchModel implements Parcelable{
-     String diachi;
-     double latitude,longitude,distance;
+    String diachi;
+    double latitude,longitude,distance;
     public BranchModel() {
     }
 

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/background_gray"
     android:orientation="vertical">
 
     <include layout="@layout/layout_toolbar" />
@@ -19,50 +18,23 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-
-            >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imgHinhChiTiet"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/hinh" />
 
             <LinearLayout
+                android:background="#fff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
 
                 >
-
-                <TextView
-                    android:id="@+id/txtTenQuanAnCT"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
-                    android:text="Trà sữa Tokyo"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/txtDiaChiCT"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
-                    android:text="50 Man Thiện"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="15sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/colorPrimary" />
+                //tải ảnh,check in ...
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -88,29 +60,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Tải ảnh"
+                            android:textStyle="bold"
 
                             />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/txttongSoCheckInCT"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="123"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Check in" />
 
                     </LinearLayout>
 
@@ -131,7 +83,30 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bình luận" />
+                            android:text="Bình luận"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txttongSoCheckInCT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="123"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Check in"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -153,7 +128,8 @@
                             android:id="@+id/txtTongSoLuuLaiCT"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Chia sẻ" />
+                            android:text="Chia sẻ"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -163,24 +139,44 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
+                    android:background="@color/background_gray" />
 
-                    android:background="@color/colorPrimary" />
+                //thời gian đóng mở cửa quán
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:orientation="vertical"
                     android:padding="5dp">
 
-                    <TextView
-                        android:id="@+id/txtThoiGianHoatDong"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="7:00 - 20:00" />
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/time" />
+
+                        <TextView
+                            android:id="@+id/txtThoiGianHoatDong"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:text="7:00 - 20:00"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
 
                     <TextView
+                        android:textColor="@color/themeApp"
                         android:id="@+id/txtTrangThaiHoatDong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -189,7 +185,33 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
+                //địa chỉ quán
                 <LinearLayout
+                  android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:src="@mipmap/placeholder"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+                    <TextView
+                        android:textStyle="bold"
+                        android:id="@+id/txtDiaChiCT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:text="50 Man Thiện, Hiệp phú, Q9, Hồ Chí Minh"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+
+
+                //tiên ich: wifi, gửi xe
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:background="#fff"
                     android:id="@+id/linerTienIch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -197,31 +219,48 @@
 
                 </LinearLayout>
 
+                //hiển thị bản đồ
 
+                <include layout="@layout/tinhnang_store_layout"></include>
             </LinearLayout>
 
-            <include layout="@layout/tinhnang_store_layout"></include>
-            <include layout="@layout/layout_comment"> </include>
+            //chi tiết mennu quán ăn
+            <include layout="@layout/menu_store_layout"></include>
+            <LinearLayout
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+
+                    android:layout_gravity="center"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:background="@color/themeApp"
+                    android:id="@+id/btnAddCart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Giao hàng tận nơi" />
+            </LinearLayout>
+
+
+            //hien thi comment
+            <include layout="@layout/layout_comment"></include>
 
             <Button
-                android:id="@+id/btnComment"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
+                android:textAllCaps="false"
+                android:textColor="#fff"
                 android:layout_gravity="center"
+                android:background="@color/themeApp"
+                android:id="@+id/btnComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Comment" />
 
 
-            //hiển thị bản đồ
-            <include layout="@layout/tinhnang_store_layout"></include>
-            //chi tiết mennu quán ăn
-            <include layout="@layout/menu_store_layout"></include>
-            <Button
-                android:id="@+id/btnAddCart"
-                android:text="Add cart"
-                android:layout_width="100dp"
-                android:layout_height="50dp" />
-            //hiển thị bình luận
-            <include layout="@layout/layout_comment"></include>
+
+
+
+
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

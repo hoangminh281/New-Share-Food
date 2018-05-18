@@ -40,9 +40,7 @@ public class OrderFoodModel {
     @Override
     public String toString() {
         return
-                "tenmon='" + tenmon + '\'' +
-                ", soluong='" + soluong +'\''+
-                ",giatien="+giatien;
+                "Tên món: "+tenmon+"\n"+"Số lượng: "+soluong+"\n"+"Giá tiền: "+giatien;
 
     }
 }

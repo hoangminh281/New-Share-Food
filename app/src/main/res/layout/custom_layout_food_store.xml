@@ -1,43 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:padding="5dp"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Hàu sống"
+            android:textStyle="italic"
+            android:id="@+id/txtTenMonAnStore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+        <LinearLayout
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imgGiamSL"
+                android:src="@mipmap/minus"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+            <TextView
+                android:padding="5dp"
+                android:textSize="15sp"
+               android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:textStyle="bold"
+                android:text="0"
+                android:id="@+id/txtSoLuong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/imgTangSL"
+                android:src="@mipmap/add"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </LinearLayout>
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/txtTenMonAnStore"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
-    <TextView
+        android:textSize="15sp"
         android:id="@+id/txtGiaTien"
-        android:textColor="@color/colorAccent"
-        android:text="20000"
+        android:textStyle="bold"
+        android:text="20.000"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/imgGiamSL"
-            android:src="@drawable/ic_remove_black_18dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
-        <TextView
-            android:padding="5dp"
-            android:textColor="@color/colorAccent"
-            android:text="0"
-            android:id="@+id/txtSoLuong"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/imgTangSL"
-            android:src="@drawable/ic_add_black_18dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
-    </LinearLayout>
+    <View
+        android:layout_marginTop="3dp"
+        android:background="@color/background_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+
 </LinearLayout>
 
 

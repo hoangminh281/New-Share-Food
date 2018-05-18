@@ -1,20 +1,30 @@
 package com.ptit.tranhoangminh.newsharefood.models;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.ptit.tranhoangminh.newsharefood.presenters.saveCommentForStorePresenters.GetNotificationInterface;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -22,22 +32,20 @@ import java.util.List;
  */
 
 public class CommentModel implements Parcelable {
-    long chamdiem,luotthich;
+    long chamdiem;
     String noidung;
     String tieude;
     String mauser;
     MemberModel memberModel;
-    List<String>listImageComment;
-
-
+    List<String> listImageComment;
 
     public CommentModel() {
     }
 
-    public CommentModel(long chamdiem, long luotthich, String noidung, String tieude, MemberModel memberModel) {
+    public CommentModel(long chamdiem, String noidung, String tieude, MemberModel memberModel) {
 
         this.chamdiem = chamdiem;
-        this.luotthich = luotthich;
+
         this.noidung = noidung;
         this.tieude = tieude;
         this.memberModel = memberModel;
@@ -45,12 +53,11 @@ public class CommentModel implements Parcelable {
 
     protected CommentModel(Parcel in) {
         chamdiem = in.readLong();
-        luotthich = in.readLong();
         noidung = in.readString();
         tieude = in.readString();
         mauser = in.readString();
         listImageComment = in.createStringArrayList();
-        memberModel=in.readParcelable(MemberModel.class.getClassLoader());
+        memberModel = in.readParcelable(MemberModel.class.getClassLoader());
     }
 
     public static final Creator<CommentModel> CREATOR = new Creator<CommentModel>() {
@@ -71,14 +78,6 @@ public class CommentModel implements Parcelable {
 
     public void setChamdiem(long chamdiem) {
         this.chamdiem = chamdiem;
-    }
-
-    public long getLuotthich() {
-        return luotthich;
-    }
-
-    public void setLuotthich(long luotthich) {
-        this.luotthich = luotthich;
     }
 
     public String getNoidung() {
@@ -104,6 +103,7 @@ public class CommentModel implements Parcelable {
     public void setMemberModel(MemberModel memberModel) {
         this.memberModel = memberModel;
     }
+
     public List<String> getListImageComment() {
         return listImageComment;
     }
@@ -129,31 +129,62 @@ public class CommentModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeLong(chamdiem);
-        parcel.writeLong(luotthich);
         parcel.writeString(noidung);
         parcel.writeString(tieude);
         parcel.writeString(mauser);
         parcel.writeStringList(listImageComment);
-        parcel.writeParcelable(memberModel,i);
+        parcel.writeParcelable(memberModel, i);
     }
 
-    public void AddComment(final GetNotificationInterface getNotificationInterface, String key_store, CommentModel commentModel, final String link_image) {
-        Log.d("hinh",link_image);
+    public void AddComment(final GetNotificationInterface getNotificationInterface, String key_store, CommentModel commentModel, final ImageView img) {
+       // Log.d("hinh",link_image);
         DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("binhluans");
         String key= mref.child(key_store).push().getKey();
         mref.child(key_store).child(key).setValue(commentModel).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Uri uri = Uri.fromFile(new File(link_image));
-                    StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("images/"+ uri.getLastPathSegment());
-                    storageReference.putFile(uri);
+
+                    Drawable drawable=img.getDrawable();
+                    BitmapDrawable bitmapDrawable=(BitmapDrawable)drawable;
+                    Bitmap bitmap=bitmapDrawable.getBitmap();
+
+                    ByteArrayOutputStream byteArrayOutputStrea=new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStrea);
+                    byte[]data=byteArrayOutputStrea.toByteArray();
+
+                    Calendar calendar = Calendar.getInstance();
+                    String imageName = "image" + calendar.getTimeInMillis() + ".jpg";
+
+                    StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("images/").child(imageName);
+                    storageReference.putBytes(data);
+
                     String notification="Thêm bình luận thành công";
                     getNotificationInterface.getNotification(notification);
 
                 }
             }
         });
-        //FirebaseDatabase.getInstance().getReference().child("hinhanhbinhluans").child(key).push().setValue(link_image);
+    }
+    public void uploadImage(ImageView img,StorageReference mStorageRef)
+    {
+        img.setDrawingCacheEnabled(true);
+        img.buildDrawingCache();   //lay ra 1 cai bitmap
+        Bitmap bitmap = img.getDrawingCache();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] data = baos.toByteArray();
+        UploadTask uploadTask = mStorageRef.putBytes(data);
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 }

@@ -5,16 +5,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.ptit.tranhoangminh.newsharefood.presenters.DisplayStore.StoreInterface;
+import com.ptit.tranhoangminh.newsharefood.presenters.displayStorePresenters.StoreInterface;
 
-import java.io.Serializable;
-import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,23 +22,22 @@ import java.util.List;
 public class StoreModel implements Parcelable {
 
     boolean giaohang;
-    String giomocua,giodongcua,tenquanan,videogioithieu,maquanan;
-    DatabaseReference mref;
-    long luotthich;
+    String giomocua,giodongcua,tenquanan,maquanan;
+    private DatabaseReference mref;
     List<CommentModel>commentModelList;
     List<String> tienich;
     List<String> hinhanh;
     List<BranchModel>branchModelList;
     List<CategoryStoreModel>categoryStoreModelList;
 
+
+
     protected StoreModel(Parcel in) {
         giaohang = in.readByte() != 0;
         giomocua = in.readString();
         giodongcua = in.readString();
         tenquanan = in.readString();
-        videogioithieu = in.readString();
         maquanan = in.readString();
-        luotthich = in.readLong();
         tienich = in.createStringArrayList();
         hinhanh = in.createStringArrayList();
         branchModelList=new ArrayList<BranchModel>();
@@ -49,15 +45,6 @@ public class StoreModel implements Parcelable {
         commentModelList=new ArrayList<CommentModel>();
         in.readTypedList(commentModelList,CommentModel.CREATOR);
     }
-
-    public String getTenquanan() {
-        return tenquanan;
-    }
-
-    public void setTenquanan(String tenquanan) {
-        this.tenquanan = tenquanan;
-    }
-
     public static final Creator<StoreModel> CREATOR = new Creator<StoreModel>() {
         @Override
         public StoreModel createFromParcel(Parcel in) {
@@ -78,116 +65,20 @@ public class StoreModel implements Parcelable {
         this.commentModelList = commentModelList;
     }
 
-    public long getLuotthich() {
-        return luotthich;
-    }
-
-    public void setLuotthich(long luotthich) {
-        this.luotthich = luotthich;
-    }
-
     public StoreModel() {
         mref= FirebaseDatabase.getInstance().getReference();
     }
 
-    public StoreModel(boolean giaohang, String giomocua, String giodongcua, String tenquan, String videogioithieu, String maquanan, List<String> tienich, DatabaseReference mref,Long luotthich) {
+   /* public StoreModel(boolean giaohang, String giomocua, String giodongcua, String tenquan, String maquanan, List<String> tienich, DatabaseReference mref) {
         this.giaohang = giaohang;
         this.giomocua = giomocua;
         this.giodongcua = giodongcua;
         this.tenquanan = tenquan;
-        this.videogioithieu = videogioithieu;
         this.maquanan = maquanan;
         this.tienich = tienich;
         this.mref = mref;
-        this.luotthich=luotthich;
-    }
 
-    public boolean isGiaohang() {
-        return giaohang;
-    }
-
-    public void setGiaohang(boolean giaohang) {
-        this.giaohang = giaohang;
-    }
-
-    public String getGiomocua() {
-        return giomocua;
-    }
-
-    public void setGiomocua(String giomocua) {
-        this.giomocua = giomocua;
-    }
-
-    public String getGiodongcua() {
-        return giodongcua;
-    }
-
-    public void setGiodongcua(String giodongcua) {
-        this.giodongcua = giodongcua;
-    }
-
-    public String getTenquan() {
-        return tenquanan;
-    }
-
-    public void setTenquan(String tenquan) {
-        this.tenquanan = tenquan;
-    }
-
-    public String getVideogioithieu() {
-        return videogioithieu;
-    }
-
-    public void setVideogioithieu(String videogioithieu) {
-        this.videogioithieu = videogioithieu;
-    }
-
-    public String getMaquanan() {
-        return maquanan;
-    }
-
-    public void setMaquanan(String maquanan) {
-        this.maquanan = maquanan;
-    }
-
-    public List<String> getTienich() {
-        return tienich;
-    }
-
-    public void setTienich(List<String> tienich) {
-        this.tienich = tienich;
-    }
-
-    public DatabaseReference getMref() {
-        return mref;
-    }
-
-    public void setMref(DatabaseReference mref) {
-        this.mref = mref;
-    }
-    public List<String> getHinhanh() {
-        return hinhanh;
-    }
-    public void setHinhanh(List<String> hinhanh) {
-        this.hinhanh = hinhanh;
-    }
-
-    public List<BranchModel> getBranchModelList() {
-        return branchModelList;
-    }
-
-    public void setBranchModelList(List<BranchModel> branchModelList) {
-        this.branchModelList = branchModelList;
-    }
-
-    public List<CategoryStoreModel> getCategoryStoreModelList() {
-        return categoryStoreModelList;
-    }
-
-    public void setCategoryStoreModelList(List<CategoryStoreModel> categoryStoreModelList) {
-        this.categoryStoreModelList = categoryStoreModelList;
-    }
-
+    }*/
     public void GetDanhSachQuanAn(final StoreInterface storeInterface, final Location current_location)
     {
         ValueEventListener valueEventListener=new ValueEventListener() {
@@ -239,9 +130,9 @@ public class StoreModel implements Parcelable {
                     storeModel.setCommentModelList(commentList);
 
                     //get chi nhánh quán ăn--------------------
-                     DataSnapshot dataSnapshotBranch=dataSnapshot.child("chinhanhquanans").child(storeModel.getMaquanan());
-                     List<BranchModel>branchModels=new ArrayList<>();
-                     for(DataSnapshot valueBranch:dataSnapshotBranch.getChildren())
+                    DataSnapshot dataSnapshotBranch=dataSnapshot.child("chinhanhquanans").child(storeModel.getMaquanan());
+                    List<BranchModel>branchModels=new ArrayList<>();
+                    for(DataSnapshot valueBranch:dataSnapshotBranch.getChildren())
                     {
                         BranchModel branchModel=valueBranch.getValue(BranchModel.class);
                         Location vitri_store=new Location("");
@@ -281,12 +172,96 @@ public class StoreModel implements Parcelable {
         parcel.writeString(giomocua);
         parcel.writeString(giodongcua);
         parcel.writeString(tenquanan);
-        parcel.writeString(videogioithieu);
         parcel.writeString(maquanan);
-        parcel.writeLong(luotthich);
         parcel.writeStringList(tienich);
         parcel.writeStringList(hinhanh);
         parcel.writeTypedList(branchModelList);
         parcel.writeTypedList(commentModelList);
     }
+
+    public boolean isGiaohang() {
+        return giaohang;
+    }
+
+    public void setGiaohang(boolean giaohang) {
+        this.giaohang = giaohang;
+    }
+
+    public String getGiomocua() {
+        return giomocua;
+    }
+
+    public void setGiomocua(String giomocua) {
+        this.giomocua = giomocua;
+    }
+
+    public String getGiodongcua() {
+        return giodongcua;
+    }
+
+    public void setGiodongcua(String giodongcua) {
+        this.giodongcua = giodongcua;
+    }
+
+    public String getTenquanan() {
+        return tenquanan;
+    }
+
+    public void setTenquanan(String tenquanan) {
+        this.tenquanan = tenquanan;
+    }
+
+    public String getMaquanan() {
+        return maquanan;
+    }
+
+    public void setMaquanan(String maquanan) {
+        this.maquanan = maquanan;
+    }
+
+    public DatabaseReference getMref() {
+        return mref;
+    }
+
+    public void setMref(DatabaseReference mref) {
+        this.mref = mref;
+    }
+
+    public List<String> getTienich() {
+        return tienich;
+    }
+
+    public void setTienich(List<String> tienich) {
+        this.tienich = tienich;
+    }
+
+    public List<String> getHinhanh() {
+        return hinhanh;
+    }
+
+    public void setHinhanh(List<String> hinhanh) {
+        this.hinhanh = hinhanh;
+    }
+
+    public List<BranchModel> getBranchModelList() {
+        return branchModelList;
+    }
+
+    public void setBranchModelList(List<BranchModel> branchModelList) {
+        this.branchModelList = branchModelList;
+    }
+
+    public List<CategoryStoreModel> getCategoryStoreModelList() {
+        return categoryStoreModelList;
+    }
+
+    public void setCategoryStoreModelList(List<CategoryStoreModel> categoryStoreModelList) {
+        this.categoryStoreModelList = categoryStoreModelList;
+    }
+
+    public static Creator<StoreModel> getCREATOR() {
+        return CREATOR;
+    }
 }
+
+

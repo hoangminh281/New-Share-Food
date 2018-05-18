@@ -38,6 +38,14 @@ public class RecipeFragment extends Fragment {
     }
 
     public void setRecipe(String recipe) {
-        if (tvRecipe != null) tvRecipe.setText(recipe);
+        if (tvRecipe != null) {
+            String[] arr = recipe.split("\n\n");
+            int i = 1;
+            String st = "Các bước thực hiện món ăn:\n";
+            for (String item : arr) {
+                st += "\tBước " + i++ + ". " + item + "\n";
+            }
+            tvRecipe.setText(st);
+        }
     }
 }

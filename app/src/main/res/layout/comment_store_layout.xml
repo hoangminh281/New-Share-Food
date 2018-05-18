@@ -1,91 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/background_gray"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        app:titleTextColor="@color/colorAccent"
-        app:title="Comment"
         android:id="@+id/toolbar_comment"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/themeApp"
+        app:title="Comment"
+        app:titleTextColor="#fff">
+        <ImageButton
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:id="@+id/txtPost_comment"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/save_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="#fff"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtPost_comment"
-            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="Post"
-            android:textColor="@color/colorAccent"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            />
-    </android.support.v7.widget.Toolbar>
-    <LinearLayout
-        android:padding="5dp"
-        android:orientation="vertical"
-        android:background="@color/colorAccent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto_bolditalic"
+            android:text="Cảm ơn quý khách đã ghé thăm cửa hàng."
+            android:textSize="15sp" />
+
         <TextView
-            android:id="@+id/txtTenQuan_comment"
-            android:textSize="20sp"
-            android:text="Trà sữa Tokyo"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto_bolditalic"
+            android:text="Xin hãy để lại bình luận và đánh giá của quý khách đề nhà"
+            android:textSize="15sp" />
+
         <TextView
-            android:id="@+id/txtDiachi_comment"
-            android:text="42 Man Thiện, quận 9 , Hồ Chí Minh"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto_bolditalic"
+            android:text="hàng có thể phục vụ tốt hơn."
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/imgHinhABC"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_themhinhanh" />
     </LinearLayout>
-    <EditText
-        android:id="@+id/edtTitle_comment"
-        android:textSize="12sp"
-        android:hint="Input title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:id="@+id/edtContent_comment"
-       android:gravity="center"
-        android:layout_weight="1"
-        android:textSize="12sp"
-        android:hint="Write content at here"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <ImageView
-        android:id="@+id/imgHinhABC"
-        android:src="@drawable/bg2"
-        android:scaleType="centerCrop"
-        android:layout_width="150dp"
-        android:layout_height="150dp" />
+
     <LinearLayout
-        android:orientation="horizontal"
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-        <ImageButton
-            android:id="@+id/image_comment"
-            android:layout_weight="1"
-           android:background="@color/colorPrimary"
-            android:src="@mipmap/camera"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-        <ImageButton
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:src="@mipmap/camera"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Bình luận"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtTitle_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:hint="Input title"
+            android:textSize="12sp" />
+
+        <FrameLayout
+            android:layout_width="350dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/background_comment"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edtContent_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#EEEEEE"
+                android:fontFamily="@font/roboto_bolditalic"
+                android:hint="Xin hãy nhập bình luận của bạn tại đây..."
+                android:textSize="15sp" />
+        </FrameLayout>
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-        <ImageButton
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:src="@mipmap/camera"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
+            android:text="Đánh giá của bạn về nhà hàng?"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <RatingBar
+            android:scaleX=".9"
+            android:scaleY=".9"
+            android:numStars="5"
+            android:id="@+id/ratingbar_danhgia"
+            android:layout_marginLeft="4dp"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="50dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bolditalic"
+            android:text="Đừng quên giới thiệu mọi người về nhà hàng nhé!"
+            android:textSize="18sp" />
+
+
     </LinearLayout>
+
 </LinearLayout>

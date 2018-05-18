@@ -70,7 +70,7 @@ public class CommentFragment extends Fragment {
         try{
             if(FirebaseAuth.getInstance().getCurrentUser() != null){
                 Comment_MyCommentFragment mycmt= new Comment_MyCommentFragment();
-                mycmt.setContent(context,Productkey, FirebaseAuth.getInstance().getUid());
+                mycmt.setContent(context,Productkey);
                 adapter.addFragment(mycmt,"MyComment");
                 Comment_WriteCommentFragment writecmt = new Comment_WriteCommentFragment();
                 writecmt.setContent(context,Productkey);

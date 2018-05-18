@@ -26,7 +26,7 @@ public class AdapterRecycleViewMenuStore extends RecyclerView.Adapter<AdapterRec
 
     @NonNull
     @Override
-    public AdapterRecycleViewMenuStore.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_layout_menu_store, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
@@ -34,7 +34,7 @@ public class AdapterRecycleViewMenuStore extends RecyclerView.Adapter<AdapterRec
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterRecycleViewMenuStore.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CategoryStoreModel categoryStoreModel=categoryStoreModelList.get(position);
         holder.txtTenLoai.setText(categoryStoreModel.getCategory_name());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));

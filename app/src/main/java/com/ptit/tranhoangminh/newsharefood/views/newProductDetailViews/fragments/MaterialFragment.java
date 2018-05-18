@@ -27,6 +27,19 @@ public class MaterialFragment extends Fragment {
     }
 
     public void setMaterials(String materials) {
-        if (tvMaterials != null) tvMaterials.setText(materials);
+        if (tvMaterials != null) {
+            String[] arr = materials.split("\n\n");
+            String st = "Nguyên liệu cần dùng cho món ăn gồm:\n";
+            int i = 1;
+            for (String item : arr) {
+                String[] arr1 = item.split("\t");
+                st += "\t" + i++ + ". ";
+                if (arr1.length < 2)
+                    st += arr1[0] + "\n";
+                else
+                    st += arr1[1] + ": số lượng " + arr1[0] + "\n";
+            }
+            tvMaterials.setText(st);
+        }
     }
 }

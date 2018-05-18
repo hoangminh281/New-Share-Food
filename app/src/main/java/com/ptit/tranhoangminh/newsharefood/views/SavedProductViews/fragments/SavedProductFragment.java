@@ -34,6 +34,7 @@ public class SavedProductFragment extends Fragment implements SavedProductView {
     private GridView gridView;
     private ProgressBar pgbSavedProduct;
     private SavedProductPresenter savedProductPresenter;
+    Toolbar toolbar;
 
     @Nullable
     @Override
@@ -43,8 +44,8 @@ public class SavedProductFragment extends Fragment implements SavedProductView {
 
         initPresenter();
         savedProductPresenter.loadAllSavedProducts();
-
         registerForContextMenu(gridView);
+        toolbar.setVisibility(View.GONE);
         setEvents();
         return view;
     }
@@ -53,6 +54,7 @@ public class SavedProductFragment extends Fragment implements SavedProductView {
     private void setControls(View view) {
         gridView = view.findViewById(R.id.gridview);
         pgbSavedProduct = view.findViewById(R.id.progressBarProduct);
+        toolbar = view.findViewById(R.id.toolbar);
     }
 
     private void initPresenter() {
