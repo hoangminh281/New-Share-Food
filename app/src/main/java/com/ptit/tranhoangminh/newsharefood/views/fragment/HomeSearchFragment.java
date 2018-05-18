@@ -33,7 +33,7 @@ public class HomeSearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.homesearchfragment, container, false);
 
-        recyclerViewSearch = (RecyclerView) view.findViewById(R.id.recycleViewSearch);
+        recyclerViewSearch = view.findViewById(R.id.recycleViewSearch);
         recyclerViewSearch.setHasFixedSize(true);
         recyclerViewSearch.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerViewSearch.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));

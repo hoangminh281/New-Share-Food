@@ -27,6 +27,7 @@ import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.CommentMA;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by TramLuc on 5/14/2018.
@@ -39,7 +40,6 @@ public class AdapterCommentMonAn extends BaseAdapter {
     ArrayList<String> listLike;
     commentListener Callback;
     FirebaseStorage mStoreRef;
-
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     public AdapterCommentMonAn(Activity context,int layout, ArrayList<CommentMA> cmtArr, ArrayList<String> listLike, commentListener callback){
@@ -47,6 +47,7 @@ public class AdapterCommentMonAn extends BaseAdapter {
         Layout =layout;
         this.cmtArr =cmtArr;
         Callback = callback;
+
     }
 
     public ArrayList<CommentMA> getCmtArr() {
@@ -104,9 +105,12 @@ public class AdapterCommentMonAn extends BaseAdapter {
         view.setTag(holder);
 
         final CommentMA cmt = cmtArr.get(i);
+
+        Collection<String> key = cmt.getListLike().values();
+        listLike = new ArrayList<>(key);
         final int position = i;
         holder.txtusername.setText(cmt.getMembername());
-        holder.txtcomment.setText(cmt.getTieude() + cmt.getBinhluan());
+        holder.txtcomment.setText(cmt.getTieude() +"\n" + cmt.getBinhluan());
         holder.txtlike.setText(String.valueOf(cmt.getLike()));
         mData.child("members/" + cmt.getMemberId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -119,7 +123,9 @@ public class AdapterCommentMonAn extends BaseAdapter {
                 View view = layoutInflater.inflate(Layout, null);
                 ImageView img = view.findViewById(R.id.imgUser);
                 FirebaseReference.setImageFromFireBase(mStorageRef.child("thanhvien/" + id_image), id_image, ".png", img );
+
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -127,22 +133,22 @@ public class AdapterCommentMonAn extends BaseAdapter {
         });
         if(user != null){
             if (listLike.contains(user.getUid())) {
+                holder.btnlike.setText("Bỏ thích");
                 holder.btnlike.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Callback.unlikeAction(position);
+                    }
 
-                  @Override
-                  public void onClick(View v) {
-                      Callback.unlikeAction(position);
-                  }
-              });
-
-            } else {
+            });
+            }else{
+                holder.btnlike.setText("Thích");
                 holder.btnlike.setOnClickListener(new View.OnClickListener() {
-                      @Override
-                      public void onClick(View v) {
-                          Callback.likeAction(position);
-                      }
-                  });
-
+                    @Override
+                    public void onClick(View v) {
+                        Callback.likeAction(position);
+                    }
+                });
             }
         }else{
             holder.btnlike.setVisibility(View.INVISIBLE);

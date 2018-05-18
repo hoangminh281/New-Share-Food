@@ -26,9 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommentFragment extends Fragment {
-    Comment_FullCommentFragment fullCommentFragment;
-    Comment_MyCommentFragment myCommentFragment;
-    Comment_WriteCommentFragment writeCommentFragment;
     TabLayout cmt;
     ViewPager viewPager;
     Activity context;
@@ -37,9 +34,6 @@ public class CommentFragment extends Fragment {
     public CommentFragment(Activity context, Product productkey){
         this.context = context;
         this.Productkey = productkey;
-        fullCommentFragment = new Comment_FullCommentFragment();
-        myCommentFragment = new Comment_MyCommentFragment();
-        writeCommentFragment = new Comment_WriteCommentFragment();
     }
     public CommentFragment() {
     }
@@ -76,7 +70,7 @@ public class CommentFragment extends Fragment {
         try{
             if(FirebaseAuth.getInstance().getCurrentUser() != null){
                 Comment_MyCommentFragment mycmt= new Comment_MyCommentFragment();
-                mycmt.setContent(context,Productkey, Productkey.getId());
+                mycmt.setContent(context,Productkey, FirebaseAuth.getInstance().getUid());
                 adapter.addFragment(mycmt,"MyComment");
                 Comment_WriteCommentFragment writecmt = new Comment_WriteCommentFragment();
                 writecmt.setContent(context,Productkey);

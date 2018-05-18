@@ -88,7 +88,14 @@ public class Comment_WriteCommentFragment extends Fragment {
     }
 
     public void writeCmt() {
-
+        if (tieude.getText().toString().trim().isEmpty()){
+            tieude.setError("Bạn thiếu tiêu đề");
+            return;
+        }
+        if (binhluan.getText().toString().trim().isEmpty()){
+            binhluan.setError("Bình luận không được rỗng");
+            return;
+        }
         CommentMA cmt = new CommentMA(productkey.getId(), FirebaseAuth.getInstance().getUid(), tieude.getText().toString(), binhluan.getText().toString(), username, 0);
         // CommentMA cmt = new CommentMA(productkey.getId(), "Cy95MWqeTGbeqe9vNIHZVUkpe5i2",tieude.getText().toString(),binhluan.getText().toString(), username,0);
         mData.child("Binhluanmonans").push().setValue(cmt);

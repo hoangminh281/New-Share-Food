@@ -39,6 +39,7 @@ public class Comment_FullCommentFragment  extends Fragment implements commentLis
     ArrayList<String> listKey = new ArrayList<>();
     Activity context;
     DatabaseReference mData;
+    int newPosi = 0;
     public Comment_FullCommentFragment() {
         mData = FirebaseDatabase.getInstance().getReference();
     }
@@ -64,24 +65,25 @@ public class Comment_FullCommentFragment  extends Fragment implements commentLis
     }
     public void getCommentProduct(){
         try{
-        mData.child("Binhluanmonans").addListenerForSingleValueEvent(new ValueEventListener() {
+        mData.child("Binhluanmonans").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                newPosi = listView.getFirstVisiblePosition();
                 ArrayList<CommentMA> arr = new ArrayList<>();
                 ArrayList<String> arrKey = new ArrayList<>();
                 for (DataSnapshot item: dataSnapshot.getChildren()) {
                     if(item.child("productId").getValue(String.class).equals(productkey.getId())){
                         arr.add(item.getValue(CommentMA.class));
-                        Collection<String> key = item.getValue(CommentMA.class).getListLike().values();
-                        listLike = new ArrayList<>(key);
                         arrKey.add(item.getKey());
                     }
                 }
                 setListCMTnKey(arr,arrKey);
-                adapter.setListLike(new ArrayList<>(listLike));
                 adapter.setCmtArr(new ArrayList<>(arr));
+                adapter.notifyDataSetChanged();
+                if (arr.size() >= newPosi+1) {
+                    listView.setSelection(newPosi);
+                }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -100,9 +102,8 @@ public class Comment_FullCommentFragment  extends Fragment implements commentLis
     public void likeAction(int position) {
 
         listCMT.get(position).setLike(listCMT.get(position).getLike()+1);
-        mData.child("Binhluanmonans/"+listKey.get(position)).setValue(listCMT.get(position));
+        mData.child("Binhluanmonans/" + listKey.get(position)).setValue(listCMT.get(position));
         mData.child("Binhluanmonans/" + listKey.get(position) + "/listLike/" + FirebaseAuth.getInstance().getUid()).setValue(FirebaseAuth.getInstance().getUid());
-        adapter.notifyDataSetChanged();
     }
 
 
@@ -111,7 +112,7 @@ public class Comment_FullCommentFragment  extends Fragment implements commentLis
         listCMT.get(position).setLike(listCMT.get(position).getLike()-1);
         mData.child("Binhluanmonans/"+ listKey.get(position)).setValue(listCMT.get(position));
         mData.child("Binhluanmonans/" + listKey.get(position) + "/listLike/" + FirebaseAuth.getInstance().getUid()).removeValue();
-        adapter.notifyDataSetChanged();
+
     }
 
     @Override
