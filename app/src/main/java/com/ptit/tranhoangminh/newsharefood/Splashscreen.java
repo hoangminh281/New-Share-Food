@@ -2,6 +2,7 @@ package com.ptit.tranhoangminh.newsharefood;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -16,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -35,11 +37,20 @@ public class Splashscreen extends AppCompatActivity implements GoogleApiClient.C
 
     FloatingActionButton fab, fab2, fab3;
     Boolean isOpen = false;
+    final static String SHARED_PREFERENCES_NAME = "MyPrefsFile";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splashscreen_layout);
+        if (getFirstApp()) {
+            Intent intent = new Intent(Splashscreen.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            setFirstApp();
+        }
         AnhXa();
 
         // test send mail
@@ -125,7 +136,7 @@ public class Splashscreen extends AppCompatActivity implements GoogleApiClient.C
         btnVaobep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent iDangNhap = new Intent(Splashscreen.this, CategoryActivity.class);
+                Intent iDangNhap = new Intent(Splashscreen.this, MainActivity.class);
                 startActivity(iDangNhap);
                 finish();
             }
@@ -135,14 +146,6 @@ public class Splashscreen extends AppCompatActivity implements GoogleApiClient.C
             public void onClick(View v) {
                 Intent iDangNhap = new Intent(Splashscreen.this, LoginActivity.class);
                 startActivity(iDangNhap);
-                finish();
-            }
-        });
-        btnDangNhap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent login = new Intent(Splashscreen.this, LoginActivity.class);
-                startActivity(login);
                 finish();
             }
         });
@@ -173,5 +176,18 @@ public class Splashscreen extends AppCompatActivity implements GoogleApiClient.C
 
         //Executing sendmail to send email
         sm.execute();
+    }
+
+    private void setFirstApp() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("IS_FIRTS_LAUNCHER",true);
+        if (!editor.commit()) {
+            Toast.makeText(this, "Cannot save first time app", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private boolean getFirstApp() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean("IS_FIRTS_LAUNCHER",false);
     }
 }

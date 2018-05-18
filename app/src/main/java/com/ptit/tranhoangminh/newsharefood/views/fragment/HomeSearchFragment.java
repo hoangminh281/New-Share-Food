@@ -21,11 +21,9 @@ import com.ptit.tranhoangminh.newsharefood.adapters.SearchAdapter;
 import java.util.ArrayList;
 
 public class HomeSearchFragment extends Fragment {
-
     RecyclerView recyclerViewSearch;
     DatabaseReference databaseReference;
     String textSearch;
-
     ArrayList arrName;
     ArrayList arrHinh;
     SearchAdapter searchAdapter;

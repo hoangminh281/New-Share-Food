@@ -12,18 +12,22 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 
 public class MemberModel implements Parcelable {
-    String hoten, hinhanh;
+    String hoten;
+    String hinhanh;
     String mauser;
+    String email;
+    String phone;
 
     //not default
     private DatabaseReference databaseReference;
 
 
-    public MemberModel(String hoten, String hinhanh) {
+    public MemberModel(String hoten, String hinhanh, String email, String phone) {
         this.hoten = hoten;
         this.hinhanh = hinhanh;
+        this.email = email;
+        this.phone = phone;
     }
-
 
 
     public MemberModel() {
@@ -62,6 +66,22 @@ public class MemberModel implements Parcelable {
 
     public void setHinhanh(String hinhanh) {
         this.hinhanh = hinhanh;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void AddMember(MemberModel memberModel, String uid) {

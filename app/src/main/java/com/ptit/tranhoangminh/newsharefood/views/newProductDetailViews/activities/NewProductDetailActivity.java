@@ -41,7 +41,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewProductDetailActivity extends AppCompatActivity implements ProductDetailView {
-    Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
     Product productKey;
@@ -68,8 +67,6 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
         productDetailPresenter.loadProductDetail(productKey.getId(), productKey.getImage(), productKey.getMember_id());
 
         setEvents();
-
-        setSupportActionBar(toolbar);
     }
 
     private void initPresenter() {
@@ -77,7 +74,6 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
     }
 
     private void setControls() {
-        toolbar = findViewById(R.id.toolbarPDetail);
         tabLayout = findViewById(R.id.tablayoutPDetail);
         viewPager = findViewById(R.id.viewpagerPDetail);
         pgbNewProductDetail = findViewById(R.id.progressBarNewProductDetail);

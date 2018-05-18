@@ -41,7 +41,6 @@ public class ProductActivity extends AppCompatActivity implements ProductView {
     GridView gridView;
     String cate_id;
     String cate_name;
-    Button btnBepchien;
     ProgressBar pgbProduct;
     ProductPresenter productPresenter;
     ArrayList<Product> productArrayList;
@@ -70,7 +69,6 @@ public class ProductActivity extends AppCompatActivity implements ProductView {
 
     private void setControl() {
         gridView = findViewById(R.id.gridview);
-        btnBepchien = findViewById(R.id.buttonBepchien);
         pgbProduct = findViewById(R.id.progressBarProduct);
         user = FirebaseAuth.getInstance().getCurrentUser();
     }

@@ -2,139 +2,152 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-    <include
-        layout="@layout/layout_register"
-        />
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_register" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:paddingLeft="20sp"
-        android:paddingRight="20sp"
         android:layout_marginTop="25sp"
+        android:layout_weight="5"
         android:orientation="vertical"
-        >
+        android:paddingLeft="20sp"
+        android:paddingRight="20sp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10sp"
-            >
+            android:layout_marginBottom="10sp">
+
             <EditText
                 android:id="@+id/edtUsername"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="15sp"
+                android:layout_marginBottom="10sp"
                 android:background="@drawable/borderradius"
                 android:drawableRight="@mipmap/sd_03"
                 android:hint="UserName"
-                android:layout_marginBottom="10sp"
-            />
+                android:padding="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10sp"
-            >
+            android:layout_marginBottom="10sp">
+
             <EditText
                 android:id="@+id/edtPasswordLogin"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="15sp"
+                android:layout_marginBottom="10sp"
                 android:background="@drawable/borderradius"
                 android:drawableRight="@mipmap/foodapp_07"
-                android:hint="Password"
-                android:layout_marginBottom="10sp"
-                android:password="true"
-                />
+                android:hint="Password - minimum 6 chars"
+                android:inputType="textPassword"
+                android:padding="15sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10sp"
-            >
+            android:layout_marginBottom="10sp">
+
             <EditText
                 android:id="@+id/edtPasswordConfirm"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="15sp"
-                android:background="@drawable/borderradius"
-                android:drawableRight="@mipmap/foodapp_07"
-                android:hint="Password confirm"
                 android:layout_marginBottom="10sp"
-                android:password="true"
-                />
+                android:background="@drawable/borderradius"
+                android:drawableRight="@mipmap/repassword"
+                android:hint="Password confirm"
+                android:inputType="textPassword"
+                android:padding="15sp" />
         </LinearLayout>
 
         <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="10sp"-->
-            <!--android:orientation="horizontal"-->
-            <!--&gt;-->
-            <!--<EditText-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:padding="10sp"-->
-                <!--android:background="@drawable/borderradius"-->
-                <!--android:drawableRight="@drawable/icon_12"-->
-                <!--android:hint="First Name"-->
-                <!--/>-->
-            <!--<EditText-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:padding="10sp"-->
-                <!--android:background="@drawable/borderradius"-->
-                <!--android:drawableRight="@drawable/icon_12"-->
-                <!--android:hint="Last Name"-->
-                <!--/>-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="10sp"-->
+        <!--android:orientation="horizontal"-->
+        <!--&gt;-->
+        <!--<EditText-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:padding="10sp"-->
+        <!--android:background="@drawable/borderradius"-->
+        <!--android:drawableRight="@drawable/icon_12"-->
+        <!--android:hint="First Name"-->
+        <!--/>-->
+        <!--<EditText-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="10sp"-->
+        <!--android:background="@drawable/borderradius"-->
+        <!--android:drawableRight="@drawable/icon_12"-->
+        <!--android:hint="Last Name"-->
+        <!--/>-->
         <!--</LinearLayout>-->
 
         <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="10sp"-->
-            <!--&gt;-->
-            <!--<EditText-->
-                <!--android:layout_width="fill_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:padding="10sp"-->
-                <!--android:background="@drawable/borderradius"-->
-                <!--android:drawableRight="@mipmap/foodapp_14"-->
-                <!--android:hint="Phone Number"-->
-                <!--/>-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="10sp"-->
+        <!--&gt;-->
+        <!--<EditText-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="10sp"-->
+        <!--android:background="@drawable/borderradius"-->
+        <!--android:drawableRight="@mipmap/foodapp_14"-->
+        <!--android:hint="Phone Number"-->
+        <!--/>-->
         <!--</LinearLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10sp"
-            >
+            android:layout_marginBottom="10sp">
+
             <EditText
                 android:id="@+id/edtEmailRegister"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="15sp"
+                android:layout_marginBottom="10sp"
                 android:background="@drawable/borderradius"
                 android:drawableRight="@mipmap/foodapp_18"
                 android:hint="Email"
-                android:layout_marginBottom="10sp"
-                />
+                android:padding="15sp"
+                android:inputType="textEmailAddress"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp">
+
+            <EditText
+                android:id="@+id/edtPhone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
+                android:background="@drawable/borderradius"
+                android:drawableRight="@mipmap/phone"
+                android:hint="Phone number"
+                android:inputType="phone"
+                android:padding="15sp" />
+        </LinearLayout>
 
     </LinearLayout>
+
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@drawable/footer_18"
         android:text="Register"
         android:textColor="#FFF"
-        android:textSize="20dp"
-        android:background="@drawable/footer_18"
-        />
+        android:textSize="20dp" />
 
 </LinearLayout>

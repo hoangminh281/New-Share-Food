@@ -6,12 +6,6 @@
     android:background="#fff"
     android:orientation="vertical">
 
-    <!--<android.support.v7.widget.Toolbar
-        android:id="@+id/toolbarLoaiMonAn"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colortoolbarchitiet"></android.support.v7.widget.Toolbar>-->
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -36,7 +30,7 @@
             android:layout_height="wrap_content" />
 
     </RelativeLayout>
-
+<!--
     <Button
         android:id="@+id/buttonBepchien"
         android:layout_width="match_parent"
@@ -46,5 +40,5 @@
         android:fontFamily="@font/font_franchise"
         android:text="BẾP CHIẾN"
         android:textColor="#fff"
-        android:textSize="20sp" />
+        android:textSize="20sp" />-->
 </LinearLayout>

@@ -10,13 +10,14 @@ import com.ptit.tranhoangminh.newsharefood.views.Register.RegisterViewImp;
 public class RegisterPresenterLogic implements RegisterImp {
     RegisterViewImp registerViewImp;
     MemberModel memberModel;
+
     public RegisterPresenterLogic(RegisterViewImp registerViewImp) {
         this.registerViewImp = registerViewImp;
-        memberModel=new MemberModel();
+        memberModel = new MemberModel();
     }
 
     @Override
     public void AddInfoMember(MemberModel m, String uid) {
-            memberModel.AddMember(m,uid);
+        memberModel.AddMember(m, uid);
     }
 }

@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SavedProductDetailActivity extends AppCompatActivity implements SavedProductDetailView {
-    Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
     ProductSQLite productKey;
@@ -46,11 +45,6 @@ public class SavedProductDetailActivity extends AppCompatActivity implements Sav
         productKey = (ProductSQLite) getIntent().getSerializableExtra("objectKey");
         setControl();
 
-        setSupportActionBar(toolbar);
-        setupViewPager(viewPager);
-        tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
-
         initPresenter();
         savedProductDetailPresenter.loadSavedProductDetail(productKey.getId());
     }
@@ -58,7 +52,6 @@ public class SavedProductDetailActivity extends AppCompatActivity implements Sav
     void setControl() {
         relativeLayout = findViewById(R.id.relativeLayoutPD);
         relativeLayout.setVisibility(View.GONE);
-        toolbar = findViewById(R.id.toolbarPDetail);
         tabLayout = findViewById(R.id.tablayoutPDetail);
         viewPager = findViewById(R.id.viewpagerPDetail);
         pgbNewProductDetail = findViewById(R.id.progressBarNewProductDetail);

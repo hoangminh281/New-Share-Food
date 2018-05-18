@@ -25,5 +25,6 @@
         android:id="@+id/tablayoutHome"
         app:tabSelectedTextColor="@color/themeApp"
         app:tabGravity="fill"
-        app:tabMode="fixed" />
+        app:tabMode="fixed"
+        app:tabIndicatorColor="@color/themeApp"/>
 </LinearLayout>
