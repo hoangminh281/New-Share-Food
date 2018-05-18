@@ -52,7 +52,7 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
     MaterialFragment materialFragment;
     RecipeFragment recipeFragment;
     VideoFragment videoFragment;
-    CommentFragment commentFragment;
+    com.ptit.tranhoangminh.newsharefood.views.newProductDetailViews.fragments.commentFragment commentFragment;
     CheckBox cbSave;
     Button btnShare;
     @Override
@@ -121,7 +121,7 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
         adapter.addFragment(materialFragment, "Materials");
         adapter.addFragment(recipeFragment, "Recipe");
         adapter.addFragment(videoFragment, "Video");
-        adapter.addFragment(commentFragment, "Comments");
+        adapter.addFragment(CommentFragment, "Comments");
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(4);
     }
