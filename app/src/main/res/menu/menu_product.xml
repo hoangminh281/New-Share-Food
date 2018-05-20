@@ -6,17 +6,18 @@
         android:icon="@mipmap/ic_more_vert_white_36dp"
         android:title="menu"
         app:showAsAction="always">
+        //dang test
         <menu>
             <item
                 android:id="@+id/menuSignIn"
-                android:icon="@drawable/icon_12"
-                android:title="Đăng nhập"/>
+                android:icon="@mipmap/login_black"
+                android:title="Đăng nhập" />
             <item
                 android:id="@+id/menuAddProduct"
-                android:icon="@mipmap/gmail"
-                android:title="Thêm món ăn" />
+                android:icon="@mipmap/addfood_black"
+                android:title="Thêm món ăn"/>
             <item android:id="@+id/menuSignOut"
-                android:icon="@mipmap/gmail"
+                android:icon="@mipmap/logout_black"
                 android:title="Đăng xuất"/>
         </menu>
     </item>

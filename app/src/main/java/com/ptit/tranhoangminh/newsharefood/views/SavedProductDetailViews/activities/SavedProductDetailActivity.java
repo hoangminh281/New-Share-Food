@@ -17,6 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
+import com.facebook.LoggingBehavior;
+import com.ptit.tranhoangminh.newsharefood.BuildConfig;
 import com.ptit.tranhoangminh.newsharefood.R;
 import com.ptit.tranhoangminh.newsharefood.models.ProductDetail;
 import com.ptit.tranhoangminh.newsharefood.models.ProductSQLite;
@@ -30,7 +33,7 @@ import java.util.List;
 public class SavedProductDetailActivity extends AppCompatActivity implements SavedProductDetailView {
     TabLayout tabLayout;
     ViewPager viewPager;
-    ProductSQLite productKey;
+    String productKey;
     ProgressBar pgbNewProductDetail;
     TextView tvName;
     ImageView imgProductDetail;
@@ -45,7 +48,8 @@ public class SavedProductDetailActivity extends AppCompatActivity implements Sav
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_product_detail_layout);
-        productKey = (ProductSQLite) getIntent().getSerializableExtra("objectKey");
+        Bundle bundle = getIntent().getExtras();
+        productKey = bundle.getString("objectKey");
         setControl();
 
         setSupportActionBar(toolbar);
@@ -53,7 +57,7 @@ public class SavedProductDetailActivity extends AppCompatActivity implements Sav
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         initPresenter();
-        savedProductDetailPresenter.loadSavedProductDetail(productKey.getId());
+        savedProductDetailPresenter.loadSavedProductDetail(productKey);
     }
 
     void setControl() {
@@ -102,13 +106,13 @@ public class SavedProductDetailActivity extends AppCompatActivity implements Sav
     }
 
     @Override
-    public void displayProductDetail(ProductDetail productDetail) {
+    public void displayProductDetail(ProductDetail productDetail, ProductSQLite productSQLite) {
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
-        tvName.setText(productKey.getName());
-        imgProductDetail.setImageBitmap(productKey.getByteasBitmap());
+        tvName.setText(productSQLite.getName());
+        imgProductDetail.setImageBitmap(productSQLite.getByteasBitmap());
         Bundle materialBundle = new Bundle();
         materialBundle.putString("materials",productDetail.getMaterials());
         materialFragment.setArguments(materialBundle);

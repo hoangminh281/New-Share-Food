@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +14,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -23,15 +21,12 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.ptit.tranhoangminh.newsharefood.LoginActivity;
-import com.ptit.tranhoangminh.newsharefood.MainActivity;
+import com.ptit.tranhoangminh.newsharefood.models.Product;
 import com.ptit.tranhoangminh.newsharefood.views.AddEditProductViews.activities.NewModifyProductActivity;
-import com.ptit.tranhoangminh.newsharefood.views.SearchViews.SeachViewActivity;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.activities.NewProductDetailActivity;
 import com.ptit.tranhoangminh.newsharefood.R;
-import com.ptit.tranhoangminh.newsharefood.models.Product;
 import com.ptit.tranhoangminh.newsharefood.presenters.productPresenters.ProductPresenter;
 import com.ptit.tranhoangminh.newsharefood.adapters.ProductAdapter;
-import com.ptit.tranhoangminh.newsharefood.views.SavedProductViews.activities.SavedProductActivity;
 
 import java.util.ArrayList;
 
@@ -137,6 +132,8 @@ public class ProductActivity extends AppCompatActivity implements ProductView {
                 }
                 break;
             case R.id.menuSignOut:
+                FirebaseAuth.getInstance().signOut();
+                recreate();
                 break;
         }
         return super.onOptionsItemSelected(item);

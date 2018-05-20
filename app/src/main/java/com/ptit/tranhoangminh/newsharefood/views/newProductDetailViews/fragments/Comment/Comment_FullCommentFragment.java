@@ -1,6 +1,5 @@
 package com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,11 +20,7 @@ import com.ptit.tranhoangminh.newsharefood.R;
 import com.ptit.tranhoangminh.newsharefood.adapters.AdapterCommentMonAn;
 import com.ptit.tranhoangminh.newsharefood.models.Product;
 
-import java.sql.Array;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Set;
 
 /**
  * Created by TramLuc on 5/13/2018.

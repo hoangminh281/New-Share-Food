@@ -17,16 +17,20 @@ public class MemberModel implements Parcelable {
     String mauser;
     String email;
     String phone;
+    String ngaysinh;
+    String gioitinh;
 
     //not default
     private DatabaseReference databaseReference;
 
 
-    public MemberModel(String hoten, String hinhanh, String email, String phone) {
+    public MemberModel(String hoten, String hinhanh, String email, String phone, String ngaysinh, String gioitinh) {
         this.hoten = hoten;
         this.hinhanh = hinhanh;
         this.email = email;
         this.phone = phone;
+        this.ngaysinh = ngaysinh;
+        this.gioitinh = gioitinh;
     }
 
 

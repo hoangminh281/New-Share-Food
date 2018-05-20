@@ -32,13 +32,6 @@ import com.ptit.tranhoangminh.newsharefood.models.Product;
 import com.ptit.tranhoangminh.newsharefood.models.ProductDetail;
 import com.ptit.tranhoangminh.newsharefood.presenters.productDetailPresenters.ProductDetailPresenter;
 import com.ptit.tranhoangminh.newsharefood.views.AddEditProductViews.activities.NewModifyProductActivity;
-import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.Comment_FullCommentFragment;
-import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.Comment_MyCommentFragment;
-import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.Comment.Comment_WriteCommentFragment;
-import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.CommentFragment;
-import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.MaterialFragment;
-import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.RecipeFragment;
-import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.VideoFragment;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.CommentFragment;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.MaterialFragment;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragments.RecipeFragment;
@@ -129,6 +122,8 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
                 }
                 break;
             case R.id.menuSignOut:
+                FirebaseAuth.getInstance().signOut();
+                recreate();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -152,8 +147,8 @@ public class NewProductDetailActivity extends AppCompatActivity implements Produ
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                String shareBody = "your body here";
-                String shareSub = "your subject here";
+                String shareBody = "Ứng dụng sẽ giúp bạn có thể làm những món ăn từ bắc đến nam, từ trong nước đến nước ngoài. Với số lượng công thức phong phú, bạn sẽ không còn lo lắng khi sống chung với mẹ chồng nữa";
+                String shareSub = "Share food - Apps on Google Play - " + productKey.getName();
                 intent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
                 intent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(intent, "Sharing via:"));

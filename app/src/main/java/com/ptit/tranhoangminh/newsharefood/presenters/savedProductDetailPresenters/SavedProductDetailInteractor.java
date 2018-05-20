@@ -14,6 +14,6 @@ public class SavedProductDetailInteractor {
     }
 
     public void createSavedProductDetail(String id) {
-        listener.onLoadSavedProductDetailSuccess(db.getProductDetail(id));
+        listener.onLoadSavedProductDetailSuccess(db.getProductDetail(id), db.getProduct(id));
     }
 }

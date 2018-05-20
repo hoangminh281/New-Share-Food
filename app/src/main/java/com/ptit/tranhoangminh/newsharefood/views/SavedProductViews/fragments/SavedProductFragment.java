@@ -66,7 +66,9 @@ public class SavedProductFragment extends Fragment implements SavedProductView {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent detailProductIntent = new Intent(getActivity(), SavedProductDetailActivity.class);
-                detailProductIntent.putExtra("objectKey", productArrayList.get(position));
+                Bundle bundle = new Bundle();
+                bundle.putString("objectKey", productArrayList.get(position).getId());
+                detailProductIntent.putExtras(bundle);
                 startActivity(detailProductIntent);
             }
         });
@@ -89,10 +91,10 @@ public class SavedProductFragment extends Fragment implements SavedProductView {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        final ProductSQLite pd = myAdapter.getItem((int) info.id);
         switch (item.getItemId()) {
             case R.id.menuXoa:
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                final ProductSQLite pd = myAdapter.getItem((int) info.id);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                 alertDialog.setTitle("Xác nhận xóa");
                 alertDialog.setMessage("Bạn thật sự muốn xóa sản phẩm này?");

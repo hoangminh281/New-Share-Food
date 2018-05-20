@@ -166,19 +166,27 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void Login() {
-        String email = edtEmail.getText().toString();
-        String pass = edtPass.getText().toString();
-        firebaseAuth.signInWithEmailAndPassword(email, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
-            }
-        });
+        String email = edtEmail.getText().toString().trim();
+        String pass = edtPass.getText().toString().trim();
+        if (email.length()==0) {
+            edtEmail.setError("Empty email");
+        }
+        else if (pass.length() == 0) {
+            edtPass.setError("Empty email");
+        }
+        else {
+            firebaseAuth.signInWithEmailAndPassword(email, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                @Override
+                public void onSuccess(AuthResult authResult) {
+                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     //method: know status of user login or log out
@@ -194,7 +202,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (!dataSnapshot.exists()) {
-                        mRef.child("members/" + firebaseUser.getUid()).setValue(new MemberModel(firebaseUser.getDisplayName(), "user.png", firebaseUser.getEmail(), ""));
+                        mRef.child("members/" + firebaseUser.getUid()).setValue(new MemberModel(firebaseUser.getDisplayName(), "user.png", firebaseUser.getEmail(), "", "", ""));
                     }
                 }
 

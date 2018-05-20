@@ -13,8 +13,8 @@ import android.widget.Toast;
 
 import com.ptit.tranhoangminh.newsharefood.R;
 import com.ptit.tranhoangminh.newsharefood.adapters.ProductAdapter;
-import com.ptit.tranhoangminh.newsharefood.models.Product;
 
+import com.ptit.tranhoangminh.newsharefood.models.Product;
 import com.ptit.tranhoangminh.newsharefood.presenters.searchProductPresenters.SearchProductPresenter;
 import com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.activities.NewProductDetailActivity;
 
@@ -28,7 +28,7 @@ import java.util.List;
 public class SeachViewActivity extends AppCompatActivity implements SearchViewImp {
     SearchView searchView;
     GridView gridView;
-    String cate_id;
+    String find;
     SearchProductPresenter searchProductPresenter;
     ProductAdapter myAdapter;
     private List<Product> productArrayList;
@@ -40,8 +40,9 @@ public class SeachViewActivity extends AppCompatActivity implements SearchViewIm
         setControl();
         initPresenter();
         Bundle bundle = getIntent().getExtras();
-        cate_id = bundle.getString("cate_id");
-
+        find = bundle.getString("find");
+        searchView.setQuery(find,false);
+        searchProductPresenter.loadAllSearchProducts( find);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

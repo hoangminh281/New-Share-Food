@@ -2,8 +2,6 @@ package com.ptit.tranhoangminh.newsharefood.views.NewProductDetailViews.fragment
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,11 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.ptit.tranhoangminh.newsharefood.R;
 import com.ptit.tranhoangminh.newsharefood.models.Product;
-import com.ptit.tranhoangminh.newsharefood.reference.FirebaseReference;
 
 /**
  * Created by TramLuc on 5/13/2018.
@@ -88,10 +83,6 @@ public class Comment_WriteCommentFragment extends Fragment {
     }
 
     public void writeCmt() {
-        if (tieude.getText().toString().trim().isEmpty()){
-            tieude.setError("Bạn thiếu tiêu đề");
-            return;
-        }
         if (binhluan.getText().toString().trim().isEmpty()){
             binhluan.setError("Bình luận không được rỗng");
             return;

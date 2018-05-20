@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menuSignIn"
-        android:icon="@drawable/icon_12"
+        android:icon="@mipmap/login"
         android:title="Đăng nhập"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        android:iconTint="#fff"/>
     <item
         android:id="@+id/menuSignOut"
-        android:icon="@mipmap/gmail"
+        android:icon="@mipmap/logout"
         android:title="Đăng xuất"
-        app:showAsAction="always"/>
+        app:showAsAction="always"
+        android:iconTint="#fff"/>
 </menu>

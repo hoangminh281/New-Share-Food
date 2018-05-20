@@ -10,4 +10,8 @@
     <color name="themeApp">#7fba55</color>
     <color name="gray_tint">#666666</color>
     <color name="background_gray">#E0E0E0</color>
+    <color name="tabtextcolor">#fff</color>
+    <color name="tabindicatorcolor">#2d2d2d</color>
+    <color name="toolbar">#000000</color>
+    <color name="tablayout">#ffffff</color>
 </resources>

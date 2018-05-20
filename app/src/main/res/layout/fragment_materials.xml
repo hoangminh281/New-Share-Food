@@ -3,13 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bgvuong4">
+//dang test
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/textViewNewMaterials"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="MATERIALS"
-        android:textSize="17dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewNewMaterials"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="MATERIALS"
+                android:textSize="17dp" />
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

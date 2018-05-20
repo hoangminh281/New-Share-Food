@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -166,6 +165,7 @@ public class NewModifyProductActivity extends AppCompatActivity implements AddEd
                             pd.setParent_id(cate_id);
                             pdetail.setMaterials(material);
                             pdetail.setRecipe(recipe);
+                            pdetail.setVideo(video);
                             if (!changedPic) {
                                 addEditProductPresenter.saveOldProduct(pd, pdetail);
                             } else {

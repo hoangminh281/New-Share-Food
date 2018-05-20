@@ -136,7 +136,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Product getProduct(String id) {
+    public ProductSQLite getProduct(String id) {
         Log.i(TAG, "DatabaseHelper.getProduct... " + id);
 
         SQLiteDatabase db = this.getReadableDatabase();

@@ -78,6 +78,7 @@ public class AddEditProductInteractor {
                                 @Override
                                 public void onFailure(@NonNull Exception exception) {
                                     listener.onLoadEditProductFailure("Failed to read image. " + exception.getMessage());
+                                    listener.onLoadEditProductSuccess(pdetailKey, null);
                                 }
                             });
                             break;
@@ -128,6 +129,7 @@ public class AddEditProductInteractor {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 listener.onPushNewProductFailure("Failed to write image. " + e.getMessage());
+                                listener.onPushNewProductSuccess();
                             }
                         });
                     }
@@ -215,6 +217,7 @@ public class AddEditProductInteractor {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
                                                 listener.onSetOldProductFailure("Failed to write image. " + e.getMessage());
+                                                listener.onSetOldProductSuccess();
                                             }
                                         });
                                     }

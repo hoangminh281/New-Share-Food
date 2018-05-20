@@ -34,8 +34,6 @@ public class Splashscreen extends AppCompatActivity implements GoogleApiClient.C
     GoogleApiClient googleApiClient;
     public static final int REQUEST_PERMISSION_LOCATION = 1;
     SharedPreferences sharedPreferences;
-
-    FloatingActionButton fab, fab2, fab3;
     Boolean isOpen = false;
     final static String SHARED_PREFERENCES_NAME = "MyPrefsFile";
 

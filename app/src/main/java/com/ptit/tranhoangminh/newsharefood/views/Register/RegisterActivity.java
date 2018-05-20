@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         progressDialog.dismiss();
-                        MemberModel memberModel = new MemberModel(username, "user.png", email, phone);
+                        MemberModel memberModel = new MemberModel(username, "user.png", email, phone, "", "");
                         registerPresenterLogic = new RegisterPresenterLogic(RegisterActivity.this);
                         registerPresenterLogic.AddInfoMember(memberModel, firebaseAuth.getCurrentUser().getUid());
                         Toast.makeText(RegisterActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();

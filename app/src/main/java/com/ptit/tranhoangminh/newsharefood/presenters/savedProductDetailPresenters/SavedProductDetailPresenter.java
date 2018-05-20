@@ -3,6 +3,7 @@ package com.ptit.tranhoangminh.newsharefood.presenters.savedProductDetailPresent
 import android.content.Context;
 
 import com.ptit.tranhoangminh.newsharefood.models.ProductDetail;
+import com.ptit.tranhoangminh.newsharefood.models.ProductSQLite;
 import com.ptit.tranhoangminh.newsharefood.views.SavedProductDetailViews.activities.SavedProductDetailView;
 
 public class SavedProductDetailPresenter implements LoadSavedProductDetailListener {
@@ -20,8 +21,8 @@ public class SavedProductDetailPresenter implements LoadSavedProductDetailListen
     }
 
     @Override
-    public void onLoadSavedProductDetailSuccess(ProductDetail productDetail) {
-        savedProductDetailView.displayProductDetail(productDetail);
+    public void onLoadSavedProductDetailSuccess(ProductDetail productDetail, ProductSQLite productSQLite) {
+        savedProductDetailView.displayProductDetail(productDetail, productSQLite);
         savedProductDetailView.hideProgress();
     }
 

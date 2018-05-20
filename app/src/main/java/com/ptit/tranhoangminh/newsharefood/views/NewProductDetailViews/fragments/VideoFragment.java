@@ -27,7 +27,7 @@ import com.ptit.tranhoangminh.newsharefood.R;
 public class VideoFragment extends Fragment {
     private YouTubePlayerSupportFragment yotubeView;
 
-    public static final String DEVELOPER_KEY = "AIzaSyCXxzA6GYjA06SKE1g8r9guO30u0DHxdqM";
+    public static final String DEVELOPER_KEY = "AIzaSyC8HAUVUlr-ao82yIubPGXB6dFXl1K9NL8";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

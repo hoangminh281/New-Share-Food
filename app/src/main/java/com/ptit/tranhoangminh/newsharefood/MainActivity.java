@@ -3,6 +3,7 @@ package com.ptit.tranhoangminh.newsharefood;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -18,8 +19,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.ptit.tranhoangminh.newsharefood.user.UserActivity;
 import com.ptit.tranhoangminh.newsharefood.views.AddEditProductViews.activities.NewModifyProductActivity;
 import com.ptit.tranhoangminh.newsharefood.views.CategoryViews.fragments.CategoryFragment;
 import com.ptit.tranhoangminh.newsharefood.views.HomePageApp.HomePageAppActivity;
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
+    ViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +68,7 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_item, menu);
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             menu.findItem(R.id.menuSignIn).setVisible(false);
-        }
-        else {
+        } else {
             menu.findItem(R.id.menuSignOut).setVisible(false);
         }
         return super.onCreateOptionsMenu(menu);
@@ -79,22 +82,34 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.menuSignOut:
+                FirebaseAuth.getInstance().signOut();
+                recreate();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new HomePageAppActivity(), "Home");
         adapter.addFragment(new HomePageResActivity(), "Store");
-        adapter.addFragment(new CategoryFragment(), "SavedProduct");
+        adapter.addFragment(new CategoryFragment(), "Category");
         adapter.addFragment(new SavedProductFragment(), "SavedProduct");
-        adapter.addFragment(new SavedProductFragment(), "SavedProduct");
+        adapter.addFragment(new UserActivity(), "User");
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(5);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        for (int i=0; i< tabLayout.getTabCount(); i++) {
+            if (i==tabLayout.getSelectedTabPosition()) continue;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                tabLayout.getTabAt(i).getIcon().setTint(getResources().getColor(R.color.gray_tint));
+            }
+        }
+    }
 
     private void setupTabIcons() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -110,12 +125,20 @@ public class MainActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     tab.getIcon().setTint(getResources().getColor(R.color.themeApp));
                 }
+                if (tab.getPosition() == 2) {
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
+                    tabLayout.setBackgroundColor(getResources().getColor(R.color.toolbar));
+                }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     tab.getIcon().setTint(getResources().getColor(R.color.gray_tint));
+                }
+                if (tab.getPosition() == 2) {
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.themeApp));
+                    tabLayout.setBackgroundColor(getResources().getColor(R.color.tablayout));
                 }
             }
 

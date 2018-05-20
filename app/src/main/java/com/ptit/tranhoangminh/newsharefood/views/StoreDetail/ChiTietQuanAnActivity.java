@@ -54,7 +54,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
     TextView txtTenQuan, txtDiaChi, txtHinh, txtCheckin, txtThoiGianHD, txtTongBL, txtTongLuu, txtTrangThaiHD;
     ImageView imgHinhQuanAn;
     StoreModel storeModel;
-    RecyclerView recyclerView,recyclerViewMenu;
+    RecyclerView recyclerView, recyclerViewMenu;
     AdapterComment adapterComment;
     AdapterRecycleViewMenuStore adapterRecycleViewMenuStore;
     NestedScrollView nestedScrollViewCT;
@@ -62,7 +62,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
     MapFragment mapFragment;
     LinearLayout linearLayoutTienIch;
     View view;
-    Button btnComment,btnAddCart;
+    Button btnComment, btnAddCart;
     MenuStorePresenterLogic menuStorePresenterLogic;
     public static int REQUEST_CODE_COMMENT = 999;
 
@@ -75,7 +75,6 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
         storeModel = getIntent().getParcelableExtra("store");
 
         DisplayStoreDetail();
-
 
 
         view.setOnClickListener(this);
@@ -154,7 +153,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
         linearLayoutTienIch = findViewById(R.id.linerTienIch);
         view = findViewById(R.id.khungchuyenhuongMap);
         btnComment = findViewById(R.id.btnComment);
-        btnAddCart=findViewById(R.id.btnAddCart);
+        btnAddCart = findViewById(R.id.btnAddCart);
         recyclerViewMenu = findViewById(R.id.recycleviewMenu);
         menuStorePresenterLogic = new MenuStorePresenterLogic(ChiTietQuanAnActivity.this);
     }
@@ -211,6 +210,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
                         }
                     });
                 }
+
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
@@ -258,9 +258,9 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
 
     @Override
     public void getMenu(List<CategoryStoreModel> list) {
-        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewMenu.setLayoutManager(layoutManager);
-        adapterRecycleViewMenuStore = new AdapterRecycleViewMenuStore(this,list);
+        adapterRecycleViewMenuStore = new AdapterRecycleViewMenuStore(this, list);
         recyclerViewMenu.setAdapter(adapterRecycleViewMenuStore);
         adapterRecycleViewMenuStore.notifyDataSetChanged();
     }
